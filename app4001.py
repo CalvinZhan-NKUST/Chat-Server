@@ -58,17 +58,6 @@ def getMsg():
     MsgList = {'res':getMsgRes}  
     return json.dumps(MsgList, ensure_ascii=False).encode('utf8')
 
-# 收訊息(測試)
-# @app.route("/getMsgTest", methods=["POST"])
-# def getMsgTest():
-#     request_getMsg = request.values
-#     RoomID = request_getMsg['RoomID']
-#     MsgID = request_getMsg['MsgID']
-#     MsgPara = request_getMsg['MsgPara']
-#     getMsgRes = Controller.getMsg2(RoomID, MsgID, MsgPara)
-#     MsgList = {'res':getMsgRes}  
-#     return json.dumps(MsgList, ensure_ascii=False).encode('utf8')
-
 # 推播通知
 @app.route("/notify", methods=["POST"])
 def notify():
@@ -101,7 +90,8 @@ def keepLogin():
 
 
 if __name__ == "__main__":
-    app.run(host=config['Server']['server_ip'],port='4001',threaded=True)
+    portNumber = str(sys.argv[1])
+    app.run(host=config['Server']['server_ip'],port=portNumber, threaded=True)
     # handler = logging.FileHandler('flask.log', encoding='UTF-8')
     # handler.setLevel(logging.DEBUG) 
     # logging_format = logging.Formatter(

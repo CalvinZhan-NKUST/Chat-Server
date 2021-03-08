@@ -163,4 +163,5 @@ def register():
     
 if __name__ == "__main__":
     # app.run(host=config['Server']['server_ip'],port=config['Server']['port'])
-    app.run(host=config['Server']['server_ip'],port='5001')
+    portNumber = str(sys.argv[1])
+    app.run(host=config['Server']['server_ip'],port=portNumber)
