@@ -5,6 +5,7 @@ import json
 import requests
 import configparser
 import Model5000 as Model
+import mqttPub as mqttPush
 import execjs
 import os
 import subprocess
@@ -69,6 +70,7 @@ def sendMsg(RoomID, SendUserID, SendName, ReceiveName, ReceiveUserID, MsgType, T
     print(jsonMsgMap)
     r.hmset(RoomID,{str(insertPosition):jsonMsgMap})
     notifyToApns(RoomID,Text,SendName,SendUserID)
+    mqttPush.sendNotify(RoomID,SendName,Text)
 
 
     return MsgID
