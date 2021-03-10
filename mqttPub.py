@@ -12,10 +12,11 @@ config.read('config.ini')
 def sendNotify(RoomID, SendName, Text):
     client = mqtt.Client()
     client.username_pw_set(config['MQTT']['mqtt_account'],config['MQTT']['mqtt_password'])
-    client.connect(config['MQTT']['mqtt_server_ip'], int(config['MQTT']['mqtt_port']))
+    client.connect('chatapp.54ucl.com', 1883)
     payload = {'SendName':SendName, 'Text':Text}
     print (json.dumps(payload, ensure_ascii=False))
     client.publish(str(RoomID), json.dumps(payload, ensure_ascii=False))
+    # publish.single(topic, payload, qos=1, hostname=host)
     return 'ok'
 
 
