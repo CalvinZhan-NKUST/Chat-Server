@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from flask import Flask, render_template, request, session, redirect
+from datetime import datetime,timezone,timedelta
 from flask_sqlalchemy import SQLAlchemy
 from flask_sso import SSO
 from gevent import pywsgi
@@ -49,14 +50,32 @@ def getChatRoomList():
     return json.dumps(data, ensure_ascii=False)
 
 # 創建新的聊天室 記得做防止SQL Injection
-@app.route('/createSingleChatRoom', methods=["POST"])
-def index():
+@app.route('/createNewChatRoom', methods=["POST"])
+def createNewChatRoom():
     request_roomID = request.values
-    UserID_A = request_roomID['UserID_A']
-    UserID_B = request_roomID['UserID_B']
+    UserIDList = request_roomID['UserIDList']
+    RoomType = request_roomID['RoomType']
+    RoomName = request_roomID['RoomName']
+    
+    dt1 = datetime.utcnow().replace(tzinfo=timezone.utc)
+    dt2 = dt1.astimezone(timezone(timedelta(hours=8)))
+    DateTime = str(dt2.strftime("%Y-%m-%d %H:%M:%S"))
 
-    newRoomID = Controller.insertSingleRoom(UserID_A,UserID_B)
-    print(newRoomID)
+    newRoomID = Controller.insertNewRoom(str(RoomType), RoomName)
+
+    UserID = ''
+    InsertUserCmd = ''
+
+    for i in UserIDList:
+        if i in ',':
+            InsertUserCmd += '('+str(newRoomID)+','+str(UserID)+',\''+str(DateTime)+'\'),'
+            UserID = ''
+        else:
+            UserID += i
+
+    InsertUserCmd = InsertUserCmd[:-1]+';'
+    result = db.engine.execute("INSERT INTO chatinfo (RoomID,UserID,JoinDateTime) VALUES "+InsertUserCmd)
+    print(result)
 
     sql_cmd = """
     CREATE TABLE """ + newRoomID + """msgList (
@@ -76,34 +95,6 @@ def index():
     query_data = db.engine.execute(sql_cmd)
     print(query_data)
     return str(newRoomID)
-
-# 送訊息 記得做防止SQL Injection
-@app.route("/send", methods=["POST"]) 
-def sendMsg():
-    request_send = request.values
-    MsgID = request_send['MsgID']
-    RoomID = request_send['RoomID']
-    SendUserID = request_send['SendUserID']
-    MsgType = request_send['MsgType']
-    SendName = request_send['SendName']
-    ReceiveName = request_send['ReceiveName']
-    ReceiveUserID = request_send['ReceiveUserID']
-    Text = request_send['Text']
-    DateTime = request_send['DateTime']
-
-    sql_insert = """
-    INSERT INTO  {RoomID_Table}msgList
-    (MsgID, RoomID, SendUserID, SendName, ReceiveName, ReceiveUserID, MsgType, Text, DateTime) 
-    VALUES({MsgID_insert}, {RoomID_insert}, {SendUserID_insert}, "'"{SendName_insert}"'", "'"{ReceiveName_insert}"'", 
-    {ReceiveUserID_insert}, "'"{MsgType_insert}"'", "'"{Text_insert}"'", "'"{DateTime_insert}"'")
-    """.format(RoomID_Table = RoomID, MsgID_insert = MsgID, RoomID_insert = RoomID, SendUserID_insert = SendUserID, 
-    SendName_insert = SendName, ReceiveName_insert = ReceiveName, ReceiveUserID_insert = ReceiveUserID, MsgType_insert = MsgType,
-    Text_insert = Text, DateTime_insert = DateTime)
-    
-    print(sql_insert)
-    query_data = db.engine.execute(sql_insert)
-    print(query_data)
-    return 'ok'
 
 @app.route("/getConfigPara", methods=["POST"])
 def getConfigPara():
@@ -160,6 +151,14 @@ def register():
     registerResult = Controller.registerNewUser(Account, Password, Name)
     registerRes = {'res':registerResult}
     return json.dumps(registerRes, ensure_ascii=False)
+
+@app.route("/searchUser", methods=["POST"])
+def searchUser():
+    request_searchUser = request.values
+    Account = request_searchUser["searchValue"]
+    UserID = request_searchUser["UserID"]
+    searchResult = Controller.searchUser(Account, UserID)
+    return json.dumps(searchResult, ensure_ascii=False)
 
     
 if __name__ == "__main__":

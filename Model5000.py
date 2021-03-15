@@ -58,13 +58,13 @@ class grouproom(Base):
         self.ImageURL = ImageURL
 
 # 伺服器列表
-class serverList(Base):
-    __tablename__ = 'serverlist'
-    ServerID = Column(Integer, primary_key=True)
-    ServerIP = Column(VARCHAR(45), nullable=False)
+# class serverList(Base):
+#     __tablename__ = 'serverlist'
+#     ServerID = Column(Integer, primary_key=True)
+#     ServerIP = Column(VARCHAR(45), nullable=False)
 
-    def __init__(self, ServerID, ServerIP):
-        self.ServerIP = ServerIP
+#     def __init__(self, ServerID, ServerIP):
+#         self.ServerIP = ServerIP
 
 
 # 使用者資訊列表

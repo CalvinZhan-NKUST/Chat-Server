@@ -108,7 +108,7 @@ def userLogin(account, password):
         session.close()
         return userInfoList
 
-def insertSingleRoom(UserID_A,UserID_B):
+def insertNewRoom(RoomType, RoomName):
     dt1 = datetime.utcnow().replace(tzinfo=timezone.utc)
     dt2 = dt1.astimezone(timezone(timedelta(hours=8)))
     DateTime = str(dt2.strftime("%Y-%m-%d %H:%M:%S"))
@@ -120,15 +120,14 @@ def insertSingleRoom(UserID_A,UserID_B):
 
     NewRoomID = int(MaxRoomSN) + 1
 
-    session.add(Model.chatRoom(RoomID=NewRoomID,RoomType=1))
+    if RoomType == '1':
+        session.add(Model.chatRoom(RoomID=NewRoomID,RoomType=1))
+    elif RoomType == '2':
+        session.add(Model.chatRoom(RoomID=NewRoomID,RoomType=2))
+        session.add(Model.grouproom(GroupName=RoomName, RoomID=NewRoomID, ImageURL='none'))
 
-    session.add_all([
-        Model.chatInfo(RoomID=NewRoomID, UserID=UserID_A , JoinDateTime=DateTime),
-        Model.chatInfo(RoomID=NewRoomID, UserID=UserID_B , JoinDateTime=DateTime),
-    ])
     session.commit()
     session.close()
-
     return str(NewRoomID)   
 
 def registerNewUser(Account, Password, Name):
@@ -142,3 +141,18 @@ def registerNewUser(Account, Password, Name):
         session.commit()
         session.close()
         return 'success'
+
+def searchUser(Account, UserID):
+    session = Session()
+    userSearchResult=[]
+    searchResult = session.query(Model.userInfo).filter((Model.userInfo.Account.like('%'+Account+'%') | Model.userInfo.UserName.like('%'+Account+'%')), Model.userInfo.UserID!=UserID)
+    print(Account)
+    for i in searchResult:
+        UserID = i.UserID
+        UserName = i.UserName
+        Account = i.Account
+        UserImgURL = i.UserImgURL
+        UserSearch = {'UserID':UserID, 'UserName':UserName, 'Account':Account, 'UserImgURL':UserImgURL}
+        userSearchResult.append(UserSearch)
+    session.close()
+    return userSearchResult
