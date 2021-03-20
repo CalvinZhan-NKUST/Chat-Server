@@ -1,3 +1,3 @@
 import mqttPub as mqttPush
 
-mqttPush.sendNotify('217','詹祐祈','BBB')
+mqttPush.sendNotify('217','60','詹祐祈','AAA')

@@ -158,7 +158,8 @@ def searchUser():
     Account = request_searchUser["searchValue"]
     UserID = request_searchUser["UserID"]
     searchResult = Controller.searchUser(Account, UserID)
-    return json.dumps(searchResult, ensure_ascii=False)
+    searchRes = {'res':searchResult}
+    return json.dumps(searchRes, ensure_ascii=False)
 
     
 if __name__ == "__main__":

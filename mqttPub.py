@@ -9,14 +9,13 @@ import random
 config = configparser.ConfigParser()
 config.read('config.ini')
 
-def sendNotify(RoomID, SendName, Text):
+def sendNotify(RoomID, MsgID, SendName, Text):
     client = mqtt.Client()
     client.username_pw_set(config['MQTT']['mqtt_account'],config['MQTT']['mqtt_password'])
     client.connect('chatapp.54ucl.com', 1883)
-    payload = {'SendName':SendName, 'Text':Text}
+    payload = {'SendName':SendName, 'Text':Text, 'RoomID':RoomID, 'MaxSN':MsgID}
     print (json.dumps(payload, ensure_ascii=False))
     client.publish(str(RoomID), json.dumps(payload, ensure_ascii=False))
-    # publish.single(topic, payload, qos=1, hostname=host)
     return 'ok'
 
 

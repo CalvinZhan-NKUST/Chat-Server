@@ -62,7 +62,7 @@ def sendMsg(RoomID, SendUserID, SendName, ReceiveName, ReceiveUserID, MsgType, T
     print(jsonMsgMap)
     r.hmset(RoomID,{str(insertPosition):jsonMsgMap})
     notifyToApns(RoomID,Text,SendName,SendUserID)
-    mqttPush.sendNotify(RoomID,SendName,Text)
+    mqttPush.sendNotify(RoomID,MsgID,SendName,Text)
 
 
     return MsgID
@@ -74,36 +74,43 @@ def getMsg(RoomID, MsgClientID, MsgPara):
     MaxSN = r.get(RoomID + "MaxSN")
     getMsgResult = ''
     
-    if str(MsgPara)=='10':
-        if MaxSN[-1]!='0':
-            for i in range(int(MaxSN[-1]),0,-1):
-                getMsgResult = r.hget(RoomID,i)
+    if str(MaxSN)!='None':
+        if str(MsgPara)=='10':
+            if MaxSN[-1]!='0':
+                for i in range(int(MaxSN[-1]),0,-1):
+                    getMsgResult = r.hget(RoomID,i)
+                    if str(getMsgResult)!='None':
+                        getMsgData = json.loads(getMsgResult)
+                        msgData.append(getMsgData)
+                for j in range(int(messageCache),int(MaxSN[-1]),-1):
+                    getMsgResult = r.hget(RoomID,j)
+                    if str(getMsgResult)!='None':
+                        getMsgData = json.loads(getMsgResult)
+                        msgData.append(getMsgData)
+            else:
+                for j in range(int(messageCache),0,-1):
+                    getMsgResult = r.hget(RoomID,j)
+                    if str(getMsgResult)!='None':
+                        getMsgData = json.loads(getMsgResult)
+                        msgData.append(getMsgData)
+        elif str(MsgPara)=='1':
+            if MaxSN[-1]!='0':
+                getMsgResult = r.hget(RoomID,MaxSN[-1])
                 if str(getMsgResult)!='None':
                     getMsgData = json.loads(getMsgResult)
                     msgData.append(getMsgData)
-            for j in range(int(messageCache),int(MaxSN[-1]),-1):
-                getMsgResult = r.hget(RoomID,j)
+            else:
+                getMsgResult = r.hget(RoomID,10)
                 if str(getMsgResult)!='None':
                     getMsgData = json.loads(getMsgResult)
                     msgData.append(getMsgData)
-        else:
-            for j in range(int(messageCache),0,-1):
-                getMsgResult = r.hget(RoomID,j)
-                if str(getMsgResult)!='None':
-                    getMsgData = json.loads(getMsgResult)
-                    msgData.append(getMsgData)
-    elif str(MsgPara)=='1':
-        if MaxSN[-1]!='0':
-            getMsgResult = r.hget(RoomID,MaxSN[-1])
-            if str(getMsgResult)!='None':
-                getMsgData = json.loads(getMsgResult)
-                msgData.append(getMsgData)
-        else:
-            getMsgResult = r.hget(RoomID,10)
-            if str(getMsgResult)!='None':
-                getMsgData = json.loads(getMsgResult)
-                msgData.append(getMsgData)
-    return msgData    
+        return msgData 
+    else:
+        return msgData 
+
+    
+
+       
 
 
 
