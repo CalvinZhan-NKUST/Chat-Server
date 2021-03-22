@@ -4,21 +4,25 @@ import configparser
 import datetime 
 import time
 import random
+import os
+import sys
 
 
 config = configparser.ConfigParser()
 config.read('config.ini')
 
-def sendNotify(RoomID, MsgID, SendName, Text):
+def sendNotify(Topic, RoomID, MsgID, SendName, Text):
     client = mqtt.Client()
     client.username_pw_set(config['MQTT']['mqtt_account'],config['MQTT']['mqtt_password'])
     client.connect('chatapp.54ucl.com', 1883)
     payload = {'SendName':SendName, 'Text':Text, 'RoomID':RoomID, 'MaxSN':MsgID}
     print (json.dumps(payload, ensure_ascii=False))
-    client.publish(str(RoomID), json.dumps(payload, ensure_ascii=False))
+    client.publish(str(Topic), json.dumps(payload, ensure_ascii=False))
     return 'ok'
 
-
+if __name__ == '__main__':
+    # Map command line arguments to function arguments.
+    sendNotify(*sys.argv[1:])
 
 # # 設置日期時間的格式
 # ISOTIMEFORMAT = '%m/%d %H:%M:%S'

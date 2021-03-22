@@ -61,8 +61,7 @@ def sendMsg(RoomID, SendUserID, SendName, ReceiveName, ReceiveUserID, MsgType, T
     
     print(jsonMsgMap)
     r.hmset(RoomID,{str(insertPosition):jsonMsgMap})
-    notifyToApns(RoomID,Text,SendName,SendUserID)
-    mqttPush.sendNotify(RoomID,MsgID,SendName,Text)
+    notifyToApns(RoomID,Text,SendName,SendUserID,MsgID)
 
 
     return MsgID
@@ -190,7 +189,7 @@ def notification(RoomIDList):
 
     return notifyRes
 
-def notifyToApns(RoomID,Text,SendName,SendUserID):
+def notifyToApns(RoomID,Text,SendName,SendUserID, MsgID):
     try:
         memberList = ''
         apnsMember = ''
@@ -210,6 +209,13 @@ def notifyToApns(RoomID,Text,SendName,SendUserID):
         print('RoomMember:'+RoomMember)
         for i in RoomMember:
             if i in ',':
+                
+                if str(apnsMember)!=str(SendUserID):
+                    Topic = 'User_'+apnsMember+"/"+RoomID
+                    # mqttPush.sendNotify(Topic,RoomID,MsgID,SendName,Text)
+                    command = "python3 mqttPub.py " +str(Topic)+" "+str(RoomID)+" "+str(MsgID)+" "+str(SendName)+" "+str(Text)
+                    subprocess.Popen(command, shell=True, bufsize = -1, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding="utf-8")
+
                 getToken = r.get('UserToken_'+apnsMember)
                 print('UserID:'+apnsMember)
                 print('getToken:'+str(getToken))
