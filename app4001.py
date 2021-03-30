@@ -1,26 +1,30 @@
 # -*- coding: utf-8 -*-
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
+from mqttPub import sendNotify
+from datetime import datetime,timezone,timedelta
+from werkzeug.utils import secure_filename
+from werkzeug.datastructures import FileStorage
+import Controller4000 as Controller
 import configparser
 import sys
 import json
 import logging
-import Controller4000 as Controller
-from mqttPub import sendNotify
-from datetime import datetime,timezone,timedelta
+import uuid
+import os
+
 
 
 db = SQLAlchemy()
-
 app = Flask(__name__)
-
 config = configparser.ConfigParser()
 config.read('config.ini')
-
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = config["DataBase"]["SQLALCHEMY_TRACK_MODIFICATIONS"]
 app.config['SQLALCHEMY_DATABASE_URI'] = config["DataBase"]["SQLALCHEMY_DATABASE_URI"]+'?charset=utf8mb4'
-
 db.init_app(app)
+
+ALLOWD_EXTENSIONS = set(['jpeg','jpg','png','mp4'])
+
 
 # 送訊息
 @app.route("/send", methods=["POST"]) 
@@ -79,6 +83,7 @@ def report():
     saveResult = Controller.saveUserToken(UserID,Token)
     return saveResult
 
+# 持續登入
 @app.route("/keepLogin", methods=["POST"])
 def keepLogin():
     request_keepLogin = request.values
@@ -88,6 +93,43 @@ def keepLogin():
     compareResult = {'res':result}
     return json.dumps(compareResult, ensure_ascii=False).encode('utf8')
 
+# 檔案上傳
+@app.route("/uploadFiles", methods=["POST"])
+def uploadFiles():
+    request_uploadFiles = request.values
+    FileType = request_uploadFiles['FileType']
+    if 'File' not in request.files:
+        return '並未上傳任何檔案'
+    
+    fileUpload = request.files['File']
+
+    if fileUpload.filename== '':
+        return '未上傳檔案名稱'
+    
+
+    if fileUpload and allowed_file(fileUpload.filename):
+        if FileType=='Image':
+            fileID = uuid.uuid1()
+            newFileName = str(fileID) + '.jpg'
+            fileUpload.save(os.path.join(config['Server']['imagePath'], newFileName))
+            return 'ok'
+        elif FileType=='Video':
+            fileID = uuid.uuid1()
+            newFileName = str(fileID) + '.mp4'
+            fileUpload.save(os.path.join(config['Server']['videoPath'], newFileName))
+            return 'ok'
+        else:
+            return 'Wrong Type !'
+    else:
+        print(allowed_file(fileUpload))
+        return '檔案已被拒絕'
+        
+    
+
+# 副檔名驗證
+def allowed_file(FileName):
+    return '.' in FileName and \
+        FileName.rsplit('.', 1)[1] in ALLOWD_EXTENSIONS
 
 if __name__ == "__main__":
     portNumber = str(sys.argv[1])
