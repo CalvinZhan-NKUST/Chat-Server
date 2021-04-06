@@ -113,12 +113,14 @@ def uploadFiles():
             fileID = uuid.uuid1()
             newFileName = str(fileID) + '.jpg'
             fileUpload.save(os.path.join(config['Server']['imagePath'], newFileName))
-            return str(newFileName)
+            fileUploadRes = config['ChatMessage']['imageURL'] + newFileName
+            return fileUploadRes
         elif FileType=='Video':
             fileID = uuid.uuid1()
             newFileName = str(fileID) + '.mp4'
             fileUpload.save(os.path.join(config['Server']['videoPath'], newFileName))
-            return str(newFileName)
+            fileUploadRes = config['ChatMessage']['videoURL'] + newFileName
+            return fileUploadRes
         else:
             return 'Wrong Type !'
     else:
