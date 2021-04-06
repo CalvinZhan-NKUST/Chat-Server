@@ -105,19 +105,20 @@ def uploadFiles():
 
     if fileUpload.filename== '':
         return '未上傳檔案名稱'
-    
 
     if fileUpload and allowed_file(fileUpload.filename):
+        print(fileUpload.filename)
+
         if FileType=='Image':
             fileID = uuid.uuid1()
             newFileName = str(fileID) + '.jpg'
             fileUpload.save(os.path.join(config['Server']['imagePath'], newFileName))
-            return 'ok'
+            return str(newFileName)
         elif FileType=='Video':
             fileID = uuid.uuid1()
             newFileName = str(fileID) + '.mp4'
             fileUpload.save(os.path.join(config['Server']['videoPath'], newFileName))
-            return 'ok'
+            return str(newFileName)
         else:
             return 'Wrong Type !'
     else:
@@ -140,6 +141,6 @@ if __name__ == "__main__":
     #     '%(asctime)s - %(levelname)s - %(filename)s - %(funcName)s - %(lineno)s - %(message)s')
     # handler.setFormatter(logging_format)
     # app.logger.addHandler(handler)
-    #app.run(ssl_context=('ceca.crt', 'private.key'),host=config['Server']['server_ip'],
-    #port=portNumber,threaded=True)
+    # app.run(ssl_context=('ceca.crt', 'private.key'),host=config['Server']['server_ip'],
+    # port=config['Server']['portForRedis'],threaded=True)
     
