@@ -2,6 +2,7 @@
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, ForeignKey, UniqueConstraint, Index # 元素/主key
 from sqlalchemy import Integer, String, VARCHAR, TEXT, DATE
+from sqlalchemy.dialects.mysql import LONGTEXT
 from sqlalchemy.orm import sessionmaker, relationship, backref # 創接口/建立關系relationship(table.ID)
 from sqlalchemy import create_engine
 from sqlalchemy.pool import NullPool# sqlalchemy 查詢前連結，结束後，調用 session.close() 關閉連結
@@ -50,7 +51,7 @@ class grouproom(Base):
     GroupRoomID = Column(Integer, primary_key=True)
     RoomID = Column(Integer, nullable=False)
     GroupName = Column(VARCHAR(45), nullable=False)
-    ImageURL = Column(VARCHAR(45),nullable=False)
+    ImageURL = Column(LONGTEXT,nullable=False)
 
     def __init__(self, RoomID, GroupName, ImageURL):
         self.RoomID = RoomID
@@ -74,7 +75,7 @@ class userInfo(Base):
     Account = Column(VARCHAR(45), nullable=False)
     Password = Column(VARCHAR(45), nullable=False)
     UserName = Column(VARCHAR(45), nullable=False)
-    UserImgURL = Column(VARCHAR(45), nullable=True)
+    UserImgURL = Column(LONGTEXT, nullable=True)
 
     def __init__(self, Account, Password, UserName, UserImgURL):
         self.Account = Account

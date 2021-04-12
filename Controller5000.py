@@ -160,12 +160,12 @@ def searchUser(Account, UserID):
 def updateUserInfo(updateType, userID, updateInfo):
     session = Session()
     if (updateType=='UserName'):
-        userUpdate = session.query(Model.userInfo).filter(Model.userInfo.UserID==userID).update(Model.userInfo.UserName==updateInfo)
+        userUpdate = session.query(Model.userInfo).filter(Model.userInfo.UserID==int(userID)).update({'UserName':str(updateInfo)})
         session.commit()
         session.close()
         return 'ok'
     elif (updateType=='UserImgURL'):
-        userUpdate = session.query(Model.userInfo).filter(Model.userInfo.UserID==userID).update(Model.userInfo.UserImgURL==updateInfo)
+        userUpdate = session.query(Model.userInfo).filter(Model.userInfo.UserID==int(userID)).update({'UserImgURL':str(updateInfo)})
         session.commit()
         session.close()
         return 'ok'

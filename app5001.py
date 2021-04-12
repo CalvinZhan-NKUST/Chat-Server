@@ -172,10 +172,18 @@ def updateUserName():
 @app.route("/uploadUserImage", methods=["POST"])
 def uploadUserImage():
     request_updateImage = request.values
-    ImageUrl = request_updateImage['ImageUrl']
+    ImageUrl = request_updateImage['UserImageUrl']
     UserID = request_updateImage['UserID']
     updateResult = Controller.updateUserInfo('UserImgURL',UserID,ImageUrl)
     return updateResult
+
+@app.route("/updateUserPassword", methods=["POST"])
+def updateUserPassword():
+    request_password = request.values
+    oldPassword = request_password['oldPassword']
+    newPassword = request_password['newPassword']
+    checkPassword = request_password['checkPassword']
+    return 'ok'
 
     
 
