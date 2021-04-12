@@ -106,7 +106,7 @@ def getConfigPara():
 
 @app.route("/getVersionCode", methods=["POST"])
 def getVersionCode():
-    versionCode = {'NowVersion':config['Server']['versionCode']}
+    versionCode = {'NowVersion':config['Server']['minVersionCode']}
     return json.dumps(versionCode, ensure_ascii=False)
 
 @app.route("/getHistoryMsg", methods=["POST"])
@@ -161,7 +161,24 @@ def searchUser():
     searchRes = {'res':searchResult}
     return json.dumps(searchRes, ensure_ascii=False)
 
+@app.route("/updateUserName", methods=["POST"])
+def updateUserName():
+    request_update = request.values
+    UserName = request_update['UserName']
+    UserID = request_update['UserID']
+    updateResult = Controller.updateUserInfo('UserName',UserID,UserName)
+    return updateResult
+
+@app.route("/uploadUserImage", methods=["POST"])
+def uploadUserImage():
+    request_updateImage = request.values
+    ImageUrl = request_updateImage['ImageUrl']
+    UserID = request_updateImage['UserID']
+    updateResult = Controller.updateUserInfo('UserImgURL',UserID,ImageUrl)
+    return updateResult
+
     
+
 if __name__ == "__main__":
     # app.run(host=config['Server']['server_ip'],port=config['Server']['port'])
     portNumber = str(sys.argv[1])
