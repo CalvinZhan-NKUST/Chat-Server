@@ -3,7 +3,8 @@ from sqlalchemy import or_
 from sqlalchemy import text
 from datetime import datetime,timezone,timedelta
 import Model5000 as Model
-import Controller4000 as Model4003
+import Controller4000 as Controller4000
+import bcrypt
 import json
 import uuid
 
@@ -53,11 +54,9 @@ def getUserChatRoom(user, userID):
             Name=(m.UserName).encode('utf-8').decode()
             resRoom={'UserName':Name, 'RoomID':m.RoomID, 'UserID':m.UserID}
             resRoomList.append(resRoom)
-        session.close()
     else:
         print('沒有單人聊天室')
     # 取得群組
-    session = Session()
     groupList = session.query(Model.user_chatroom).filter(Model.user_chatroom.RoomType=='2',Model.user_chatroom.UserID==userID)
     for n in groupList:
         print(n.RoomID)
@@ -87,26 +86,33 @@ def userLogin(account, password):
     session = Session()
     userInformation={}
     userInfoList=[]
-    userLoginResult = session.query(Model.userInfo).filter(Model.userInfo.Account==account,
-    Model.userInfo.Password==password).count()
+
+    userLoginResult = session.query(Model.userInfo).filter(Model.userInfo.Account==account).count()
     print(userLoginResult)
     if(userLoginResult!=1):
         resLog='登入失敗'
         return resLog
     else:
         setUUID = uuid.uuid1()
-        session.close()
         session = Session()
         userInfo = session.query(Model.userInfo).filter(Model.userInfo.Account==account)
         for i in userInfo:
             UserID = i.UserID
             UserName = i.UserName
             UserImgURL = i.UserImgURL
+            userPwd = i.Password
+            print(userPwd)
             userInformation = {'UserID':UserID, 'UserName':UserName, 'UserImgURL':UserImgURL, 'uuid':str(setUUID)}
             userInfoList.append(userInformation)
-            Model4003.setUUID(str(UserID),str(setUUID))
-        session.close()
-        return userInfoList
+            Controller4000.setUUID(str(UserID),str(setUUID))
+
+        if (bcrypt.checkpw(password.encode('utf8'), userPwd.encode('utf8'))):
+            session.close()
+            return userInfoList
+        else:
+            session.close()
+            resLog='登入失敗'
+            return resLog
 
 def insertNewRoom(RoomType, RoomName):
     dt1 = datetime.utcnow().replace(tzinfo=timezone.utc)
@@ -137,7 +143,10 @@ def registerNewUser(Account, Password, Name):
         session.close()
         return 'failure'
     else:
-        session.add(Model.userInfo(Account=Account,Password=Password,UserName=Name,UserImgURL='none'))
+        salt = bcrypt.gensalt()
+        passwordAdd = bcrypt.hashpw(Password.encode('utf8'), salt)
+        print(passwordAdd)
+        session.add(Model.userInfo(Account=Account,Password=str(passwordAdd),UserName=Name,UserImgURL='none'))
         session.commit()
         session.close()
         return 'success'
@@ -172,3 +181,19 @@ def updateUserInfo(updateType, userID, updateInfo):
     else:
         session.close()
         return 'wrong update type !'
+
+def updatePassword(oldPassword, newPassword, userID):
+    session = Session()
+    userPassword = session.query(Model.userInfo).filter(Model.userInfo.UserID==int(userID))
+    passworded = ''
+    for i in userPassword:
+        passworded = i.Password
+    if bcrypt.checkpw(oldPassword.encode('utf8'),passworded.encode('utf8')):
+        print('密碼符合')
+        salt = bcrypt.gensalt()
+        hashed = bcrypt.hashpw(newPassword, salt)
+        pwdUpdate = session.query(Model.userInfo).filter(Model.userInfo.UserID==int(userID)).update({'Password':str(hashed.decode('utf8'))})
+        return 'Change success!'
+    else:
+        session.close()
+        return 'Wrong password!'

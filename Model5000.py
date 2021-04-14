@@ -73,7 +73,7 @@ class userInfo(Base):
     __tablename__ = 'userinfo'
     UserID = Column(Integer, primary_key=True)
     Account = Column(VARCHAR(45), nullable=False)
-    Password = Column(VARCHAR(45), nullable=False)
+    Password = Column(LONGTEXT, nullable=False)
     UserName = Column(VARCHAR(45), nullable=False)
     UserImgURL = Column(LONGTEXT, nullable=True)
 

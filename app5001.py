@@ -182,8 +182,9 @@ def updateUserPassword():
     request_password = request.values
     oldPassword = request_password['oldPassword']
     newPassword = request_password['newPassword']
-    checkPassword = request_password['checkPassword']
-    return 'ok'
+    userID = request_password['UserID']
+    updatePwdRes = Controller.updatePassword(oldPassword, newPassword, userID)
+    return updatePwdRes
 
     
 
