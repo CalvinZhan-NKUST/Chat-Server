@@ -114,6 +114,7 @@ def userLogin(account, password):
             resLog='登入失敗'
             return resLog
 
+#新增聊天室
 def insertNewRoom(RoomType, RoomName):
     dt1 = datetime.utcnow().replace(tzinfo=timezone.utc)
     dt2 = dt1.astimezone(timezone(timedelta(hours=8)))
@@ -136,6 +137,7 @@ def insertNewRoom(RoomType, RoomName):
     session.close()
     return str(NewRoomID)   
 
+#註冊新的使用者
 def registerNewUser(Account, Password, Name):
     session = Session()
     newUser = session.query(Model.userInfo).filter(Model.userInfo.Account==Account).count()
@@ -151,6 +153,7 @@ def registerNewUser(Account, Password, Name):
         session.close()
         return 'success'
 
+#尋找使用者
 def searchUser(Account, UserID):
     session = Session()
     userSearchResult=[]
@@ -166,6 +169,7 @@ def searchUser(Account, UserID):
     session.close()
     return userSearchResult
 
+#更新使用者資訊
 def updateUserInfo(updateType, userID, updateInfo):
     session = Session()
     if (updateType=='UserName'):
@@ -182,6 +186,7 @@ def updateUserInfo(updateType, userID, updateInfo):
         session.close()
         return 'wrong update type !'
 
+#更新使用者密碼
 def updatePassword(oldPassword, newPassword, userID):
     session = Session()
     userPassword = session.query(Model.userInfo).filter(Model.userInfo.UserID==int(userID))
@@ -191,8 +196,10 @@ def updatePassword(oldPassword, newPassword, userID):
     if bcrypt.checkpw(oldPassword.encode('utf8'),passworded.encode('utf8')):
         print('密碼符合')
         salt = bcrypt.gensalt()
-        hashed = bcrypt.hashpw(newPassword, salt)
+        hashed = bcrypt.hashpw(newPassword.encode('utf8'), salt)
         pwdUpdate = session.query(Model.userInfo).filter(Model.userInfo.UserID==int(userID)).update({'Password':str(hashed.decode('utf8'))})
+        session.commit()
+        session.close()
         return 'Change success!'
     else:
         session.close()
