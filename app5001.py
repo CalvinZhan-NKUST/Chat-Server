@@ -9,6 +9,7 @@ import sys
 import json
 import Model5000 as Model
 import Controller5000 as Controller
+import Controller4000 as Controller4000
 app = Flask(__name__)
 
 db = SQLAlchemy()
@@ -37,8 +38,6 @@ def userLogin():
     userInfo = {'res':userLoginRes}     
     return json.dumps(userInfo, ensure_ascii=False)
 
-    
-
 # 取得聊天室列表
 @app.route('/getChatRoomList', methods=["POST"])
 def getChatRoomList():
@@ -53,6 +52,7 @@ def getChatRoomList():
 @app.route('/createNewChatRoom', methods=["POST"])
 def createNewChatRoom():
     request_roomID = request.values
+    addUserID = request_roomID['UserID']
     UserIDList = request_roomID['UserIDList']
     RoomType = request_roomID['RoomType']
     RoomName = request_roomID['RoomName']
@@ -94,6 +94,7 @@ def createNewChatRoom():
     print(sql_cmd)
     query_data = db.engine.execute(sql_cmd)
     print(query_data)
+    Controller4000.updateRoomNum(UserIDList, RoomType, newRoomID, addUserID)
     return str(newRoomID)
 
 @app.route("/getConfigPara", methods=["POST"])

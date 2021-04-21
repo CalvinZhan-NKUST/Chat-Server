@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
-from mqttPub import sendNotify
+from mqttNotification import sendNotify
 from datetime import datetime,timezone,timedelta
 from werkzeug.utils import secure_filename
 from werkzeug.datastructures import FileStorage
@@ -74,6 +74,13 @@ def notify():
     notifyList = {'res':notifyRes}
     return json.dumps(notifyList, ensure_ascii=False)
 
+@app.route("/checkRoomNum", methods=["POST"])
+def checkRoomNum():
+    request_checkRoomNum = request.values
+    UserID = request_checkRoomNum['UserID']
+    checkRoomNumRes = Controller.getRoomNum(UserID)
+    return checkRoomNum
+
 # 檢舉功能
 @app.route("/saveToken", methods=["POST"])
 def report():
@@ -127,12 +134,21 @@ def uploadFiles():
         print(allowed_file(fileUpload))
         return '檔案已被拒絕'
         
-    
-
 # 副檔名驗證
 def allowed_file(FileName):
     return '.' in FileName and \
         FileName.rsplit('.', 1)[1] in ALLOWD_EXTENSIONS
+
+# 檔案上傳
+@app.route("/setRoomNum", methods=["POST"])
+def setRoomNum():
+    request_setRoomNum = request.values
+    UserID = request_setRoomNum['UserID']
+    RoomNum = request_setRoomNum['RoomNum']
+    setRoomNumRes = Controller.setUserRoomNum(UserID, RoomNum)
+    return setRoomNumRes
+
+
 
 if __name__ == "__main__":
     portNumber = str(sys.argv[1])

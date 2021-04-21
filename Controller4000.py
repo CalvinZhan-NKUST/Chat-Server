@@ -5,7 +5,7 @@ import json
 import requests
 import configparser
 import Model5000 as Model
-import mqttPub as mqttPush
+import mqttNotification as mqttNotification
 import execjs
 import os
 import subprocess
@@ -43,7 +43,6 @@ def sendMsg(RoomID, SendUserID, SendName, ReceiveName, ReceiveUserID, MsgType, T
     print("insert位置："+str(insertPosition))
     print('MsgID:'+MsgID)
 
-
     MsgMap={
                 'RoomID':RoomID,
                 'MsgID':MsgID,
@@ -62,8 +61,6 @@ def sendMsg(RoomID, SendUserID, SendName, ReceiveName, ReceiveUserID, MsgType, T
     print(jsonMsgMap)
     r.hmset(RoomID,{str(insertPosition):jsonMsgMap})
     notifyToApns(RoomID,Text,SendName,SendUserID,MsgID)
-
-
     return MsgID
 
 
@@ -93,8 +90,8 @@ def getMsg(RoomID, MsgClientID, MsgPara):
                         getMsgData = json.loads(getMsgResult)
                         msgData.append(getMsgData)
         elif str(MsgPara)=='1':
-            if MaxSN[-1]!='0':
-                getMsgResult = r.hget(RoomID,MaxSN[-1])
+            if MsgClientID[-1]!='0':
+                getMsgResult = r.hget(RoomID,MsgClientID[-1])
                 if str(getMsgResult)!='None':
                     getMsgData = json.loads(getMsgResult)
                     msgData.append(getMsgData)
@@ -107,74 +104,14 @@ def getMsg(RoomID, MsgClientID, MsgPara):
     else:
         return msgData 
 
-    
-
-       
-
-
-
-# def getMsg(RoomID, MsgClientID, MsgPara): 
-#     try:
-#         msgData = []
-#         messageCache = config['ChatMessage']['MessageLeft']
-#         baseSN = r.get(RoomID + "baseSN")
-#         MaxSN = r.get(RoomID + "MaxSN")
-#         MsgID = 0
-
-#         if str(MaxSN)!='None':
-#             MsgIDCache = int(MaxSN) - int(MsgPara)
-#             if int(MsgClientID) < int(MsgPara):
-#                 MsgID = int(MsgIDCache)
-#             else:
-#                 MsgID = int(MsgClientID)
-
-#             if (int(MsgID) < int(baseSN)):
-#                 getNewMsgPosition = int(MaxSN) - int(baseSN) + 1
-#                 print("baseSN:" + str(baseSN))
-#                 print("MsgID:"+ str(MsgID))
-#                 getPosition = int(baseSN) - int(MsgID) - 1
-#                 print('MsgID<=Base')
-#                 print("getPos:" + str(getPosition))
-#                 for n in range(getPosition,0,-1):
-#                     getMsgResult = r.hget(RoomID,n)
-#                     if str(getMsgResult)!='None':
-#                         getMsgData = json.loads(getMsgResult)
-#                         msgData.append(getMsgData)
-                
-#                 for m in range(int(messageCache),int(messageCache)-getNewMsgPosition,-1):
-#                     getMsgResult = r.hget(RoomID,m)
-#                     if str(getMsgResult)!='None':
-#                         getMsgData = json.loads(getMsgResult)
-#                         msgData.append(getMsgData)
-
-#             else:
-#                 getPosition = int(messageCache) - (int(MsgID) - int(baseSN))-1
-#                 print('MsgID=>Base')
-#                 print("getPos:" + str(getPosition))
-#                 endMsgPosition = int(MaxSN)-int(MsgID)
-#                 for i in range(getPosition,(getPosition-endMsgPosition),-1):
-#                     getMsgResult = r.hget(RoomID,i)
-#                     if str(getMsgResult)!='None':
-#                         getMsgData = json.loads(getMsgResult)
-#                         msgData.append(getMsgData)
-#         else:
-#             msgData='none'
-#     except:
-#         print('getMsg Err:',sys.exc_info()[0])
-
-#     return msgData    
-
 def notification(RoomIDList):
     try:
         RoomID = ''
         notifyGet = {}
         notifyRes = []
         for i in RoomIDList:
-            # print('i:'+i)
             if i in ',':
-                # print('getRoomID:'+RoomID)
                 getMaxSN=r.get(RoomID + "MaxSN")
-                # print('MaxSN:'+str(getMaxSN))
                 if str(getMaxSN)!='None':
                     notifyGet={'RoomID':RoomID,'MaxSN':getMaxSN}
                 else:
@@ -183,7 +120,6 @@ def notification(RoomIDList):
                 RoomID=''
             else:
                 RoomID += i
-        # roomMaxSN = r.get(RoomID+'MaxSN')
     except:
         print('notification Err:',sys.exc_info()[0])
 
@@ -192,7 +128,7 @@ def notification(RoomIDList):
 def notifyToApns(RoomID,Text,SendName,SendUserID, MsgID):
     try:
         memberList = ''
-        apnsMember = ''
+        notifyMember = ''
         RoomMember = r.get('NotifyApns_'+RoomID)
         
         if str(RoomMember)=='None':
@@ -210,74 +146,24 @@ def notifyToApns(RoomID,Text,SendName,SendUserID, MsgID):
         for i in RoomMember:
             if i in ',':
                 
-                if str(apnsMember)!=str(SendUserID):
-                    Topic = 'User_'+apnsMember+"/"+RoomID
-                    # mqttPush.sendNotify(Topic,RoomID,MsgID,SendName,Text)
-                    command = "python3 mqttPub.py " +str(Topic)+" "+str(RoomID)+" "+str(MsgID)+" "+str(SendName)+" "+str(Text)
+                if str(notifyMember)!=str(SendUserID):
+                    Topic = 'User_'+notifyMember+"/"+RoomID
+                    # mqttNotification.sendNotify(Topic,RoomID,MsgID,SendName,Text)
+                    command = "python3 mqttNotification.py " +str(Topic)+" "+str(RoomID)+" "+str(MsgID)+" "+str(SendName)+" "+str(Text)+" Message"
                     subprocess.Popen(command, shell=True, bufsize = -1, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding="utf-8")
 
-                getToken = r.get('UserToken_'+apnsMember)
-                print('UserID:'+apnsMember)
+                getToken = r.get('UserToken_'+notifyMember)
+                print('UserID:'+notifyMember)
                 print('getToken:'+str(getToken))
-                if str(getToken)!='None' and str(apnsMember)!=str(SendUserID):
+                if str(getToken)!='None' and str(notifyMember)!=str(SendUserID):
                     # apns(str(getToken),Text,SendName)
-                    cmd = "python3 PushApns.py "+str(getToken)+" "+Text+" "+SendName
+                    cmd = "python3 PushApns.py "+str(getToken)+" "+Text+" "+SendName+" "+RoomID
                     subprocess.Popen(cmd, shell=True, bufsize = -1, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding="utf-8")
-                apnsMember = ''
+                notifyMember = ''
             else:
-                apnsMember = apnsMember+i
+                notifyMember = notifyMember+i
     except:
         print('notifyToApns Err:',sys.exc_info()[0])
-
-# def apns(tokenID, text, sendName):
-#     try:
-#         ctx = execjs.compile("""
-#         var fs = require('fs');
-#         var jwt = require('jsonwebtoken');
-
-#         function apns(tokenID, text, sendName){
-#             var epochtime = Date.now() / 1000 
-#             var cert = fs.readFileSync('AuthKey_7Q7CZ5PDJH.p8');  // get private key
-#             var token = jwt.sign({
-#                 "iss": "CXB28GPWN9",
-#                 "iat": parseInt(epochtime)}, cert, { header: {"alg": "ES256", "kid": "7Q7CZ5PDJH"}, algorithm: 'ES256'});
-#             console.log(tokenID)
-
-#             var apn = require('apn');
-
-#             var options = {
-#             token: {
-#                 key: "AuthKey_7Q7CZ5PDJH.p8",
-#                 keyId: "7Q7CZ5PDJH",
-#                 teamId: "CXB28GPWN9"
-#             },
-#             production: true
-#             };
-
-#             var apnProvider = new apn.Provider(options);
-#             var note = new apn.Notification();
-#             let deviceToken = tokenID;
-
-#             note.category = "MEETING_INVITATION";
-#             note.title = sendName;
-#             note.body = text;
-#             note.sound = "default";
-#             note.badge = 1;
-#             note.setAction("MEETING_INVITATION").setMutableContent(1);
-#             note.contentAvailable = 1;	
-#             note.topic = "com.nkust.flutterMessenger";
-
-#             apnProvider.send(note, deviceToken).then( (result) => {
-#                 process.exit();
-#                 // see documentation for an explanation of result
-#             });
-#         }
-#         """)
-#         ctx.call("apns", tokenID, text, sendName)
-#         print('send Notify')
-#     except:
-#         print('apns Err:',sys.exc_info()[0])
-
 
 def saveUserToken(UserID, Token):
     try:
@@ -290,6 +176,43 @@ def saveUserToken(UserID, Token):
 
 def setUUID(UserID,UUID):
     r.set(UserID+"_uuid",UUID)
+
+def setUserRoomNum(UserID, RoomNum):
+    r.set(UserID+"_RoomNum",RoomNum)
+    return 'ok'
+
+def updateRoomNum(UserIDList, RoomType, newRoomID, addUserID):
+    UserID = ''
+    MsgID=0
+    Text = ''
+    SendName='New chat room!'
+    for i in UserIDList:
+        if i in ',':
+            roomNum = r.get(UserID+"_RoomNum")
+            if str(roomNum)!='None':
+                newRoomNum = int(roomNum)+1
+                r.set(UserID+"_RoomNum", str(newRoomNum))
+                Topic = 'User_'+UserID+"/NewRoom"
+                if RoomType=='1':
+                    Text = '您被加入至新的聊天室'
+                elif RoomType=='2':
+                    Text = '您被加入至新的群組'                    
+
+                getToken = r.get('UserToken_'+notifyMember)
+                if str(getToken)!='None' & UserID!=addUserID :
+                    cmd = "python3 PushApns.py "+str(getToken)+" "+Text+" "+SendName+" "+newRoomID
+                    subprocess.Popen(cmd, shell=True, bufsize = -1, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding="utf-8")
+                
+                if UserID != addUserID:
+                    command = "python3 mqttNotification.py " +str(Topic)+" "+str(newRoomID)+" "+str(MsgID)+" "+str(SendName)+" "+str(Text)+" NewRoom"
+                    subprocess.Popen(command, shell=True, bufsize = -1, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding="utf-8")
+        else:
+            UserID += i
+    
+
+def getRoomNum(UserID):
+    roomNum = r.get(UserID+"_RoomNum")
+    return str(roomNum)
 
 def compareUUID(UserID,UUID):
     compareResult = r.get(UserID+"_uuid")

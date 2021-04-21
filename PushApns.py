@@ -9,7 +9,7 @@ def apns(tokenID, text, sendName):
         var fs = require('fs');
         var jwt = require('jsonwebtoken');
 
-        function apns(tokenID, text, sendName){
+        function apns(tokenID, text, sendName, roomID){
             var epochtime = Date.now() / 1000 
             var cert = fs.readFileSync('AuthKey_7Q7CZ5PDJH.p8');  // get private key
             var token = jwt.sign({
@@ -31,8 +31,8 @@ def apns(tokenID, text, sendName):
             var apnProvider = new apn.Provider(options);
             var note = new apn.Notification();
             let deviceToken = tokenID;
-
-            note.category = "MEETING_INVITATION";
+            
+            note.category = roomID;
             note.title = sendName;
             note.body = text;
             note.sound = "default";
