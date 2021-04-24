@@ -62,7 +62,7 @@ def getMsg():
     MsgList = {'res':getMsgRes}  
     return json.dumps(MsgList, ensure_ascii=False).encode('utf8')
 
-# 推播通知
+# 查詢聊天室目前訊息編號
 @app.route("/notify", methods=["POST"])
 def notify():
     # 要改成一個List來查詢RoomID的MaxSN
@@ -73,6 +73,15 @@ def notify():
     notifyRes = Controller.notification(RoomIDList)
     notifyList = {'res':notifyRes}
     return json.dumps(notifyList, ensure_ascii=False)
+
+# 查詢目前聊天室擁有數量
+@app.route("/getRoomNum", methods=["POST"])
+def searchRoomNum():
+    request_searchRoomNum = request.values
+    UserID = request_searchRoomNum['UserID']
+    getRoomNumRes = Controller.getRoomNum(UserID)
+    return getRoomNumRes
+
 
 @app.route("/checkRoomNum", methods=["POST"])
 def checkRoomNum():

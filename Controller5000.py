@@ -62,7 +62,7 @@ def getUserChatRoom(user, userID):
         print(n.RoomID)
         groupName=session.query(Model.grouproom).filter(Model.grouproom.RoomID==n.RoomID)
         for k in groupName:    
-            resRoom={'UserName':k.GroupName, 'RoomID':n.RoomID, 'UserID':'0', 'UserImageUrl':m.ImageURL}
+            resRoom={'UserName':k.GroupName, 'RoomID':n.RoomID, 'UserID':'0', 'UserImageUrl':n.ImageURL}
             resRoomList.append(resRoom)
     session.close()
     return resRoomList

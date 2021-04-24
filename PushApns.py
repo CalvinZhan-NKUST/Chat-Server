@@ -3,7 +3,8 @@ import os
 import sys
 
 
-def apns(tokenID, text, sendName):
+def apns(tokenID, text, sendName, RoomID):
+    print('收到並開始通知')
     try:
         ctx = execjs.compile("""
         var fs = require('fs');
@@ -32,9 +33,9 @@ def apns(tokenID, text, sendName):
             var note = new apn.Notification();
             let deviceToken = tokenID;
             
-            note.category = roomID;
             note.title = sendName;
             note.body = text;
+            note.category = '{"RoomID":RoomID"}';
             note.sound = "default";
             note.badge = 1;
             note.setAction("MEETING_INVITATION").setMutableContent(1);

@@ -10,6 +10,7 @@ import json
 import Model5000 as Model
 import Controller5000 as Controller
 import Controller4000 as Controller4000
+
 app = Flask(__name__)
 
 db = SQLAlchemy()
@@ -75,7 +76,6 @@ def createNewChatRoom():
 
     InsertUserCmd = InsertUserCmd[:-1]+';'
     result = db.engine.execute("INSERT INTO chatinfo (RoomID,UserID,JoinDateTime) VALUES "+InsertUserCmd)
-    print(result)
 
     sql_cmd = """
     CREATE TABLE """ + newRoomID + """msgList (
@@ -93,8 +93,8 @@ def createNewChatRoom():
     """
     print(sql_cmd)
     query_data = db.engine.execute(sql_cmd)
-    print(query_data)
-    Controller4000.updateRoomNum(UserIDList, RoomType, newRoomID, addUserID)
+    res = Controller4000.updateRoomNum(UserIDList, RoomType, newRoomID, addUserID)
+    print(res)
     return str(newRoomID)
 
 @app.route("/getConfigPara", methods=["POST"])
@@ -113,6 +113,7 @@ def getVersionCode():
 @app.route("/getHistoryMsg", methods=["POST"])
 def getHistoryMsg():
     msgHistory = []
+    msgRes=''
     request_getHsitoryMsg = request.values
     MsgID = request_getHsitoryMsg['MsgID']
     RoomID = request_getHsitoryMsg['RoomID']
