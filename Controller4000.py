@@ -104,6 +104,104 @@ def getMsg(RoomID, MsgClientID, MsgPara):
     else:
         return msgData 
 
+
+
+
+
+def getMsgTest(RoomID, MsgClientID, MsgPara):
+    msgData = []
+    messageCache = config['ChatMessage']['MessageLeft']
+    MaxSN = r.get(RoomID + "MaxSN")
+    getMsgResult = ''
+    print('MsgClientID:'+MsgClientID)
+    getMsgNum = 0
+    targetMsgSN = 0
+    if str(MaxSN)!='None':
+        if str(MsgClientID)!='0':
+            if str(MsgPara)=='1':
+                if MsgClientID[-1]!='0':
+                    getMsgResult = r.hget(RoomID,MsgClientID[-1])
+                    if str(getMsgResult)!='None':
+                        getMsgData = json.loads(getMsgResult)
+                        msgData.append(getMsgData)
+                else:
+                    getMsgResult = r.hget(RoomID,10)
+                    if str(getMsgResult)!='None':
+                        getMsgData = json.loads(getMsgResult)
+                        msgData.append(getMsgData)
+            else:
+                if int(MsgClientID)+int(MsgPara)>int(MaxSN):
+                    targetMsgSN = MaxSN
+                    print('目標訊息為MaxSN')
+                else:
+                    targetMsgSN = int(MsgClientID)+int(MsgPara)
+                    print('目標訊息為MsgCLient+MsgPara')
+                    if int(targetMsgSN) < (int(MaxSN)-int(messageCache)+1):
+                        targetMsgSN = int(MaxSN)-int(messageCache)+int(MsgPara)
+                        print('目標訊息為Max-Cache+MsgPara')
+
+                print('目標訊息:'+str(targetMsgSN))
+                if str(targetMsgSN)[-1]!='0':
+                    print('準備取得訊息')
+                    for i in range(int(str(targetMsgSN)[-1]),0,-1):
+                        getMsgResult = r.hget(RoomID,i)
+                        if str(getMsgResult)!='None':
+                            if int(getMsgNum) < int(MsgPara):
+                                print('正在取得第一部分訊息')
+                                getMsgNum+=1
+                                getMsgData = json.loads(getMsgResult)
+                                msgData.append(getMsgData)
+                    for j in range(int(messageCache),int(str(targetMsgSN)[-1]),-1):
+                        getMsgResult = r.hget(RoomID,j)
+                        if str(getMsgResult)!='None':
+                            if int(getMsgNum) < int(MsgPara):
+                                print('正在取得第二部分訊息')
+                                getMsgNum+=1
+                                getMsgData = json.loads(getMsgResult)
+                                msgData.append(getMsgData)
+                else:
+
+                    print('Start:'+str(MsgClientID)[-1]+', End:'+str(targetMsgSN)[-1])
+                    for j in range(int(messageCache), int(str(targetMsgSN)[-1]),-1):
+                        getMsgResult = r.hget(RoomID,j)
+                        if str(getMsgResult)!='None':
+                            if int(getMsgNum) < int(MsgPara):
+                                print('正在取得第三部分訊息')
+                                getMsgNum+=1
+                                getMsgData = json.loads(getMsgResult)
+                                msgData.append(getMsgData)
+        else:
+            if MaxSN[-1]!='0':
+                for i in range(int(MaxSN[-1]),0,-1):
+                    getMsgResult = r.hget(RoomID,i)
+                    if str(getMsgResult)!='None':
+                        if int(getMsgNum) < int(MsgPara):
+                            getMsgNum+=1
+                            getMsgData = json.loads(getMsgResult)
+                            msgData.append(getMsgData)
+                for j in range(int(messageCache),int(MaxSN[-1]),-1):
+                    getMsgResult = r.hget(RoomID,j)
+                    if str(getMsgResult)!='None':
+                        if int(getMsgNum) < int(MsgPara):
+                            getMsgNum+=1
+                            getMsgData = json.loads(getMsgResult)
+                            msgData.append(getMsgData)
+            else:
+                for j in range(int(messageCache),0,-1):
+                    getMsgResult = r.hget(RoomID,j)
+                    if str(getMsgResult)!='None':
+                        if int(getMsgNum) < int(MsgPara):
+                            getMsgNum+=1
+                            getMsgData = json.loads(getMsgResult)
+                            msgData.append(getMsgData)
+
+        return msgData 
+    else:
+        return msgData 
+
+
+
+
 def notification(RoomIDList):
     try:
         RoomID = ''

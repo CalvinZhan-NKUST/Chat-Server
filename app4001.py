@@ -44,9 +44,9 @@ def sendMsg():
     # sendMqtt = sendNotify(RoomID, SendName, Text[0:10])
     
     getMsgID = Controller.sendMsg(RoomID, SendUserID, SendName, ReceiveName, ReceiveUserID, MsgType, Text, DateTime)
-    sql_insert = 'INSERT INTO  {RoomID_Table}msgList(MsgID, RoomID, SendUserID, SendName, ReceiveName, ReceiveUserID, MsgType, Text, DateTime) VALUES({MsgID_insert}, {RoomID_insert}, {SendUserID_insert}, "'"{SendName_insert}"'", "'"{ReceiveName_insert}"'", {ReceiveUserID_insert}, "'"{MsgType_insert}"'", "'"{Text_insert}"'", "'"{DateTime_insert}"'")'.format(RoomID_Table = RoomID, MsgID_insert = getMsgID, RoomID_insert = RoomID, SendUserID_insert = SendUserID, SendName_insert = SendName, ReceiveName_insert = ReceiveName, ReceiveUserID_insert = ReceiveUserID, MsgType_insert = MsgType,Text_insert = Text, DateTime_insert = DateTime)
+    sql_insert = "INSERT INTO {RoomID_Table}msgList(MsgID, RoomID, SendUserID, SendName, ReceiveName, ReceiveUserID, MsgType, Text, DateTime) VALUES({MsgID_insert}, {RoomID_insert}, {SendUserID_insert}, \'{SendName_insert}\', \'{ReceiveName_insert}\', {ReceiveUserID_insert}, \'{MsgType_insert}\', \'{Text_insert}\', \'{DateTime_insert}\')".format(RoomID_Table = RoomID, MsgID_insert = getMsgID, RoomID_insert = RoomID, SendUserID_insert = SendUserID, SendName_insert = SendName, ReceiveName_insert = ReceiveName, ReceiveUserID_insert = ReceiveUserID, MsgType_insert = MsgType,Text_insert = str(Text), DateTime_insert = DateTime)
     query_data = db.engine.execute(sql_insert)
-    # print(sendMqtt)
+    # print(sendMqtt)s
     resMsgID = {'MsgID':getMsgID}
 
     return json.dumps(resMsgID, ensure_ascii=False)
@@ -61,6 +61,19 @@ def getMsg():
     getMsgRes = Controller.getMsg(RoomID, MsgID, MsgPara)
     MsgList = {'res':getMsgRes}  
     return json.dumps(MsgList, ensure_ascii=False).encode('utf8')
+
+
+# 收訊息測試用
+@app.route("/getMsgTest", methods=["POST"])
+def getMsgTest():
+    request_getMsg = request.values
+    RoomID = request_getMsg['RoomID']
+    MsgID = request_getMsg['MsgID']
+    MsgPara = request_getMsg['MsgPara']
+    getMsgRes = Controller.getMsgTest(RoomID, MsgID, MsgPara)
+    MsgList = {'res':getMsgRes}  
+    return json.dumps(MsgList, ensure_ascii=False).encode('utf8')
+
 
 # 查詢聊天室目前訊息編號
 @app.route("/notify", methods=["POST"])
@@ -81,14 +94,6 @@ def searchRoomNum():
     UserID = request_searchRoomNum['UserID']
     getRoomNumRes = Controller.getRoomNum(UserID)
     return getRoomNumRes
-
-
-@app.route("/checkRoomNum", methods=["POST"])
-def checkRoomNum():
-    request_checkRoomNum = request.values
-    UserID = request_checkRoomNum['UserID']
-    checkRoomNumRes = Controller.getRoomNum(UserID)
-    return checkRoomNum
 
 # 檢舉功能
 @app.route("/saveToken", methods=["POST"])

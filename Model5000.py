@@ -84,29 +84,29 @@ class userInfo(Base):
         self.UserImgURL = UserImgURL
 
 
-# 單一則訊息資訊與列表
-class msgInfo(Base):
-    __tablename__ = 'msginfo'
-    MsgID = Column(Integer, primary_key=True)
-    RoomID = Column(Integer, nullable=False)
-    SendUserID = Column(Integer, nullable=False)
-    SendName = Column(VARCHAR(45),nullable=False)
-    ReceiveName = Column(VARCHAR(45),nullable=False)
-    ReceiveUserID = Column(VARCHAR(45),nullable=False)
-    MsgType = Column(String, nullable=False)
-    Text = Column(String, nullable=False)
-    DateTime = Column(VARCHAR(45), nullable=False)
-    Notify = Column(VARCHAR(45), nullable=False)
-    def __init__(self, RoomID, SendUserID, SendName, ReceiveName, ReceiveUserID, MsgType, Text, DateTime, Notify):
-        self.RoomID = RoomID
-        self.SendUserID = SendUserID
-        self.SendName = SendName
-        self.ReceiveName = ReceiveName
-        self.ReceiveUserID = ReceiveUserID
-        self.MsgType = MsgType
-        self.Text = Text
-        self.DateTime = DateTime
-        self.Notify = Notify
+# # 單一則訊息資訊與列表
+# class msgInfo(Base):
+#     __tablename__ = 'msginfo'
+#     MsgID = Column(Integer, primary_key=True)
+#     RoomID = Column(Integer, nullable=False)
+#     SendUserID = Column(Integer, nullable=False)
+#     SendName = Column(VARCHAR(45),nullable=False)
+#     ReceiveName = Column(VARCHAR(45),nullable=False)
+#     ReceiveUserID = Column(VARCHAR(45),nullable=False)
+#     MsgType = Column(String, nullable=False)
+#     Text = Column(String, nullable=False)
+#     DateTime = Column(VARCHAR(45), nullable=False)
+#     Notify = Column(VARCHAR(45), nullable=False)
+#     def __init__(self, RoomID, SendUserID, SendName, ReceiveName, ReceiveUserID, MsgType, Text, DateTime, Notify):
+#         self.RoomID = RoomID
+#         self.SendUserID = SendUserID
+#         self.SendName = SendName
+#         self.ReceiveName = ReceiveName
+#         self.ReceiveUserID = ReceiveUserID
+#         self.MsgType = MsgType
+#         self.Text = Text
+#         self.DateTime = DateTime
+#         self.Notify = Notify
 
 # 這是一張View；每位使用者待在哪些聊天室中
 class user_chatroom(Base):
