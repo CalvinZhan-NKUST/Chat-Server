@@ -3,7 +3,7 @@ import os
 import sys
 
 
-def apns(tokenID, text, sendName, RoomID):
+def apns(tokenID, text, sendName, RoomID, msgID, userID, msgType):
     print('收到並開始通知')
     try:
         ctx = execjs.compile("""
@@ -35,7 +35,7 @@ def apns(tokenID, text, sendName, RoomID):
             
             note.title = sendName;
             note.body = text;
-            note.category = '{"RoomID":RoomID"}';
+            note.category = '{"RoomID":roomID,"UserID":userID,"MsgID":msgID, "MsgType":msgType}';
             note.sound = "default";
             note.badge = 1;
             note.setAction("MEETING_INVITATION").setMutableContent(1);

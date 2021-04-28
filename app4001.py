@@ -93,9 +93,10 @@ def searchRoomNum():
     request_searchRoomNum = request.values
     UserID = request_searchRoomNum['UserID']
     getRoomNumRes = Controller.getRoomNum(UserID)
-    return getRoomNumRes
+    getRoomRes = {'RoomNum':getRoomNumRes}
+    return json.dumps(getRoomRes, ensure_ascii=False).encode('utf8')
 
-# 檢舉功能
+# 儲存持續登入的Token
 @app.route("/saveToken", methods=["POST"])
 def report():
     request_report = request.values

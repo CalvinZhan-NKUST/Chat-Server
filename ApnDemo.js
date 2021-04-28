@@ -20,11 +20,11 @@ production: false
 
 var apnProvider = new apn.Provider(options);
 var note = new apn.Notification();
-let deviceToken = 'dc720b3a9944e4db40b490159e83cd76a382d65ebc139ccc6528c553009c750d';
+let deviceToken = '2af03fbd7c21c6efee1643fec3b29cfc60e24b58d5711fd2ec96644d6231b7ee';
 
 note.title = '朱彥銘';
-note.body = 'text';
-note.category = '{"RoomID":"217","UserID":"2"}';
+note.body = '測試用的不用害怕';
+note.category = '{"RoomID":"101","UserID":"2","MsgID":"1"}';
 note.sound = "default";
 note.badge = 1;
 note.setAction("MEETING_INVITATION").setMutableContent(1);

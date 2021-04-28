@@ -63,52 +63,52 @@ def sendMsg(RoomID, SendUserID, SendName, ReceiveName, ReceiveUserID, MsgType, T
     notifyToApns(RoomID,Text,SendName,SendUserID,MsgID,'Message')
     return MsgID
 
+# OriginVersion
+# def getMsg(RoomID, MsgClientID, MsgPara):
+#     msgData = []
+#     messageCache = config['ChatMessage']['MessageLeft']
+#     MaxSN = r.get(RoomID + "MaxSN")
+#     getMsgResult = ''
+    
+#     if str(MaxSN)!='None':
+#         if str(MsgPara)=='10':
+#             if MaxSN[-1]!='0':
+#                 for i in range(int(MaxSN[-1]),0,-1):
+#                     getMsgResult = r.hget(RoomID,i)
+#                     if str(getMsgResult)!='None':
+#                         getMsgData = json.loads(getMsgResult)
+#                         msgData.append(getMsgData)
+#                 for j in range(int(messageCache),int(MaxSN[-1]),-1):
+#                     getMsgResult = r.hget(RoomID,j)
+#                     if str(getMsgResult)!='None':
+#                         getMsgData = json.loads(getMsgResult)
+#                         msgData.append(getMsgData)
+#             else:
+#                 for j in range(int(messageCache),0,-1):
+#                     getMsgResult = r.hget(RoomID,j)
+#                     if str(getMsgResult)!='None':
+#                         getMsgData = json.loads(getMsgResult)
+#                         msgData.append(getMsgData)
+#         elif str(MsgPara)=='1':
+#             if MsgClientID[-1]!='0':
+#                 getMsgResult = r.hget(RoomID,MsgClientID[-1])
+#                 if str(getMsgResult)!='None':
+#                     getMsgData = json.loads(getMsgResult)
+#                     msgData.append(getMsgData)
+#             else:
+#                 getMsgResult = r.hget(RoomID,10)
+#                 if str(getMsgResult)!='None':
+#                     getMsgData = json.loads(getMsgResult)
+#                     msgData.append(getMsgData)
+#         return msgData 
+#     else:
+#         return msgData 
+
+
+
+
 
 def getMsg(RoomID, MsgClientID, MsgPara):
-    msgData = []
-    messageCache = config['ChatMessage']['MessageLeft']
-    MaxSN = r.get(RoomID + "MaxSN")
-    getMsgResult = ''
-    
-    if str(MaxSN)!='None':
-        if str(MsgPara)=='10':
-            if MaxSN[-1]!='0':
-                for i in range(int(MaxSN[-1]),0,-1):
-                    getMsgResult = r.hget(RoomID,i)
-                    if str(getMsgResult)!='None':
-                        getMsgData = json.loads(getMsgResult)
-                        msgData.append(getMsgData)
-                for j in range(int(messageCache),int(MaxSN[-1]),-1):
-                    getMsgResult = r.hget(RoomID,j)
-                    if str(getMsgResult)!='None':
-                        getMsgData = json.loads(getMsgResult)
-                        msgData.append(getMsgData)
-            else:
-                for j in range(int(messageCache),0,-1):
-                    getMsgResult = r.hget(RoomID,j)
-                    if str(getMsgResult)!='None':
-                        getMsgData = json.loads(getMsgResult)
-                        msgData.append(getMsgData)
-        elif str(MsgPara)=='1':
-            if MsgClientID[-1]!='0':
-                getMsgResult = r.hget(RoomID,MsgClientID[-1])
-                if str(getMsgResult)!='None':
-                    getMsgData = json.loads(getMsgResult)
-                    msgData.append(getMsgData)
-            else:
-                getMsgResult = r.hget(RoomID,10)
-                if str(getMsgResult)!='None':
-                    getMsgData = json.loads(getMsgResult)
-                    msgData.append(getMsgData)
-        return msgData 
-    else:
-        return msgData 
-
-
-
-
-
-def getMsgTest(RoomID, MsgClientID, MsgPara):
     msgData = []
     messageCache = config['ChatMessage']['MessageLeft']
     MaxSN = r.get(RoomID + "MaxSN")
@@ -247,14 +247,14 @@ def notifyToApns(RoomID,Text,SendName,SendUserID, MsgID, notifiType):
                 if str(notifyMember)!=str(SendUserID):
                     Topic = 'User_'+notifyMember+"/"+RoomID
                     # mqttNotification.sendNotify(Topic,RoomID,MsgID,SendName,Text)
-                    command = "python3 mqttNotification.py " +str(Topic)+" "+str(RoomID)+" "+str(MsgID)+" "+str(SendName)+" "+str(Text)+" "+notifiType
+                    command = "python3 mqttNotification.py " +str(Topic)+" "+str(RoomID)+" "+str(MsgID)+" "+str(SendName)+" "+str(Text)+" "+notifiType+" "+SendUserID
                     subprocess.Popen(command, shell=True, bufsize = -1, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding="utf-8")
 
                 getToken = r.get('UserToken_'+notifyMember)
                 print('UserID:'+notifyMember)
                 print('getToken:'+str(getToken))
                 if str(getToken)!='None' and str(notifyMember)!=str(SendUserID):
-                    cmd = "python3 PushApns.py "+str(getToken)+" "+Text+" "+SendName+" "+RoomID
+                    cmd = "python3 PushApns.py "+str(getToken)+" "+Text+" "+SendName+" "+RoomID+" "+MsgID+" "+SendUserID
                     subprocess.Popen(cmd, shell=True, bufsize = -1, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding="utf-8")
                 notifyMember = ''
             else:
@@ -287,7 +287,7 @@ def updateRoomNum(UserIDList, RoomType, newRoomID, addUserID):
                     if str(UserID) != str(addUserID):
                         print('準備通知Apns')
                         print(str(getToken))
-                        cmd = "python3 PushApns.py "+str(getToken)+" \'"+Text+"\' \'"+SendName+"\' \'"+newRoomID+"\'"
+                        cmd = "python3 PushApns.py "+str(getToken)+" \'"+Text+"\' \'"+SendName+"\' \'"+newRoomID+"\' \'"+MsgID+"\'" 
                         subprocess.Popen(cmd, shell=True, bufsize = -1, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding="utf-8")
                 
                 Topic = 'User_'+UserID+"/"+newRoomID

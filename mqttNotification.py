@@ -11,12 +11,12 @@ import sys
 config = configparser.ConfigParser()
 config.read('config.ini')
 
-def sendNotify(Topic, RoomID, MsgID, SendName, Text, NotifiType):
+def sendNotify(Topic, RoomID, MsgID, SendName, Text, NotifiType, userID, msgType):
     if NotifiType=='Message':
         client = mqtt.Client()
         client.username_pw_set(config['MQTT']['mqtt_account'],config['MQTT']['mqtt_password'])
         client.connect('chatapp.54ucl.com', 1883)
-        payload = {'SendName':SendName, 'Text':Text, 'RoomID':RoomID, 'MaxSN':MsgID, 'Category':'Message'}
+        payload = {'SendName':SendName, 'Text':Text, 'RoomID':RoomID, 'MsgID':MsgID, 'Category':'Message', 'UserID':userID, 'MsgType':msgType}
         print (json.dumps(payload, ensure_ascii=False))
         client.publish(str(Topic), json.dumps(payload, ensure_ascii=False))
         return 'ok'
@@ -24,32 +24,10 @@ def sendNotify(Topic, RoomID, MsgID, SendName, Text, NotifiType):
         client = mqtt.Client()
         client.username_pw_set(config['MQTT']['mqtt_account'],config['MQTT']['mqtt_password'])
         client.connect('chatapp.54ucl.com', 1883)
-        payload = {'SendName':SendName, 'Text':Text, 'RoomID':RoomID, 'MaxSN':MsgID, 'Category':'NewRoom'}
+        payload = {'SendName':SendName, 'Text':Text, 'RoomID':RoomID, 'Category':'NewRoom'}
         print (json.dumps(payload, ensure_ascii=False))
         client.publish(str(Topic), json.dumps(payload, ensure_ascii=False))
         return 'ok'
 
 if __name__ == '__main__':
     sendNotify(*sys.argv[1:])
-
-# # 設置日期時間的格式
-# ISOTIMEFORMAT = '%m/%d %H:%M:%S'
-
-# # 連線設定
-# # 初始化地端程式
-# client = mqtt.Client()
-
-# # 設定登入帳號密碼
-# client.username_pw_set(config['MQTT']['mqtt_account'],config['MQTT']['mqtt_password'])
-
-# # 設定連線資訊(IP, Port, 連線時間)
-# client.connect(config['MQTT']['mqtt_server_ip'], config['MQTT']['mqtt_port'])
-
-# while True:
-#     t0 = random.randint(0,30)
-#     t = datetime.datetime.now().strftime(ISOTIMEFORMAT)
-#     payload = {'Result' : '我想要畢業'}
-#     print (json.dumps(payload, ensure_ascii=False))
-#     # 要發布的主題和內容
-#     client.publish("217", json.dumps(payload, ensure_ascii=False))
-#     time.sleep(2)
