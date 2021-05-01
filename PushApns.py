@@ -10,7 +10,7 @@ def apns(tokenID, text, sendName, RoomID, msgID, userID, msgType):
         var fs = require('fs');
         var jwt = require('jsonwebtoken');
 
-        function apns(tokenID, text, sendName, roomID){
+        function apns(tokenID, text, sendName, RoomID, msgID, userID, msgType){
             var epochtime = Date.now() / 1000 
             var cert = fs.readFileSync('AuthKey_7Q7CZ5PDJH.p8');  // get private key
             var token = jwt.sign({
@@ -26,7 +26,7 @@ def apns(tokenID, text, sendName, RoomID, msgID, userID, msgType):
                 keyId: "7Q7CZ5PDJH",
                 teamId: "CXB28GPWN9"
             },
-            production: true
+            production: false
             };
 
             var apnProvider = new apn.Provider(options);
@@ -35,7 +35,7 @@ def apns(tokenID, text, sendName, RoomID, msgID, userID, msgType):
             
             note.title = sendName;
             note.body = text;
-            note.category = '{"RoomID":roomID,"UserID":userID,"MsgID":msgID, "MsgType":msgType}';
+            note.category = '{"RoomID":"' + RoomID + '", "UserID":"' + userID + '", "MsgID":"' + msgID + '", "MsgType":"' + msgType + '"}';
             note.sound = "default";
             note.badge = 1;
             note.setAction("MEETING_INVITATION").setMutableContent(1);
@@ -48,7 +48,7 @@ def apns(tokenID, text, sendName, RoomID, msgID, userID, msgType):
             });
         }
         """)
-        ctx.call("apns", tokenID, text, sendName)
+        ctx.call("apns", tokenID, text, sendName, RoomID, msgID, userID, msgType)
         print('send Notify')
     except:
         print('apns Err:',sys.exc_info()[0])

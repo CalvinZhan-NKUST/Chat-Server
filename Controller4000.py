@@ -246,7 +246,7 @@ def notifyToApns(RoomID,Text,SendName,SendUserID, MsgID, notifiType, msgType):
                 
                 if str(notifyMember)!=str(SendUserID):
                     Topic = 'User_'+notifyMember+"/"+RoomID
-                    # mqttNotification.sendNotify(Topic,RoomID,MsgID,SendName,Text)
+                    print("mqtt Notify")
                     command = "python3 mqttNotification.py " +str(Topic)+" "+str(RoomID)+" "+str(MsgID)+" "+str(SendName)+" "+str(Text)+" "+notifiType+" "+SendUserID+" "+msgType
                     subprocess.Popen(command, shell=True, bufsize = -1, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding="utf-8")
 
@@ -254,7 +254,7 @@ def notifyToApns(RoomID,Text,SendName,SendUserID, MsgID, notifiType, msgType):
                 print('UserID:'+notifyMember)
                 print('getToken:'+str(getToken))
                 if str(getToken)!='None' and str(notifyMember)!=str(SendUserID):
-                    cmd = "python3 PushApns.py "+str(getToken)+" \'"+Text+"\' \'"+SendName+"\' \'"+str(RoomID)+"\' \'"+str(MsgID)+"\' "+str(SendUserID)+" \'"+ msgType+"\'"
+                    cmd = "python3 PushApns.py "+str(getToken)+" \'"+Text+"\' "+SendName+" "+str(RoomID)+" "+str(MsgID)+" "+str(SendUserID)+" "+ msgType
                     subprocess.Popen(cmd, shell=True, bufsize = -1, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding="utf-8")
                 notifyMember = ''
             else:
@@ -287,7 +287,8 @@ def updateRoomNum(UserIDList, RoomType, newRoomID, addUserID):
                     if str(UserID) != str(addUserID):
                         print('準備通知Apns')
                         print(str(getToken))
-                        cmd = "python3 PushApns.py "+str(getToken)+" \'"+Text+"\' \'"+SendName+"\' \'"+str(newRoomID)+"\' \'"+str(MsgID)+"\'"+str(addUserID)+" "+" \'NewRoom\'"
+                        cmd = "python3 PushApns.py "+str(getToken)+" \'"+Text+"\' \'"+SendName+"\' "+str(newRoomID)+" "+str(MsgID)+" "+str(addUserID)+" "+" NewRoom"
+                        print(cmd)
                         subprocess.Popen(cmd, shell=True, bufsize = -1, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding="utf-8")
                 
                 Topic = 'User_'+UserID+"/"+newRoomID

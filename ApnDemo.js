@@ -1,6 +1,7 @@
 var fs = require('fs');
 var jwt = require('jsonwebtoken');
 
+
 var epochtime = Date.now() / 1000 
 var cert = fs.readFileSync('AuthKey_7Q7CZ5PDJH.p8');  // get private key
 var token = jwt.sign({
