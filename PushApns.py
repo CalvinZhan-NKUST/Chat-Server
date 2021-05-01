@@ -26,7 +26,7 @@ def apns(tokenID, text, sendName, RoomID, msgID, userID, msgType):
                 keyId: "7Q7CZ5PDJH",
                 teamId: "CXB28GPWN9"
             },
-            production: false
+            production: true
             };
 
             var apnProvider = new apn.Provider(options);
