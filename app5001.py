@@ -86,7 +86,7 @@ def createNewChatRoom():
     ReceiveName VARCHAR(100) NOT NULL,
     ReceiveUserID INT NOT NULL,
     MsgType VARCHAR(100) NOT NULL,
-    Text VARCHAR(100) NOT NULL,
+    Text LONGTEXT NOT NULL,
     DateTime VARCHAR(100) NOT NULL,
     PRIMARY KEY (MsgID)
     )

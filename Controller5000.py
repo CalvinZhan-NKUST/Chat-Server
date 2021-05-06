@@ -62,24 +62,10 @@ def getUserChatRoom(user, userID):
         print(n.RoomID)
         groupName=session.query(Model.grouproom).filter(Model.grouproom.RoomID==n.RoomID)
         for k in groupName:    
-            resRoom={'UserName':k.GroupName, 'RoomID':n.RoomID, 'UserID':'0', 'UserImageUrl':n.ImageURL}
+            resRoom={'UserName':k.GroupName, 'RoomID':str(k.RoomID), 'UserID':'0', 'UserImageUrl':k.ImageURL}
             resRoomList.append(resRoom)
     session.close()
     return resRoomList
-
-# 取得訊息
-def getMsg(RoomID,MsgID):
-    MsgList=[]
-    Message={}
-    session = Session()
-
-    getMsgResult = session.query(Model.msgInfo).filter(Model.msgInfo.RoomID==RoomID).order_by(Model.msgInfo.MsgID.desc()).limit(10).all()
-    for i in getMsgResult:
-        textInfo=i.Text.encode('utf-8').decode()
-        Message={'Text':textInfo,'SendName':i.SendName, 'MsgID':i.MsgID, 'SendUserID':i.SendUserID}
-        MsgList.append(Message)
-    session.close()
-    return MsgList
 
 # 使用者登入
 def userLogin(account, password):
