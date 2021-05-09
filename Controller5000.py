@@ -134,7 +134,7 @@ def registerNewUser(Account, Password, Name):
         salt = bcrypt.gensalt()
         passwordAdd = bcrypt.hashpw(Password.encode('utf8'), salt)
         print(passwordAdd)
-        session.add(Model.userInfo(Account=Account,Password=str(passwordAdd),UserName=Name,UserImgURL='none'))
+        session.add(Model.userInfo(Account=Account,Password=str(passwordAdd.decode('utf8')),UserName=Name,UserImgURL='none'))
         session.commit()
         session.close()
         return 'success'
