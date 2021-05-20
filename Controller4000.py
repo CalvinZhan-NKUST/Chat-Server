@@ -63,51 +63,6 @@ def sendMsg(RoomID, SendUserID, SendName, ReceiveName, ReceiveUserID, MsgType, T
     notifyToApns(RoomID,Text,SendName,SendUserID,MsgID,'Message',MsgType)
     return MsgID
 
-# OriginVersion
-# def getMsg(RoomID, MsgClientID, MsgPara):
-#     msgData = []
-#     messageCache = config['ChatMessage']['MessageLeft']
-#     MaxSN = r.get(RoomID + "MaxSN")
-#     getMsgResult = ''
-    
-#     if str(MaxSN)!='None':
-#         if str(MsgPara)=='10':
-#             if MaxSN[-1]!='0':
-#                 for i in range(int(MaxSN[-1]),0,-1):
-#                     getMsgResult = r.hget(RoomID,i)
-#                     if str(getMsgResult)!='None':
-#                         getMsgData = json.loads(getMsgResult)
-#                         msgData.append(getMsgData)
-#                 for j in range(int(messageCache),int(MaxSN[-1]),-1):
-#                     getMsgResult = r.hget(RoomID,j)
-#                     if str(getMsgResult)!='None':
-#                         getMsgData = json.loads(getMsgResult)
-#                         msgData.append(getMsgData)
-#             else:
-#                 for j in range(int(messageCache),0,-1):
-#                     getMsgResult = r.hget(RoomID,j)
-#                     if str(getMsgResult)!='None':
-#                         getMsgData = json.loads(getMsgResult)
-#                         msgData.append(getMsgData)
-#         elif str(MsgPara)=='1':
-#             if MsgClientID[-1]!='0':
-#                 getMsgResult = r.hget(RoomID,MsgClientID[-1])
-#                 if str(getMsgResult)!='None':
-#                     getMsgData = json.loads(getMsgResult)
-#                     msgData.append(getMsgData)
-#             else:
-#                 getMsgResult = r.hget(RoomID,10)
-#                 if str(getMsgResult)!='None':
-#                     getMsgData = json.loads(getMsgResult)
-#                     msgData.append(getMsgData)
-#         return msgData 
-#     else:
-#         return msgData 
-
-
-
-
-
 def getMsg(RoomID, MsgClientID, MsgPara):
     msgData = []
     messageCache = config['ChatMessage']['MessageLeft']
