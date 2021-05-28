@@ -29,11 +29,13 @@ class chatInfo(Base):
     RoomID = Column(Integer, nullable=False)
     UserID = Column(Integer, nullable=False)
     JoinDateTime = Column(VARCHAR(45), nullable=False)
+    LastMsgTime = Column(LONGTEXT, nullable=False)
 
-    def __init__(self, RoomID, UserID, JoinDateTime):
+    def __init__(self, RoomID, UserID, JoinDateTime, LastMsgTime):
         self.RoomID = RoomID
         self.UserID = UserID
         self.JoinDateTime = JoinDateTime
+        self.LastMsgTime = LastMsgTime
         
 # 聊天室數量與列表
 class chatRoom(Base):
@@ -58,16 +60,6 @@ class grouproom(Base):
         self.GroupName = GroupName
         self.ImageURL = ImageURL
 
-# 伺服器列表
-# class serverList(Base):
-#     __tablename__ = 'serverlist'
-#     ServerID = Column(Integer, primary_key=True)
-#     ServerIP = Column(VARCHAR(45), nullable=False)
-
-#     def __init__(self, ServerID, ServerIP):
-#         self.ServerIP = ServerIP
-
-
 # 使用者資訊列表
 class userInfo(Base):
     __tablename__ = 'userinfo'
@@ -82,7 +74,6 @@ class userInfo(Base):
         self.Password = Password
         self.UserName = UserName
         self.UserImgURL = UserImgURL
-
 
 # 單一則訊息資訊與列表
 class msgInfo(Base):
@@ -110,21 +101,26 @@ class msgInfo(Base):
         self.DateTime = DateTime
         self.Notify = Notify
 
-# 這是一張View；每位使用者待在哪些聊天室中
+# 這是一張View，每位使用者待在哪些聊天室中，下方為創建這張View的指令
+''' CREATE VIEW user_chatroom AS SELECT A.RoomID, A.UserID,B.UserName, B.UserImgUrl, C.RoomType, A.LastMsgTime 
+    FROM chatinfo A, userinfo B, chatroom C 
+    WHERE A.UserID=B.UserID and A.RoomID=C.RoomID; '''
 class user_chatroom(Base):
     __tablename__ = 'user_chatroom'
     RoomID = Column(Integer, nullable=False,primary_key=True)
     UserID = Column(Integer,nullable=False)
     UserName = Column(VARCHAR(45),nullable=False)
-    ImageURL = Column(VARCHAR(45),nullable=False)
+    UserImgUrl = Column(VARCHAR(45),nullable=False)
     RoomType = Column(Integer,nullable=False)
+    LastMsgTime = Column(LONGTEXT,nullable=False)
 
-    def __init__(self, RoomID, UserID, UserName, ImageURL, RoomType):
+    def __init__(self, RoomID, UserID, UserName, UserImgUrl, RoomType, LastMsgTime):
         self.RoomID = RoomID
         self.UserID = UserID
         self.UserName = UserName
-        self.ImageURL = ImageURL
+        self.UserImgUrl = UserImgUrl
         self.RoomType = RoomType
+        self.LastMsgTime = LastMsgTime
 
 
 def init_db():
@@ -132,3 +128,5 @@ def init_db():
 
 def drop_db():
     Base.metadata.drop_all(DBLink)
+
+

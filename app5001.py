@@ -49,6 +49,18 @@ def getChatRoomList():
     data = {'res':RoomListRes}
     return json.dumps(data, ensure_ascii=False)
 
+# 取得聊天室列表
+@app.route('/getChatRoomListTest', methods=["POST"])
+def getChatRoomListTest():
+    request_roomList = request.values
+    userName=request_roomList['UserName']
+    userID=request_roomList['UserID']
+    getRoomNum=request_roomList['getRoomNum']
+    getRoomLocate=request_roomList['getRoomLocate']
+    RoomListRes = Controller.getUserChatRoomTest(userName, userID, getRoomNum, getRoomLocate)
+    data = {'res':RoomListRes}
+    return json.dumps(data, ensure_ascii=False)
+
 # 創建新的聊天室 記得做防止SQL Injection
 @app.route('/createNewChatRoom', methods=["POST"])
 def createNewChatRoom():
