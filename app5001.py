@@ -55,9 +55,9 @@ def getChatRoomListTest():
     request_roomList = request.values
     userName=request_roomList['UserName']
     userID=request_roomList['UserID']
-    getRoomNum=request_roomList['getRoomNum']
-    getRoomLocate=request_roomList['getRoomLocate']
-    RoomListRes = Controller.getUserChatRoomTest(userName, userID, getRoomNum, getRoomLocate)
+    roomNumStart=request_roomList['roomNumStart']
+    getRoomQuantity=request_roomList['getRoomQuantity']
+    RoomListRes = Controller.getUserChatRoomTest(userName, userID, roomNumStart, getRoomQuantity)
     data = {'res':RoomListRes}
     return json.dumps(data, ensure_ascii=False)
 

@@ -66,7 +66,7 @@ def getUserChatRoom(user, userID):
     return resRoomList
 
 # 使用者取得自己的聊天室清單
-def getUserChatRoomTest(user, userID, getRoomNum, getRoomLocate):
+def getUserChatRoomTest(user, userID, roomNumStart, getRoomQuantity):
     session = Session()
     RoomList=[]
     resRoomList=[]
@@ -76,7 +76,7 @@ def getUserChatRoomTest(user, userID, getRoomNum, getRoomLocate):
     roomGet=''
 
     # 取得RoomID列表
-    sql_query = 'select * from user_chatroom where UserName=\'{userName}\' order by LastMsgTime desc limit {getRoomNum},{getRoomLocate};'.format(userName=str(user),getRoomNum=int(getRoomNum),getRoomLocate=int(getRoomLocate))
+    sql_query = 'select * from user_chatroom where UserName=\'{userName}\' order by LastMsgTime desc limit {getRoomNum},{getRoomLocate};'.format(userName=str(user),getRoomNum=int(roomNumStart),getRoomLocate=int(getRoomQuantity))
     # roomIDList = session.query(Model.user_chatroom).filter(Model.user_chatroom.UserName==user).order_by(Model.user_chatroom.LastMsgTime.desc).limit(5).offset(int(getRoomNum)).all()
     roomIDList = session.execute(sql_query)
     for i in roomIDList:
