@@ -66,49 +66,6 @@ def getUserChatRoom(user, userID):
     return resRoomList
 
 # 使用者取得自己的聊天室清單
-def getUserChatRoom(user, userID):
-    session = Session()
-    RoomList=[]
-    resRoomList=[]
-    resRoom={}
-    send=''
-    Name=''
-    roomGet=''
-    # 取得RoomID列表
-    roomIDList = session.query(Model.user_chatroom).filter(Model.user_chatroom.UserName==user,Model.user_chatroom.RoomType=='1')
-    for i in roomIDList:
-        print(i.UserName)
-        print(i.RoomID)
-        roomGet=i.RoomID
-        RoomList.append('user_chatroom.RoomID=\'' + str(i.RoomID) + '\'') 
-    session.close()
-    # 取得聊天室除了自己之外的人名列表(單人聊天室)
-    if roomGet!='':
-        session = Session()
-        for j in range(len(RoomList)):
-            send += RoomList[j] + " or "
-        sendSQL = '(' + send[:-4] + ')' + ' and user_chatroom.UserName !=' + '\'' + user +'\''
-        userChatRoomList = session.query(Model.user_chatroom).filter((text(sendSQL)))
-        for m in userChatRoomList:
-            print(m.UserName)
-            print(m.RoomID)
-            Name=(m.UserName).encode('utf-8').decode()
-            resRoom={'UserName':Name, 'RoomID':m.RoomID, 'UserID':m.UserID, 'UserImageUrl':m.UserImgUrl}
-            resRoomList.append(resRoom)
-    else:
-        print('沒有單人聊天室')
-    # 取得群組
-    groupList = session.query(Model.user_chatroom).filter(Model.user_chatroom.RoomType=='2',Model.user_chatroom.UserID==userID)
-    for n in groupList:
-        print(n.RoomID)
-        groupName=session.query(Model.grouproom).filter(Model.grouproom.RoomID==n.RoomID)
-        for k in groupName:    
-            resRoom={'UserName':k.GroupName, 'RoomID':str(k.RoomID), 'UserID':'0', 'UserImageUrl':k.ImageURL}
-            resRoomList.append(resRoom)
-    session.close()
-    return resRoomList
-
-# 使用者取得自己的聊天室清單
 def getUserChatRoomTest(user, userID, getRoomNum, getRoomLocate):
     session = Session()
     RoomList=[]

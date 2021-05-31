@@ -40,15 +40,12 @@ def sendMsg():
     ReceiveUserID = request_send['ReceiveUserID']
     Text = request_send['Text']
     DateTime = str(dt2.strftime("%Y-%m-%d %H:%M:%S"))
-    # sendMqtt = sendNotify(RoomID, SendName, Text[0:10])
     
     getMsgID = Controller.sendMsg(RoomID, SendUserID, SendName, ReceiveName, ReceiveUserID, MsgType, Text, DateTime)
 
     command = "python3 saveHistoryMsg.py \'"+getMsgID+"\' \'"+RoomID+"\' \'"+SendUserID+"\' \'"+SendName+"\' \'"+ReceiveName+"\' \'"+ReceiveUserID+"\' \'"+MsgType+"\' \'"+Text+"\' \'"+DateTime+"\'"
     subprocess.Popen(command, shell=True, bufsize = -1, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding="utf-8")
-    # result = saveHisMsg.saveHistoryMessage(getMsgID, RoomID, SendUserID, SendName, ReceiveName, ReceiveUserID, MsgType, Text, DateTime)
-    # print(result)
-
+   
     resMsgID = {'MsgID':getMsgID}
 
     return json.dumps(resMsgID, ensure_ascii=False)
