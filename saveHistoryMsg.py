@@ -10,9 +10,6 @@ import Controller4000 as con
 import configparser
 import logging 
 
-FORMAT = '%(asctime)s %(levelname)s: %(message)s'
-logging.basicConfig(level=logging.DEBUG, filename='flask.log', filemode='w', format=FORMAT)
-
 Session = Model.sessionmaker(bind=Model.DBLink)
 
 db = SQLAlchemy()
@@ -46,4 +43,6 @@ def saveHistoryMessage(MsgID, RoomID, SendUserID, SendName, ReceiveName, Receive
 
 if __name__ == '__main__':
     # Map command line arguments to function arguments.
+    FORMAT = '%(asctime)s %(levelname)s: %(message)s'
+    logging.basicConfig(level=logging.ERROR, filename='SaveHisMsg.log', filemode='w', format=FORMAT)
     saveHistoryMessage(*sys.argv[1:])

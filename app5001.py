@@ -49,9 +49,9 @@ def getChatRoomList():
     data = {'res':RoomListRes}
     return json.dumps(data, ensure_ascii=False)
 
-# 取得聊天室列表
-@app.route('/getChatRoomListTest', methods=["POST"])
-def getChatRoomListTest():
+# 分批取得聊天室列表
+@app.route('/getChatRoomListLimit', methods=["POST"])
+def getChatRoomListLimit():
     request_roomList = request.values
     userName=request_roomList['UserName']
     userID=request_roomList['UserID']

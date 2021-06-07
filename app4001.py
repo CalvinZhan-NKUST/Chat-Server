@@ -8,10 +8,10 @@ from werkzeug.datastructures import FileStorage
 import saveHistoryMsg as saveHisMsg
 import Controller4000 as Controller
 import configparser
+import logging
 import subprocess
 import sys
 import json
-import logging
 import uuid
 import os
 
@@ -43,8 +43,11 @@ def sendMsg():
     
     getMsgID = Controller.sendMsg(RoomID, SendUserID, SendName, ReceiveName, ReceiveUserID, MsgType, Text, DateTime)
 
-    command = "python3 saveHistoryMsg.py \'"+getMsgID+"\' \'"+RoomID+"\' \'"+SendUserID+"\' \'"+SendName+"\' \'"+ReceiveName+"\' \'"+ReceiveUserID+"\' \'"+MsgType+"\' \'"+Text+"\' \'"+DateTime+"\'"
-    subprocess.Popen(command, shell=True, bufsize = -1, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding="utf-8")
+
+    saveHisMsg.saveHistoryMessage(getMsgID, RoomID, SendUserID, SendName, ReceiveName, ReceiveUserID, MsgType, Text, DateTime)
+
+    # command = "python3 saveHistoryMsg.py \'"+getMsgID+"\' \'"+RoomID+"\' \'"+SendUserID+"\' \'"+SendName+"\' \'"+ReceiveName+"\' \'"+ReceiveUserID+"\' \'"+MsgType+"\' \'"+Text+"\' \'"+DateTime+"\'"
+    # subprocess.Popen(command, shell=True, bufsize = -1, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding="utf-8")
    
     resMsgID = {'MsgID':getMsgID}
 
@@ -168,7 +171,7 @@ if __name__ == "__main__":
     portNumber = str(sys.argv[1])
     app.run(host=config['Server']['server_ip'],port=portNumber, threaded=True)
     # handler = logging.FileHandler('flask.log', encoding='UTF-8')
-    # handler.setLevel(logging.DEBUG) 
+    # handler.setLevel(logging.ERROR) 
     # logging_format = logging.Formatter(
     #     '%(asctime)s - %(levelname)s - %(filename)s - %(funcName)s - %(lineno)s - %(message)s')
     # handler.setFormatter(logging_format)
