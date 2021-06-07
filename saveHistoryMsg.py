@@ -12,6 +12,9 @@ import logging
 
 Session = Model.sessionmaker(bind=Model.DBLink)
 
+FORMAT = '%(asctime)s %(levelname)s: %(message)s'
+logging.basicConfig(level=logging.DEBUG, filename='SaveHisMsg.log', filemode='w', format=FORMAT)
+
 db = SQLAlchemy()
 app = Flask(__name__)
 config = configparser.ConfigParser()
@@ -24,9 +27,6 @@ db.init_app(app)
 def saveHistoryMessage(MsgID, RoomID, SendUserID, SendName, ReceiveName, ReceiveUserID, MsgType, Text, DateTime):
     session = Session()
     try:
-        #儲存訊息到單一表單
-        sql_insert = "INSERT INTO {RoomID_Table}msgList(MsgID, RoomID, SendUserID, SendName, ReceiveName, ReceiveUserID, MsgType, Text, DateTime) VALUES({MsgID_insert}, {RoomID_insert}, {SendUserID_insert}, \'{SendName_insert}\', \'{ReceiveName_insert}\', {ReceiveUserID_insert}, \'{MsgType_insert}\', \'{Text_insert}\', \'{DateTime_insert}\')".format(RoomID_Table = RoomID, MsgID_insert = MsgID, RoomID_insert = RoomID, SendUserID_insert = SendUserID, SendName_insert = SendName, ReceiveName_insert = ReceiveName, ReceiveUserID_insert = ReceiveUserID, MsgType_insert = MsgType,Text_insert = str(Text), DateTime_insert = DateTime)
-        session.execute(sql_insert)
 
         #儲存訊息到同一張表單
         session.add(Model.msgInfo(RoomID=int(RoomID), RoomMsgSN=int(MsgID), SendUserID=int(SendUserID), SendName=str(SendName), ReceiveName=str(ReceiveName), ReceiveUserID=ReceiveUserID, MsgType=str(MsgType), Text=str(Text), DateTime=str(DateTime), Notify=1))
@@ -43,6 +43,4 @@ def saveHistoryMessage(MsgID, RoomID, SendUserID, SendName, ReceiveName, Receive
 
 if __name__ == '__main__':
     # Map command line arguments to function arguments.
-    FORMAT = '%(asctime)s %(levelname)s: %(message)s'
-    logging.basicConfig(level=logging.ERROR, filename='SaveHisMsg.log', filemode='w', format=FORMAT)
     saveHistoryMessage(*sys.argv[1:])

@@ -28,29 +28,44 @@ ALLOWD_EXTENSIONS = set(['jpeg','jpg','png','mp4'])
 # 送訊息
 @app.route("/send", methods=["POST"]) 
 def sendMsg():
-    dt1 = datetime.utcnow().replace(tzinfo=timezone.utc)
-    dt2 = dt1.astimezone(timezone(timedelta(hours=8)))
-    request_send = request.values
-    print(request.values)
-    RoomID = request_send['RoomID']
-    SendUserID = request_send['SendUserID']
-    MsgType = request_send['MsgType']
-    SendName = request_send['SendName']
-    ReceiveName = request_send['ReceiveName']
-    ReceiveUserID = request_send['ReceiveUserID']
-    Text = request_send['Text']
-    DateTime = str(dt2.strftime("%Y-%m-%d %H:%M:%S"))
-    
-    getMsgID = Controller.sendMsg(RoomID, SendUserID, SendName, ReceiveName, ReceiveUserID, MsgType, Text, DateTime)
+    try:
+        dt1 = datetime.utcnow().replace(tzinfo=timezone.utc)
+        dt2 = dt1.astimezone(timezone(timedelta(hours=8)))
+        request_send = request.values
+        print(request.values)
+        RoomID = request_send['RoomID']
+        SendUserID = request_send['SendUserID']
+        MsgType = request_send['MsgType']
+        SendName = request_send['SendName']
+        ReceiveName = request_send['ReceiveName']
+        ReceiveUserID = request_send['ReceiveUserID']
+        Text = request_send['Text']
+        DateTime = str(dt2.strftime("%Y-%m-%d %H:%M:%S"))
+        
+        getMsgID = Controller.sendMsg(RoomID, SendUserID, SendName, ReceiveName, ReceiveUserID, MsgType, Text, DateTime)
+
+        #儲存訊息到單一表單
+        # sql_insert = """INSERT INTO {RoomID_Table}msgList(MsgID, RoomID, SendUserID, SendName, ReceiveName, ReceiveUserID, MsgType, Text, DateTime) 
+        # VALUES ("{MsgID_insert}", {RoomID_insert}, {SendUserID_insert}, \'{SendName_insert}\', \'{ReceiveName_insert}\', {ReceiveUserID_insert}, 
+        # \'{MsgType_insert}\', \'{Text_insert}\', \'{DateTime_insert}\');""".format(RoomID_Table = RoomID, MsgID_insert = getMsgID, RoomID_insert = RoomID, 
+        # SendUserID_insert = SendUserID, SendName_insert = SendName, ReceiveName_insert = ReceiveName, ReceiveUserID_insert = ReceiveUserID, 
+        # MsgType_insert = MsgType,Text_insert = Text, DateTime_insert = DateTime)
+
+        text_insert = Text.replace('%','%%')
+
+        sql_insert = "INSERT INTO "+ RoomID +"msgList(MsgID, RoomID, SendUserID, SendName, ReceiveName, ReceiveUserID, MsgType, Text, DateTime) VALUES ("+getMsgID+", "+RoomID+", "+ SendUserID+", \'"+ SendName +"\', \'"+ReceiveName+"\', "+ReceiveUserID+", \'"+MsgType+"\', \'"+text_insert+"\', \'"+DateTime+"\')"
 
 
-    saveHisMsg.saveHistoryMessage(getMsgID, RoomID, SendUserID, SendName, ReceiveName, ReceiveUserID, MsgType, Text, DateTime)
 
-    # command = "python3 saveHistoryMsg.py \'"+getMsgID+"\' \'"+RoomID+"\' \'"+SendUserID+"\' \'"+SendName+"\' \'"+ReceiveName+"\' \'"+ReceiveUserID+"\' \'"+MsgType+"\' \'"+Text+"\' \'"+DateTime+"\'"
-    # subprocess.Popen(command, shell=True, bufsize = -1, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding="utf-8")
-   
+        res = db.engine.execute(sql_insert)
+
+        saveResult = saveHisMsg.saveHistoryMessage(getMsgID, RoomID, SendUserID, SendName, ReceiveName, ReceiveUserID, MsgType, Text, DateTime)
+
+    except Exception as e: 
+        logging.error("Catch an exception.", exc_info=True)
+        print(e)
+
     resMsgID = {'MsgID':getMsgID}
-
     return json.dumps(resMsgID, ensure_ascii=False)
 
 # 收訊息
