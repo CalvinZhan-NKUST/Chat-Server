@@ -257,6 +257,7 @@ def updateRoomNum(UserIDList, RoomType, newRoomID, addUserID):
             UserID += i
     return 'ok'
 
+# 儲存iOS用戶的APNs Token
 def saveUserToken(UserID, Token):
     try:
         print('取得的UserID:'+UserID+", Token:"+Token)
@@ -267,6 +268,10 @@ def saveUserToken(UserID, Token):
 
 def setUUID(UserID,UUID):
     r.set(UserID+"_uuid",UUID)
+
+def getUserUUID(UserID):
+    userUUID = r.get(str(UserID)+"_uuid")
+    return str(userUUID)
 
 def setUserRoomNum(UserID, RoomNum):
     r.set(UserID+"_RoomNum",RoomNum)

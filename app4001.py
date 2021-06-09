@@ -113,7 +113,7 @@ def searchRoomNum():
     getRoomRes = {'RoomNum':getRoomNumRes}
     return json.dumps(getRoomRes, ensure_ascii=False).encode('utf8')
 
-# 儲存持續登入的Token
+# 儲存iOS用戶的APNs Token
 @app.route("/saveToken", methods=["POST"])
 def report():
     request_report = request.values

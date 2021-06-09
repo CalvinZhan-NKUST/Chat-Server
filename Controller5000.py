@@ -66,7 +66,7 @@ def getUserChatRoom(user, userID):
     return resRoomList
 
 # 使用者取得自己的聊天室清單
-def getUserChatRoomTest(user, userID, roomNumStart, getRoomQuantity):
+def getUserChatRoomLimit(user, userID, roomNumStart, getRoomQuantity):
     session = Session()
     RoomList=[]
     resRoomList=[]
@@ -115,18 +115,25 @@ def userLogin(account, password):
         resLog='登入失敗'
         return resLog
     else:
-        setUUID = uuid.uuid1()
         session = Session()
+        UserUUID = ''
         userInfo = session.query(Model.userInfo).filter(Model.userInfo.Account==account)
         for i in userInfo:
             UserID = i.UserID
             UserName = i.UserName
             UserImgURL = i.UserImgURL
             userPwd = i.Password
+
+            getUUID = Controller4000.getUserUUID(UserID)
+            if str(getUUID) == 'None': 
+                Controller4000.setUUID(str(UserID),str(setUUID))
+                UserUUID = uuid.uuid1()
+            else:
+                UserUUID = str(getUUID)
+
             print(userPwd)
-            userInformation = {'UserID':UserID, 'UserName':UserName, 'UserImgURL':UserImgURL, 'uuid':str(setUUID)}
+            userInformation = {'UserID':UserID, 'UserName':UserName, 'UserImgURL':UserImgURL, 'uuid':str(UserUUID)}
             userInfoList.append(userInformation)
-            Controller4000.setUUID(str(UserID),str(setUUID))
 
         if (bcrypt.checkpw(password.encode('utf8'), userPwd.encode('utf8'))):
             session.close()

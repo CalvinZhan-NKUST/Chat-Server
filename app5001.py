@@ -57,7 +57,7 @@ def getChatRoomListLimit():
     userID=request_roomList['UserID']
     roomNumStart=request_roomList['roomNumStart']
     getRoomQuantity=request_roomList['getRoomQuantity']
-    RoomListRes = Controller.getUserChatRoomTest(userName, userID, roomNumStart, getRoomQuantity)
+    RoomListRes = Controller.getUserChatRoomLimit(userName, userID, roomNumStart, getRoomQuantity)
     data = {'res':RoomListRes}
     return json.dumps(data, ensure_ascii=False)
 
