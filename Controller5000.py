@@ -50,7 +50,7 @@ def getUserChatRoom(user, userID):
             print(m.UserName)
             print(m.RoomID)
             Name=(m.UserName).encode('utf-8').decode()
-            resRoom={'UserName':Name, 'RoomID':m.RoomID, 'UserID':m.UserID, 'UserImageUrl':m.UserImgUrl}
+            resRoom={'UserName':Name, 'RoomID':m.RoomID, 'UserID':m.UserID, 'UserImageUrl':m.UserImgUrl, 'LastMsgTime':m.LastMsgTime}
             resRoomList.append(resRoom)
     else:
         print('沒有單人聊天室')
@@ -60,7 +60,7 @@ def getUserChatRoom(user, userID):
         print(n.RoomID)
         groupName=session.query(Model.grouproom).filter(Model.grouproom.RoomID==n.RoomID)
         for k in groupName:    
-            resRoom={'UserName':k.GroupName, 'RoomID':str(k.RoomID), 'UserID':'0', 'UserImageUrl':k.ImageURL}
+            resRoom={'UserName':k.GroupName, 'RoomID':str(k.RoomID), 'UserID':'0', 'UserImageUrl':k.ImageURL,  'LastMsgTime':n.LastMsgTime}
             resRoomList.append(resRoom)
     session.close()
     return resRoomList

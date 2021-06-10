@@ -81,13 +81,13 @@ def createNewChatRoom():
 
     for i in UserIDList:
         if i in ',':
-            InsertUserCmd += '('+str(newRoomID)+','+str(UserID)+',\''+str(DateTime)+'\'),'
+            InsertUserCmd += '('+str(newRoomID)+','+str(UserID)+',\''+str(DateTime)+'\',\''+str(DateTime)+'\'),'
             UserID = ''
         else:
             UserID += i
 
     InsertUserCmd = InsertUserCmd[:-1]+';'
-    result = db.engine.execute("INSERT INTO chatinfo (RoomID,UserID,JoinDateTime) VALUES "+InsertUserCmd)
+    result = db.engine.execute("INSERT INTO chatinfo (RoomID,UserID,JoinDateTime, LastMsgTime) VALUES "+InsertUserCmd)
 
     sql_cmd = """
     CREATE TABLE """ + newRoomID + """msgList (
@@ -107,7 +107,8 @@ def createNewChatRoom():
     query_data = db.engine.execute(sql_cmd)
     res = Controller4000.updateRoomNum(UserIDList, RoomType, newRoomID, addUserID)
     print(res)
-    return str(newRoomID)
+    resNewRoomID = {'RoomID':newRoomID, 'LastMsgTime':DateTime}
+    return json.dumps(resNewRoomID, ensure_ascii=False)
 
 @app.route("/getConfigPara", methods=["POST"])
 def getConfigPara():

@@ -43,20 +43,8 @@ def sendMsg():
         DateTime = str(dt2.strftime("%Y-%m-%d %H:%M:%S"))
         
         getMsgID = Controller.sendMsg(RoomID, SendUserID, SendName, ReceiveName, ReceiveUserID, MsgType, Text, DateTime)
-
-        #儲存訊息到單一表單
-        # sql_insert = """INSERT INTO {RoomID_Table}msgList(MsgID, RoomID, SendUserID, SendName, ReceiveName, ReceiveUserID, MsgType, Text, DateTime) 
-        # VALUES ("{MsgID_insert}", {RoomID_insert}, {SendUserID_insert}, \'{SendName_insert}\', \'{ReceiveName_insert}\', {ReceiveUserID_insert}, 
-        # \'{MsgType_insert}\', \'{Text_insert}\', \'{DateTime_insert}\');""".format(RoomID_Table = RoomID, MsgID_insert = getMsgID, RoomID_insert = RoomID, 
-        # SendUserID_insert = SendUserID, SendName_insert = SendName, ReceiveName_insert = ReceiveName, ReceiveUserID_insert = ReceiveUserID, 
-        # MsgType_insert = MsgType,Text_insert = Text, DateTime_insert = DateTime)
-
         text_insert = Text.replace('%','%%')
-
         sql_insert = "INSERT INTO "+ RoomID +"msgList(MsgID, RoomID, SendUserID, SendName, ReceiveName, ReceiveUserID, MsgType, Text, DateTime) VALUES ("+getMsgID+", "+RoomID+", "+ SendUserID+", \'"+ SendName +"\', \'"+ReceiveName+"\', "+ReceiveUserID+", \'"+MsgType+"\', \'"+text_insert+"\', \'"+DateTime+"\')"
-
-
-
         res = db.engine.execute(sql_insert)
 
         saveResult = saveHisMsg.saveHistoryMessage(getMsgID, RoomID, SendUserID, SendName, ReceiveName, ReceiveUserID, MsgType, Text, DateTime)
@@ -65,7 +53,7 @@ def sendMsg():
         logging.error("Catch an exception.", exc_info=True)
         print(e)
 
-    resMsgID = {'MsgID':getMsgID}
+    resMsgID = {'MsgID':getMsgID, 'LastMsgTime':DateTime}
     return json.dumps(resMsgID, ensure_ascii=False)
 
 # 收訊息
