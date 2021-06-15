@@ -126,8 +126,8 @@ def userLogin(account, password):
 
             getUUID = Controller4000.getUserUUID(UserID)
             if str(getUUID) == 'None': 
-                Controller4000.setUUID(str(UserID),str(setUUID))
                 UserUUID = uuid.uuid1()
+                Controller4000.setUUID(str(UserID),str(UserUUID))
             else:
                 UserUUID = str(getUUID)
 

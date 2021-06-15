@@ -192,13 +192,12 @@ def notifyToApns(RoomID,Text,SendName,SendUserID, MsgID, notifiType, msgType):
             session.close()
             print('memeberList:'+memberList)
             r.set('NotifyApns_'+RoomID, memberList)
+            RoomMember = r.get('NotifyApns_'+RoomID)
 
-        RoomMember = r.get('NotifyApns_'+RoomID)
         print('RoomID:'+RoomID)
         print('RoomMember:'+RoomMember)
         for i in RoomMember:
             if i in ',':
-                
                 if str(notifyMember)!=str(SendUserID):
                     Topic = 'User_'+notifyMember+"/"+RoomID
                     print("mqtt Notify")
