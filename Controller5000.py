@@ -3,7 +3,6 @@ from sqlalchemy import or_
 from sqlalchemy import text
 from datetime import datetime,timezone,timedelta
 import Model5000 as Model
-import Controller4000 as Controller4000
 import bcrypt
 import json
 import uuid
@@ -124,18 +123,14 @@ def userLogin(account, password):
             UserImgURL = i.UserImgURL
             userPwd = i.Password
 
-            getUUID = Controller4000.getUserUUID(UserID)
-            if str(getUUID) == 'None': 
-                UserUUID = uuid.uuid1()
-                Controller4000.setUUID(str(UserID),str(UserUUID))
-            else:
-                UserUUID = str(getUUID)
-
-            print(userPwd)
-            userInformation = {'UserID':UserID, 'UserName':UserName, 'UserImgURL':UserImgURL, 'uuid':str(UserUUID)}
-            userInfoList.append(userInformation)
-
         if (bcrypt.checkpw(password.encode('utf8'), userPwd.encode('utf8'))):
+            setbcryptID='UserID_'+str(UserID)
+            salt = bcrypt.gensalt()
+            UserUUID = bcrypt.hashpw(setbcryptID.encode('utf8'), salt)
+            
+            print(userPwd)
+            userInformation = {'UserID':UserID, 'UserName':UserName, 'UserImgURL':UserImgURL, 'uuid':str(UserUUID.decode('utf8'))}
+            userInfoList.append(userInformation)
             session.close()
             return userInfoList
         else:
@@ -233,3 +228,11 @@ def updatePassword(oldPassword, newPassword, userID):
     else:
         session.close()
         return 'Wrong password!'
+
+#檢查Token是否有被修改
+def compareToken(UserID,Token):
+    compareUser = 'UserID_'+str(UserID)
+    if bcrypt.checkpw(compareUser.encode('utf8'),Token.encode('utf8')):
+        return 'pass'
+    else:
+        return 'denied'

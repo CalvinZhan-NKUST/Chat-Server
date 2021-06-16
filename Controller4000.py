@@ -9,6 +9,7 @@ import mqttNotification as mqttNotification
 import execjs
 import os
 import subprocess
+import bcrypt
 
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import or_  
@@ -265,13 +266,6 @@ def saveUserToken(UserID, Token):
         print('saveUserToken Err:',sys.exc_info()[0])
     return 'ok'
 
-def setUUID(UserID,UUID):
-    r.set(UserID+"_uuid",UUID)
-
-def getUserUUID(UserID):
-    userUUID = r.get(str(UserID)+"_uuid")
-    return str(userUUID)
-
 def setUserRoomNum(UserID, RoomNum):
     r.set(UserID+"_RoomNum",RoomNum)
     return 'ok'
@@ -280,12 +274,9 @@ def getRoomNum(UserID):
     roomNum = r.get(UserID+"_RoomNum")
     return str(roomNum)
 
-def compareUUID(UserID,UUID):
-    compareResult = r.get(UserID+"_uuid")
-    if str(compareResult)!='None':
-        if str(UUID)==str(compareResult):
-            return 'pass'
-        else:
-            return 'denied'
+def compareToken(UserID,Token):
+    compareUser = 'UserID_'+str(UserID)
+    if bcrypt.checkpw(compareUser.encode('utf8'),Token.encode('utf8')):
+        return 'pass'
     else:
         return 'denied'

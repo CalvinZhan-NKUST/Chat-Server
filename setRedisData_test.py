@@ -17,6 +17,7 @@ def main():
     session = Session()
     MaxRoomID = session.query(Model.chatRoom).order_by(Model.chatRoom.RoomID.desc()).limit(1)
     minRoomID = session.query(Model.chatRoom).order_by(Model.chatRoom.RoomID).limit(1)
+    # userList = session.query(Model.chatInfo)
     MaxRoomSN = 0
     minRoomSN = 0
     for i in MaxRoomID:
@@ -66,6 +67,8 @@ def main():
                 r.set(str(k)+'baseSN',1)
             else:
                 r.set(str(k)+'baseSN',((i.MsgID)-10))
+
+    
 
             
 

@@ -4,12 +4,12 @@ from datetime import datetime,timezone,timedelta
 from flask_sqlalchemy import SQLAlchemy
 from flask_sso import SSO
 from gevent import pywsgi
-import configparser
-import sys
-import json
 import Model5000 as Model
 import Controller5000 as Controller
 import Controller4000 as Controller4000
+import configparser
+import sys
+import json
 
 app = Flask(__name__)
 
@@ -45,8 +45,15 @@ def getChatRoomList():
     request_roomList = request.values
     userName=request_roomList['UserName']
     userID=request_roomList['UserID']
-    RoomListRes = Controller.getUserChatRoom(userName, userID)
-    data = {'res':RoomListRes}
+    token = request_roomList['Token']
+
+    compareRes = Controller.compareToken(userID,token)
+    if str(compareRes) == 'pass':
+        RoomListRes = Controller.getUserChatRoom(userName, userID)
+        data = {'res':RoomListRes}
+    else:
+        data = {'res':'Token驗證失敗'}
+
     return json.dumps(data, ensure_ascii=False)
 
 # 分批取得聊天室列表
@@ -55,10 +62,16 @@ def getChatRoomListLimit():
     request_roomList = request.values
     userName=request_roomList['UserName']
     userID=request_roomList['UserID']
+    token = request_roomList['Token']
     roomNumStart=request_roomList['roomNumStart']
     getRoomQuantity=request_roomList['getRoomQuantity']
-    RoomListRes = Controller.getUserChatRoomLimit(userName, userID, roomNumStart, getRoomQuantity)
-    data = {'res':RoomListRes}
+
+    compareRes = Controller.compareToken(userID,token)
+    if str(compareRes) == 'pass':
+        RoomListRes = Controller.getUserChatRoomLimit(userName, userID, roomNumStart, getRoomQuantity)
+        data = {'res':RoomListRes}
+    else:
+        data = {'res':'Token驗證失敗'}
     return json.dumps(data, ensure_ascii=False)
 
 # 創建新的聊天室 記得做防止SQL Injection
@@ -66,6 +79,7 @@ def getChatRoomListLimit():
 def createNewChatRoom():
     request_roomID = request.values
     addUserID = request_roomID['UserID']
+    Token = request_roomID['Token']
     UserIDList = request_roomID['UserIDList']
     RoomType = request_roomID['RoomType']
     RoomName = request_roomID['RoomName']
@@ -74,49 +88,57 @@ def createNewChatRoom():
     dt2 = dt1.astimezone(timezone(timedelta(hours=8)))
     DateTime = str(dt2.strftime("%Y-%m-%d %H:%M:%S"))
 
-    newRoomID = Controller.insertNewRoom(str(RoomType), RoomName)
+    compareRes = Controller.compareToken(addUserID,Token)
+    if str(compareRes) == 'pass':
+        newRoomID = Controller.insertNewRoom(str(RoomType), RoomName)
+        UserID = ''
+        InsertUserCmd = ''
+        for i in UserIDList:
+            if i in ',':
+                InsertUserCmd += '('+str(newRoomID)+','+str(UserID)+',\''+str(DateTime)+'\',\''+str(DateTime)+'\'),'
+                UserID = ''
+            else:
+                UserID += i
 
-    UserID = ''
-    InsertUserCmd = ''
-
-    for i in UserIDList:
-        if i in ',':
-            InsertUserCmd += '('+str(newRoomID)+','+str(UserID)+',\''+str(DateTime)+'\',\''+str(DateTime)+'\'),'
-            UserID = ''
-        else:
-            UserID += i
-
-    InsertUserCmd = InsertUserCmd[:-1]+';'
-    result = db.engine.execute("INSERT INTO chatinfo (RoomID,UserID,JoinDateTime, LastMsgTime) VALUES "+InsertUserCmd)
-
-    sql_cmd = """
-    CREATE TABLE """ + newRoomID + """msgList (
-    MsgID INT NOT NULL,
-    RoomID INT NOT NULL,
-    SendUserID INT NOT NULL,
-    SendName VARCHAR(100) NOT NULL,
-    ReceiveName VARCHAR(100) NOT NULL,
-    ReceiveUserID INT NOT NULL,
-    MsgType VARCHAR(100) NOT NULL,
-    Text LONGTEXT NOT NULL,
-    DateTime VARCHAR(100) NOT NULL,
-    PRIMARY KEY (MsgID)
-    )
-    """
-    print(sql_cmd)
-    query_data = db.engine.execute(sql_cmd)
-    res = Controller4000.updateRoomNum(UserIDList, RoomType, newRoomID, addUserID)
-    print(res)
-    resNewRoomID = {'RoomID':newRoomID, 'LastMsgTime':DateTime}
-    return json.dumps(resNewRoomID, ensure_ascii=False)
+        InsertUserCmd = InsertUserCmd[:-1]+';'
+        result = db.engine.execute("INSERT INTO chatinfo (RoomID,UserID,JoinDateTime, LastMsgTime) VALUES "+InsertUserCmd)
+        sql_cmd = """
+        CREATE TABLE """ + newRoomID + """msgList (
+        MsgID INT NOT NULL,
+        RoomID INT NOT NULL,
+        SendUserID INT NOT NULL,
+        SendName VARCHAR(100) NOT NULL,
+        ReceiveName VARCHAR(100) NOT NULL,
+        ReceiveUserID INT NOT NULL,
+        MsgType VARCHAR(100) NOT NULL,
+        Text LONGTEXT NOT NULL,
+        DateTime VARCHAR(100) NOT NULL,
+        PRIMARY KEY (MsgID)
+        )
+        """
+        print(sql_cmd)
+        query_data = db.engine.execute(sql_cmd)
+        res = Controller4000.updateRoomNum(UserIDList, RoomType, newRoomID, addUserID)
+        print(res)
+        resNewRoomID = {'RoomID':newRoomID, 'LastMsgTime':DateTime}
+        return json.dumps(resNewRoomID, ensure_ascii=False)
+    else:
+        return 'Token驗證失敗'
 
 @app.route("/getConfigPara", methods=["POST"])
 def getConfigPara():
     request_config = request.values
     UserID = request_config['UserID']
-    print('getMSgPara=ID'+UserID)
-    responseConfig = {'MsgPara':config['MessageBalance']['messageNum']}
-    return json.dumps(responseConfig, ensure_ascii=False)
+    Token = request_config['Token']
+    
+    compareRes = Controller.compareToken(UserID,Token)
+    if str(compareRes) == 'pass':
+        print('getMSgPara=ID'+UserID)
+        responseConfig = {'MsgPara':config['MessageBalance']['messageNum']}
+        return json.dumps(responseConfig, ensure_ascii=False)
+    else:
+        return 'Token驗證錯誤'
+
 
 @app.route("/getVersionCode", methods=["POST"])
 def getVersionCode():
@@ -128,34 +150,41 @@ def getHistoryMsg():
     msgHistory = []
     msgRes=''
     request_getHsitoryMsg = request.values
+    Token = request_getHsitoryMsg['Token']
+    UserID = request_getHsitoryMsg['UserID']
     MsgID = request_getHsitoryMsg['MsgID']
     RoomID = request_getHsitoryMsg['RoomID']
     getMsgNum = config['MessageBalance']['messageNum']
-    MsgEnd = int(MsgID)-int(getMsgNum)
-    sql_cmd="""
-    Select * from {RoomID}msgList 
-    where MsgID between '{MsgEnd}' and '{MsgID}'
-    order by MsgID
-    """.format(RoomID = RoomID, MsgID = MsgID, MsgEnd = MsgEnd)
-    print(sql_cmd)
-    query_data = db.engine.execute(sql_cmd).fetchall()
-    print(query_data)
-    for i in query_data:
-        Msg={
-                'RoomID':i['RoomID'],
-                'MsgID':i['MsgID'],
-                'SendUserID':i['SendUserID'],
-                'SendName':i['SendName'],
-                'ReceiveName':i['ReceiveName'],
-                'ReceiveUserID':i['ReceiveUserID'],
-                'MsgType':i['MsgType'],
-                'Text':i['Text'],
-                'DateTime':i['DateTime']   
-            }
-        msgHistory.append(Msg)
-        msgRes = {'res':msgHistory}
-        
-    return json.dumps(msgRes, ensure_ascii=False)
+
+    compareRes = Controller.compareToken(UserID,Token)
+    if str(compareRes) == 'pass':
+        MsgEnd = int(MsgID)-int(getMsgNum)
+        sql_cmd="""
+        Select * from {RoomID}msgList 
+        where MsgID between '{MsgEnd}' and '{MsgID}'
+        order by MsgID
+        """.format(RoomID = RoomID, MsgID = MsgID, MsgEnd = MsgEnd)
+        print(sql_cmd)
+        query_data = db.engine.execute(sql_cmd).fetchall()
+        print(query_data)
+        for i in query_data:
+            Msg={
+                    'RoomID':i['RoomID'],
+                    'MsgID':i['MsgID'],
+                    'SendUserID':i['SendUserID'],
+                    'SendName':i['SendName'],
+                    'ReceiveName':i['ReceiveName'],
+                    'ReceiveUserID':i['ReceiveUserID'],
+                    'MsgType':i['MsgType'],
+                    'Text':i['Text'],
+                    'DateTime':i['DateTime']   
+                }
+            msgHistory.append(Msg)
+            msgRes = {'res':msgHistory}
+            
+        return json.dumps(msgRes, ensure_ascii=False)
+    else:
+        return 'Token驗證失敗'
 
 @app.route("/register", methods=["POST"])
 def register():
@@ -172,25 +201,40 @@ def searchUser():
     request_searchUser = request.values
     Account = request_searchUser["searchValue"]
     UserID = request_searchUser["UserID"]
-    searchResult = Controller.searchUser(Account, UserID)
-    searchRes = {'res':searchResult}
-    return json.dumps(searchRes, ensure_ascii=False)
+    Token = request_searchUser["Token"]
+    compareRes = Controller.compareToken(UserID,Token)
+    if str(compareRes) == 'pass':
+        searchResult = Controller.searchUser(Account, UserID)
+        searchRes = {'res':searchResult}
+        return json.dumps(searchRes, ensure_ascii=False)
+    else:
+        return 'Token驗證失敗'
 
 @app.route("/updateUserName", methods=["POST"])
 def updateUserName():
     request_update = request.values
     UserName = request_update['UserName']
     UserID = request_update['UserID']
-    updateResult = Controller.updateUserInfo('UserName',UserID,UserName)
-    return updateResult
+    Token = request_update['Token']
+    compareRes = Controller.compareToken(UserID,Token)
+    if str(compareRes) == 'pass':
+        updateResult = Controller.updateUserInfo('UserName',UserID,UserName)
+        return updateResult
+    else:
+        return 'Token驗證失敗'
 
 @app.route("/uploadUserImage", methods=["POST"])
 def uploadUserImage():
     request_updateImage = request.values
     ImageUrl = request_updateImage['UserImageUrl']
     UserID = request_updateImage['UserID']
-    updateResult = Controller.updateUserInfo('UserImgURL',UserID,ImageUrl)
-    return updateResult
+    Token = request_updateImage['Token']
+    compareRes = Controller.compareToken(UserID,Token)
+    if str(compareRes) == 'pass':
+        updateResult = Controller.updateUserInfo('UserImgURL',UserID,ImageUrl)
+        return updateResult
+    else:
+        return 'Token驗證失敗'
 
 @app.route("/updateUserPassword", methods=["POST"])
 def updateUserPassword():
@@ -198,12 +242,16 @@ def updateUserPassword():
     oldPassword = request_password['oldPassword']
     newPassword = request_password['newPassword']
     userID = request_password['UserID']
-    updatePwdRes = Controller.updatePassword(oldPassword, newPassword, userID)
-    return updatePwdRes
-
+    token = request_password['Token']
+    compareRes = Controller.compareToken(userID,token)
+    if str(compareRes) == 'pass':
+        updatePwdRes = Controller.updatePassword(oldPassword, newPassword, userID)
+        return updatePwdRes
+    else:
+        return 'Token驗證失敗'
     
 
 if __name__ == "__main__":
     # app.run(host=config['Server']['server_ip'],port=config['Server']['port'])
     portNumber = str(sys.argv[1])
-    app.run(host=config['Server']['server_ip'],port=portNumber)
+    app.run(host=config['Server']['server_ip'],port=portNumber,threaded=True)
