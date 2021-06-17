@@ -226,32 +226,26 @@ def updateRoomNum(UserIDList, RoomType, newRoomID, addUserID):
     print('執行聊天室數量增加')
     for i in UserIDList:
         if i in ',':
-            roomNum = r.get(UserID+"_RoomNum")
-            print(UserID+'的原始數量：'+str(roomNum))
-            if str(roomNum)!='None':
-                newRoomNum = int(roomNum)+1
-                r.set(UserID+"_RoomNum", str(newRoomNum))
-                print(UserID+'的新增後數量：'+str(newRoomNum))
-                if RoomType=='1':
-                    Text = '您被加入至新的聊天室'
-                elif RoomType=='2':
-                    Text = '您被加入至新的群組'                    
+            if RoomType=='1':
+                Text = '您被加入至新的聊天室'
+            elif RoomType=='2':
+                Text = '您被加入至新的群組'                    
 
-                getToken = r.get('UserToken_'+UserID)
-                if str(getToken)!='None':
-                    if str(UserID) != str(addUserID):
-                        print('準備通知Apns')
-                        print(str(getToken))
-                        cmd = "python3 PushApns.py "+str(getToken)+" \'"+Text+"\' \'"+SendName+"\' "+str(newRoomID)+" "+str(MsgID)+" "+str(addUserID)+" "+" NewRoom"
-                        print(cmd)
-                        subprocess.Popen(cmd, shell=True, bufsize = -1, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding="utf-8")
-                
-                Topic = 'User_'+UserID+"/"+newRoomID
+            getToken = r.get('UserToken_'+UserID)
+            if str(getToken)!='None':
                 if str(UserID) != str(addUserID):
-                    print('準備通知MQTT')
-                    command = "python3 mqttNotification.py " +str(Topic)+" "+str(newRoomID)+" "+str(MsgID)+" \'"+str(SendName)+"\' \'"+str(Text)+"\' NewRoom "+str(addUserID)+" \'NewRoom\'"
-                    subprocess.Popen(command, shell=True, bufsize = -1, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding="utf-8")
-                    print(str(Topic))
+                    print('準備通知Apns')
+                    print(str(getToken))
+                    cmd = "python3 PushApns.py "+str(getToken)+" \'"+Text+"\' \'"+SendName+"\' "+str(newRoomID)+" "+str(MsgID)+" "+str(addUserID)+" "+" NewRoom"
+                    print(cmd)
+                    subprocess.Popen(cmd, shell=True, bufsize = -1, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding="utf-8")
+            
+            Topic = 'User_'+UserID+"/"+newRoomID
+            if str(UserID) != str(addUserID):
+                print('準備通知MQTT')
+                command = "python3 mqttNotification.py " +str(Topic)+" "+str(newRoomID)+" "+str(MsgID)+" \'"+str(SendName)+"\' \'"+str(Text)+"\' NewRoom "+str(addUserID)+" \'NewRoom\'"
+                subprocess.Popen(command, shell=True, bufsize = -1, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding="utf-8")
+                print(str(Topic))
             UserID = ''
         else:
             UserID += i
@@ -265,14 +259,6 @@ def saveUserToken(UserID, Token):
     except:
         print('saveUserToken Err:',sys.exc_info()[0])
     return 'ok'
-
-def setUserRoomNum(UserID, RoomNum):
-    r.set(UserID+"_RoomNum",RoomNum)
-    return 'ok'
-
-def getRoomNum(UserID):
-    roomNum = r.get(UserID+"_RoomNum")
-    return str(roomNum)
 
 def compareToken(UserID,Token):
     compareUser = 'UserID_'+str(UserID)

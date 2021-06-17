@@ -94,21 +94,6 @@ def notify():
         return json.dumps(notifyList, ensure_ascii=False)
     else:
         return 'Token驗證失敗'
-    
-
-# 查詢目前聊天室擁有數量
-@app.route("/getRoomNum", methods=["POST"])
-def searchRoomNum():
-    request_searchRoomNum = request.values
-    UserID = request_searchRoomNum['UserID']
-    Token = request_searchRoomNum['Token']
-    compareRes = Controller.compareToken(UserID,Token)
-    if str(compareRes) == 'pass':
-        getRoomNumRes = Controller.getRoomNum(UserID)
-        getRoomRes = {'RoomNum':getRoomNumRes}
-        return json.dumps(getRoomRes, ensure_ascii=False).encode('utf8')
-    else:
-        return 'Token驗證失敗'
         
 # 儲存iOS用戶的APNs Token
 @app.route("/saveToken", methods=["POST"])
