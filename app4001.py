@@ -163,6 +163,19 @@ def allowed_file(FileName):
     return '.' in FileName and \
         FileName.rsplit('.', 1)[1] in ALLOWD_EXTENSIONS
 
+@app.route("/notifyToClient", methods=["POST"])
+def notifyToClient():
+    request_notifyToClient = request.values
+    RoomID = request_notifyToClient['RoomID']
+    Text = request_notifyToClient['Text']
+    SendName = request_notifyToClient['SendName']
+    SendUserID = request_notifyToClient['SendUserID']
+    MsgID = request_notifyToClient['MsgID']
+    NotifiType = request_notifyToClient['NotifyType']
+    MsgType = request_notifyToClient['MsgType']
+    notifyToClientRes = notifyToClient(RoomID,Text,SendName,SendUserID, MsgID, NotifiType, MsgType)
+    return 'ok'
+
 if __name__ == "__main__":
     portNumber = str(sys.argv[1])
     app.run(host=config['Server']['server_ip'],port=portNumber, threaded=True)

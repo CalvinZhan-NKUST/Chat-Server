@@ -61,7 +61,7 @@ def sendMsg(RoomID, SendUserID, SendName, ReceiveName, ReceiveUserID, MsgType, T
     
     print(jsonMsgMap)
     r.hmset(RoomID,{str(insertPosition):jsonMsgMap})
-    notifyToApns(RoomID,Text,SendName,SendUserID,MsgID,'Message',MsgType)
+    notifyToClient(RoomID,Text,SendName,SendUserID,MsgID,'Message',MsgType)
     return MsgID
 
 def getMsg(RoomID, MsgClientID, MsgPara):
@@ -179,7 +179,7 @@ def notification(RoomIDList):
 
     return notifyRes
 
-def notifyToApns(RoomID,Text,SendName,SendUserID, MsgID, notifiType, msgType):
+def notifyToClient(RoomID,Text,SendName,SendUserID, MsgID, notifiType, msgType):
     try:
         memberList = ''
         notifyMember = ''
@@ -215,7 +215,7 @@ def notifyToApns(RoomID,Text,SendName,SendUserID, MsgID, notifiType, msgType):
             else:
                 notifyMember = notifyMember+i
     except:
-        print('notifyToApns Err:',sys.exc_info()[0])
+        print('notifyToClient Err:',sys.exc_info()[0])
 
 def updateRoomNum(UserIDList, RoomType, newRoomID, addUserID):
     UserID = ''
