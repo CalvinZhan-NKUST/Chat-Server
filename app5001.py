@@ -101,7 +101,7 @@ def createNewChatRoom():
                 UserID += i
 
         InsertUserCmd = InsertUserCmd[:-1]+';'
-        result = db.engine.execute("INSERT INTO chatinfo (RoomID,UserID,JoinDateTime, LastMsgTime) VALUES "+InsertUserCmd)
+        result = db.engine.execute("INSERT INTO chatinfo (RoomID,UserID,JoinDateTime,LastMsgTime) VALUES "+InsertUserCmd)
         sql_cmd = """
         CREATE TABLE """ + newRoomID + """msgList (
         MsgID INT NOT NULL,
@@ -122,6 +122,24 @@ def createNewChatRoom():
         print(res)
         resNewRoomID = {'RoomID':newRoomID, 'LastMsgTime':DateTime}
         return json.dumps(resNewRoomID, ensure_ascii=False)
+    else:
+        return 'Token驗證失敗'
+
+@app.route("/addNewUserToGroup", methods=["POST"])
+def addNewUserToGroup():
+    request_addNewUser = request.values
+    UserID = request_addNewUser['UserID']
+    Token = request_addNewUser['Token']
+    RoomID = request_addNewUser['RoomID']
+    AddUserID = request_addNewUser['AddUserID']
+    dt1 = datetime.utcnow().replace(tzinfo=timezone.utc)
+    dt2 = dt1.astimezone(timezone(timedelta(hours=8)))
+    DateTime = str(dt2.strftime("%Y-%m-%d %H:%M:%S"))
+
+    compareRes = Controller.compareToken(UserID,Token)
+    if str(compareRes) == 'pass':
+        addRes = Controller.addNewUserToGroupRoom(RoomID, AddUserID, DateTime)
+        return 'ok'
     else:
         return 'Token驗證失敗'
 

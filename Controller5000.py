@@ -161,6 +161,14 @@ def insertNewRoom(RoomType, RoomName):
     session.close()
     return str(NewRoomID)   
 
+def addNewUserToGroupRoom(RoomID,UserID,DateTime):
+    session = Session()
+    session.add(Model.chatInfo(RoomID=RoomID,UserID=UserID,JoinDateTime=DateTime,LastMsgTime=DateTime))
+    chatUpdate = session.query(Model.chatInfo).filter(Model.chatInfo.RoomID==int(RoomID)).update({'LastMsgTime':str(DateTime)})
+    session.commit()
+    session.close()
+    return 'ok'
+
 #註冊新的使用者
 def registerNewUser(Account, Password, Name):
     session = Session()
