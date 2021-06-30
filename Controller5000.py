@@ -152,9 +152,9 @@ def insertNewRoom(RoomType, RoomName):
     NewRoomID = int(MaxRoomSN) + 1
 
     if RoomType == '1':
-        session.add(Model.chatRoom(RoomID=NewRoomID,RoomType=1))
+        session.add(Model.chatRoom(RoomID=NewRoomID,RoomType=1, RoomLocate='none'))
     elif RoomType == '2':
-        session.add(Model.chatRoom(RoomID=NewRoomID,RoomType=2))
+        session.add(Model.chatRoom(RoomID=NewRoomID,RoomType=2, RoomLocate='none'))
         session.add(Model.grouproom(GroupName=RoomName, RoomID=NewRoomID, ImageURL='none'))
 
     session.commit()

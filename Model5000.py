@@ -42,10 +42,12 @@ class chatRoom(Base):
     __tablename__ = 'chatroom'
     RoomID = Column(Integer, primary_key=True)
     RoomType = Column(Integer, nullable=False)
+    RoomLocate = Column(LONGTEXT, nullable=False)
 
-    def __init__(self, RoomID, RoomType):
+    def __init__(self, RoomID, RoomType, RoomLocate):
         self.RoomID = RoomID
         self.RoomType = RoomType
+        self.RoomLocate = RoomLocate
 
 # 多人群組列表
 class grouproom(Base):
