@@ -161,6 +161,13 @@ def insertNewRoom(RoomType, RoomName):
     session.close()
     return str(NewRoomID)   
 
+def updateRoomLocate(RoomID, Locate):
+    session = Session()
+    session.query(Model.chatroom).filter(Model.chatroom.RoomID=int(RoomID)).update({'RoomLocate':str(Locate)})
+    session.commit()
+    session.close()
+    return 'ok'
+
 def addNewUserToGroupRoom(RoomID,UserID,DateTime):
     session = Session()
     session.add(Model.chatInfo(RoomID=RoomID,UserID=UserID,JoinDateTime=DateTime,LastMsgTime=DateTime))

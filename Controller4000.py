@@ -262,7 +262,11 @@ def saveUserToken(UserID, Token):
 
 def compareToken(UserID,Token):
     compareUser = 'UserID_'+str(UserID)
-    if bcrypt.checkpw(compareUser.encode('utf8'),Token.encode('utf8')):
-        return 'pass'
-    else:
+    try:
+        if bcrypt.checkpw(compareUser.encode('utf8'),Token.encode('utf8')):
+            return 'pass'
+        else:
+            return 'denied'
+    except:
+        print('Compare token Err:',sys.exc_info()[0])
         return 'denied'
