@@ -122,7 +122,11 @@ def keepLogin():
     UserID = request_keepLogin['UserID']
     Token = request_keepLogin['Token']
     result = Controller.compareToken(UserID,Token)
-    compareResult = {'res':result}
+    if str(result)!='denied':
+        compareResult = {'res':'pass','Token':result}
+    else:
+        compareResult = {'res':result}
+
     return json.dumps(compareResult, ensure_ascii=False).encode('utf8')
 
 # 檔案上傳

@@ -136,7 +136,7 @@ def addNewUserToGroup():
     dt2 = dt1.astimezone(timezone(timedelta(hours=8)))
     DateTime = str(dt2.strftime("%Y-%m-%d %H:%M:%S"))
 
-    compareRes = Controller.compareToken(UserID,Token)
+    compareRes = Controller.compareToken(UserID,str(Token))
     if str(compareRes) == 'pass':
         addRes = Controller.addNewUserToGroupRoom(RoomID, AddUserID, DateTime)
         return 'ok'

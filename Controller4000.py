@@ -10,7 +10,9 @@ import execjs
 import os
 import subprocess
 import bcrypt
+import time
 
+from datetime import datetime,timezone,timedelta
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import or_  
 from sqlalchemy import text
@@ -261,12 +263,37 @@ def saveUserToken(UserID, Token):
     return 'ok'
 
 def compareToken(UserID,Token):
-    compareUser = 'UserID_'+str(UserID)
     try:
-        if bcrypt.checkpw(compareUser.encode('utf8'),Token.encode('utf8')):
-            return 'pass'
+        format_pattern = "%Y-%m-%d %H:%M:%S"
+        
+        dt1 = datetime.utcnow().replace(tzinfo=timezone.utc)
+        dt2 = dt1.astimezone(timezone(timedelta(hours=8)))
+        serverTime = str(dt2.strftime(format_pattern))
+
+        tokenTime = Token[-13:]
+        print(Token[-13:])
+
+        tokenTimeTransfer = get_formattime_from_timestamp(int(tokenTime)/1000)
+
+        difference = (datetime.strptime(serverTime, format_pattern) - datetime.strptime(tokenTimeTransfer, format_pattern))
+        dayTimeGap = int(difference.days)
+        
+        if dayTimeGap > 10:
+            return 'denied'
+
+        checkToken = Token.split(str(tokenTime),1)
+        compareUser = 'UserID_'+str(UserID)
+        if bcrypt.checkpw(compareUser.encode('utf8'),checkToken[0].encode('utf8')):
+            tokenTimeStamp = int(round(time.time()*1000))
+            refreshToken = str(checkToken[0]) + str(tokenTimeStamp)
+            return str(refreshToken)
         else:
             return 'denied'
     except:
-        print('Compare token Err:',sys.exc_info()[0])
         return 'denied'
+
+def get_formattime_from_timestamp(time_stamp):
+    format_pattern = "%Y-%m-%d %H:%M:%S"
+    date_array = datetime.fromtimestamp(time_stamp)
+    time_str = date_array.strftime(format_pattern)
+    return time_str

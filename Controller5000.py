@@ -126,10 +126,12 @@ def userLogin(account, password):
         if (bcrypt.checkpw(password.encode('utf8'), userPwd.encode('utf8'))):
             setbcryptID='UserID_'+str(UserID)
             salt = bcrypt.gensalt(rounds=10)
-            UserUUID = bcrypt.hashpw(setbcryptID.encode('utf8'), salt)
+            userToken = bcrypt.hashpw(setbcryptID.encode('utf8'), salt)
+            tokenTimeStamp = int(round(time.time()*1000))
+            UserUUID = str(userToken.decode('utf8'))+str(tokenTimeStamp)
             
             print(userPwd)
-            userInformation = {'UserID':UserID, 'UserName':UserName, 'UserImgURL':UserImgURL, 'uuid':str(UserUUID.decode('utf8'))}
+            userInformation = {'UserID':UserID, 'UserName':UserName, 'UserImgURL':UserImgURL, 'uuid':UserUUID}
             userInfoList.append(userInformation)
             session.close()
             return userInfoList
@@ -246,8 +248,36 @@ def updatePassword(oldPassword, newPassword, userID):
 
 #檢查Token是否有被修改
 def compareToken(UserID,Token):
-    compareUser = 'UserID_'+str(UserID)
-    if bcrypt.checkpw(compareUser.encode('utf8'),Token.encode('utf8')):
-        return 'pass'
-    else:
+    try:
+        format_pattern = "%Y-%m-%d %H:%M:%S"
+
+        dt1 = datetime.utcnow().replace(tzinfo=timezone.utc)
+        dt2 = dt1.astimezone(timezone(timedelta(hours=8)))
+        serverTime = str(dt2.strftime(format_pattern))
+
+        tokenTime = Token[-13:]
+        print(Token[-13:])
+
+        tokenTimeTransfer = get_formattime_from_timestamp(int(tokenTime)/1000)
+
+        difference = (datetime.strptime(serverTime, format_pattern) - datetime.strptime(tokenTimeTransfer, format_pattern))
+        dayTimeGap = int(difference.days)
+        
+        if dayTimeGap > 10:
+            return 'denied'
+
+        checkToken = Token.split(str(tokenTime),1)
+        compareUser = 'UserID_'+str(UserID)
+        if bcrypt.checkpw(compareUser.encode('utf8'),checkToken[0].encode('utf8')):
+            return 'pass'
+        else:
+            return 'denied'
+    except:
         return 'denied'
+
+
+def get_formattime_from_timestamp(time_stamp):
+    format_pattern = "%Y-%m-%d %H:%M:%S"
+    date_array = datetime.fromtimestamp(time_stamp)
+    time_str = date_array.strftime(format_pattern)
+    return time_str
