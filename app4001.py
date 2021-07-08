@@ -68,6 +68,10 @@ def getMsg():
     Token = request_getMsg['Token']
     UserID = request_getMsg['UserID']
 
+    # getMsgRes = Controller.getMsg(RoomID, MsgID, MsgPara)
+    # MsgList = {'res':getMsgRes} 
+    # return json.dumps(MsgList, ensure_ascii=False).encode('utf8') 
+
     compareRes = Controller.compareToken(UserID,Token)
     if str(compareRes) == 'pass':
         getMsgRes = Controller.getMsg(RoomID, MsgID, MsgPara)

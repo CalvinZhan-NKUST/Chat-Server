@@ -125,7 +125,7 @@ def userLogin(account, password):
 
         if (bcrypt.checkpw(password.encode('utf8'), userPwd.encode('utf8'))):
             setbcryptID='UserID_'+str(UserID)
-            salt = bcrypt.gensalt()
+            salt = bcrypt.gensalt(rounds=10)
             UserUUID = bcrypt.hashpw(setbcryptID.encode('utf8'), salt)
             
             print(userPwd)
@@ -163,7 +163,7 @@ def insertNewRoom(RoomType, RoomName):
 
 def updateRoomLocate(RoomID, Locate):
     session = Session()
-    session.query(Model.chatroom).filter(Model.chatroom.RoomID=int(RoomID)).update({'RoomLocate':str(Locate)})
+    chatLocateUpdate = session.query(Model.chatroom).filter(Model.chatroom.RoomID==int(RoomID)).update({'RoomLocate':str(Locate)})
     session.commit()
     session.close()
     return 'ok'
