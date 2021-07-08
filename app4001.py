@@ -7,6 +7,7 @@ from werkzeug.utils import secure_filename
 from werkzeug.datastructures import FileStorage
 import saveHistoryMsg as saveHisMsg
 import Controller4000 as Controller
+import time
 import configparser
 import logging
 import subprocess
@@ -123,7 +124,11 @@ def keepLogin():
     Token = request_keepLogin['Token']
     result = Controller.compareToken(UserID,Token)
     if str(result)!='denied':
-        compareResult = {'res':'pass','Token':result}
+        tokenTimeStamp = int(round(time.time()*1000))
+        tokenTime = Token[-13:]
+        checkToken = Token.split(str(tokenTime),1)
+        refreshToken = str(checkToken[0]) + str(tokenTimeStamp)
+        compareResult = {'res':result,'Token':refreshToken}
     else:
         compareResult = {'res':result}
 

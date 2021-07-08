@@ -279,17 +279,17 @@ def compareToken(UserID,Token):
         dayTimeGap = int(difference.days)
         
         if dayTimeGap > 10:
+            print(dayTimeGap)
             return 'denied'
 
         checkToken = Token.split(str(tokenTime),1)
         compareUser = 'UserID_'+str(UserID)
         if bcrypt.checkpw(compareUser.encode('utf8'),checkToken[0].encode('utf8')):
-            tokenTimeStamp = int(round(time.time()*1000))
-            refreshToken = str(checkToken[0]) + str(tokenTimeStamp)
-            return str(refreshToken)
+            return 'pass'
         else:
             return 'denied'
     except:
+        print('tokenCompare Err:',sys.exc_info()[0])
         return 'denied'
 
 def get_formattime_from_timestamp(time_stamp):
