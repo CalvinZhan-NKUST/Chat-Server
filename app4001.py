@@ -5,6 +5,7 @@ from mqttNotification import sendNotify
 from datetime import datetime,timezone,timedelta
 from werkzeug.utils import secure_filename
 from werkzeug.datastructures import FileStorage
+from pymysql.converters import escape_string
 import saveHistoryMsg as saveHisMsg
 import Controller4000 as Controller
 import time
@@ -48,7 +49,8 @@ def sendMsg():
     if str(compareRes) == 'pass':
         getMsgID = Controller.sendMsg(RoomID, SendUserID, SendName, ReceiveName, ReceiveUserID, MsgType, Text, DateTime)
         text_insert = Text.replace('%','%%')
-        sql_insert = "INSERT INTO "+ RoomID +"msgList(MsgID, RoomID, SendUserID, SendName, ReceiveName, ReceiveUserID, MsgType, Text, DateTime) VALUES ("+getMsgID+", "+RoomID+", "+ SendUserID+", \'"+ SendName +"\', \'"+ReceiveName+"\', "+ReceiveUserID+", \'"+MsgType+"\', \'"+text_insert+"\', \'"+DateTime+"\')"
+        mysql_insert = escape_string(text_insert)
+        sql_insert = "INSERT INTO "+ RoomID +"msgList(MsgID, RoomID, SendUserID, SendName, ReceiveName, ReceiveUserID, MsgType, Text, DateTime) VALUES ("+getMsgID+", "+RoomID+", "+ SendUserID+", \'"+ SendName +"\', \'"+ReceiveName+"\', "+ReceiveUserID+", \'"+MsgType+"\', \'"+mysql_insert+"\', \'"+DateTime+"\')"
         res = db.engine.execute(sql_insert)
 
         saveResult = saveHisMsg.saveHistoryMessage(getMsgID, RoomID, SendUserID, SendName, ReceiveName, ReceiveUserID, MsgType, Text, DateTime)
