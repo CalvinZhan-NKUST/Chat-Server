@@ -17,8 +17,9 @@ def sendNotify(Topic, RoomID, MsgID, SendName, Text, NotifiType, userID, msgType
         client.username_pw_set(config['MQTT']['mqtt_account'],config['MQTT']['mqtt_password'])
         client.connect('chatapp.54ucl.com', 1883)
         payload = {'SendName':SendName, 'Text':Text, 'RoomID':RoomID, 'MsgID':MsgID, 'UserID':userID, 'MsgType':msgType}
-        print (json.dumps(payload, ensure_ascii=False))
-        client.publish(str(Topic), json.dumps(payload, ensure_ascii=False))
+        sendPayload = json.dumps(payload, ensure_ascii=False)
+        print(sendPayload)
+        client.publish(str(Topic), sendPayload)
         return 'ok'
     elif NotifiType=='NewRoom':
         client = mqtt.Client()

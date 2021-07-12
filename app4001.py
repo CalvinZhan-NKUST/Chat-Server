@@ -50,6 +50,7 @@ def sendMsg():
         getMsgID = Controller.sendMsg(RoomID, SendUserID, SendName, ReceiveName, ReceiveUserID, MsgType, Text, DateTime)
         text_insert = Text.replace('%','%%')
         mysql_insert = escape_string(text_insert)
+        print(mysql_insert)
         sql_insert = "INSERT INTO "+ RoomID +"msgList(MsgID, RoomID, SendUserID, SendName, ReceiveName, ReceiveUserID, MsgType, Text, DateTime) VALUES ("+getMsgID+", "+RoomID+", "+ SendUserID+", \'"+ SendName +"\', \'"+ReceiveName+"\', "+ReceiveUserID+", \'"+MsgType+"\', \'"+mysql_insert+"\', \'"+DateTime+"\')"
         res = db.engine.execute(sql_insert)
 
