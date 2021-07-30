@@ -11,7 +11,9 @@ import os
 import subprocess
 import bcrypt
 import time
+import logging 
 
+from pymysql.converters import escape_string
 from datetime import datetime,timezone,timedelta
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import or_  
@@ -24,6 +26,9 @@ r = redis.StrictRedis('localhost', encoding='utf-8', decode_responses=True)
 config = configparser.ConfigParser()
 config.read('config.ini')
 
+FORMAT = '%(asctime)s %(levelname)s: %(message)s'
+logging.basicConfig(level=logging.DEBUG, filename='SaveHisMsg.log', filemode='w', format=FORMAT)
+
 def sendMsg(RoomID, SendUserID, SendName, ReceiveName, ReceiveUserID, MsgType, Text, DateTime):
 
     MsgMap={}
@@ -33,9 +38,9 @@ def sendMsg(RoomID, SendUserID, SendName, ReceiveName, ReceiveUserID, MsgType, T
         MsgID=str(int(MaxSN)+1)
     else:
         MsgID='1'
+    r.set(RoomID + "MaxSN", MsgID)
 
     messageCache = config['ChatMessage']['MessageLeft']
-    r.set(RoomID + "MaxSN", MsgID)
 
     insertPosition=''
     if MsgID[-1]=='0':
@@ -204,11 +209,11 @@ def notifyToClient(RoomID,Text,SendName,SendUserID, MsgID, notifiType, msgType):
                 if str(notifyMember)!=str(SendUserID):
                     Topic = 'User_'+notifyMember+"/"+RoomID
                     print("mqtt Notify")
-                    # mqttNotification.sendNotify(Topic, RoomID, MsgID, SendName, Text, notifiType, SendUserID, msgType)
-                    sendPayload = json.dumps(Text, ensure_ascii=False)
-                    print(sendPayload)
-                    command = "python3 mqttNotification.py " +str(Topic)+" "+str(RoomID)+" "+str(MsgID)+" "+str(SendName)+" "+str(sendPayload)+" "+notifiType+" "+SendUserID+" "+msgType
-                    subprocess.Popen(command, shell=True, bufsize = -1, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding="utf-8")
+                    mqttNotification.sendNotify(Topic, RoomID, MsgID, SendName, Text, notifiType, SendUserID, msgType)
+                    # sendPayload = json.dumps(Text, ensure_ascii=False)
+                    # print(sendPayload)
+                    # command = "python3 mqttNotification.py " +str(Topic)+" "+str(RoomID)+" "+str(MsgID)+" "+str(SendName)+" "+str(sendPayload)+" "+notifiType+" "+SendUserID+" "+msgType
+                    # subprocess.Popen(command, shell=True, bufsize = -1, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding="utf-8")
 
                 getToken = r.get('UserToken_'+notifyMember)
                 print('UserID:'+notifyMember)

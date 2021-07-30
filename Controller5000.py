@@ -170,6 +170,7 @@ def updateRoomLocate(RoomID, Locate):
     session.close()
     return 'ok'
 
+#加入新的使用者到聊天室中
 def addNewUserToGroupRoom(RoomID,UserID,DateTime):
     session = Session()
     session.add(Model.chatInfo(RoomID=RoomID,UserID=UserID,JoinDateTime=DateTime,LastMsgTime=DateTime))

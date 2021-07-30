@@ -14,6 +14,7 @@ config.read('config.ini')
 def sendNotify(Topic, RoomID, MsgID, SendName, Text, NotifiType, userID, msgType):
     if NotifiType=='Message':
         client = mqtt.Client()
+        client.tls_set()
         client.username_pw_set(config['MQTT']['mqtt_account'],config['MQTT']['mqtt_password'])
         client.connect('chatapp.54ucl.com', 1883)
         payload = {'SendName':SendName, 'Text':Text, 'RoomID':RoomID, 'MsgID':MsgID, 'UserID':userID, 'MsgType':msgType}
@@ -23,6 +24,7 @@ def sendNotify(Topic, RoomID, MsgID, SendName, Text, NotifiType, userID, msgType
         return 'ok'
     elif NotifiType=='NewRoom':
         client = mqtt.Client()
+        client.tls_set()
         client.username_pw_set(config['MQTT']['mqtt_account'],config['MQTT']['mqtt_password'])
         client.connect('chatapp.54ucl.com', 1883)
         payload = {'SendName':SendName, 'Text':Text, 'RoomID':RoomID, 'MsgID':MsgID, 'MsgType':NotifiType, 'UserID':userID}

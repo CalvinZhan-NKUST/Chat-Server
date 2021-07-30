@@ -9,6 +9,7 @@ from pymysql.converters import escape_string
 import saveHistoryMsg as saveHisMsg
 import Controller4000 as Controller
 import time
+import redis
 import configparser
 import logging
 import subprocess
@@ -24,6 +25,8 @@ config.read('config.ini')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = config["DataBase"]["SQLALCHEMY_TRACK_MODIFICATIONS"]
 app.config['SQLALCHEMY_DATABASE_URI'] = config["DataBase"]["SQLALCHEMY_DATABASE_URI"]+'?charset=utf8mb4'
 db.init_app(app)
+
+r = redis.StrictRedis('localhost', encoding='utf-8', decode_responses=True)
 
 ALLOWD_EXTENSIONS = set(['jpeg','jpg','png','mp4'])
 
@@ -60,8 +63,6 @@ def sendMsg():
     else:
         return 'Token驗證失敗'
 
-
-
 # 收訊息
 @app.route("/getMsg", methods=["POST"])
 def getMsg():
@@ -71,10 +72,6 @@ def getMsg():
     MsgPara = request_getMsg['MsgPara']
     Token = request_getMsg['Token']
     UserID = request_getMsg['UserID']
-
-    # getMsgRes = Controller.getMsg(RoomID, MsgID, MsgPara)
-    # MsgList = {'res':getMsgRes} 
-    # return json.dumps(MsgList, ensure_ascii=False).encode('utf8') 
 
     compareRes = Controller.compareToken(UserID,Token)
     if str(compareRes) == 'pass':
