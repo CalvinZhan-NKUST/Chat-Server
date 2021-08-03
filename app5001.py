@@ -125,6 +125,7 @@ def createNewChatRoom():
     else:
         return 'Token驗證失敗'
 
+# 新增使用者至群組中
 @app.route("/addNewUserToGroup", methods=["POST"])
 def addNewUserToGroup():
     request_addNewUser = request.values
@@ -143,6 +144,39 @@ def addNewUserToGroup():
     else:
         return 'Token驗證失敗'
 
+# 查詢聊天室內部成員
+@app.route("/searchUserInGroup",methods=["POST"])
+def searchUserInGroup():
+    request_searchUserInGroup = request.values
+    UserID = request_searchUserInGroup['UserID']
+    Token = request_searchUserInGroup['Token']
+    RoomID = request_searchUserInGroup['RoomID']
+    compareRes = Controller.compareToken(UserID,str(Token))
+    if str(compareRes) == 'pass':
+        searchRes = Controller.searchUserInGroup(RoomID)
+        return json.dumps(searchRes, ensure_ascii=False)
+    else:
+        return 'Token驗證失敗'
+    
+
+# 將使用者踢出群組
+@app.route("/kickUser",methods=["POST"])
+def kickUser():
+    request_kickUser = request.values
+    UserID = request_kickUser['UserID']
+    Token = request_kickUser['Token']
+    RoomID = request_kickUser['RoomID']
+    KickUserID = request_kickUser['KickUserID']
+
+    compareRes = Controller.compareToken(UserID,str(Token))
+    if str(compareRes) == 'pass':
+        searchRes = Controller.kickUserOutOfGroup(RoomID,KickUserID)
+        return json.dumps(searchRes, ensure_ascii=False)
+    else:
+        return 'Token驗證失敗'
+
+
+# 取得系統訊息取得參數
 @app.route("/getConfigPara", methods=["POST"])
 def getConfigPara():
     request_config = request.values
@@ -157,12 +191,13 @@ def getConfigPara():
     else:
         return 'Token驗證錯誤'
 
-
+# 取得版本號
 @app.route("/getVersionCode", methods=["POST"])
 def getVersionCode():
     versionCode = {'NowVersion':config['Server']['minVersionCode']}
     return json.dumps(versionCode, ensure_ascii=False)
 
+# 取得聊天室歷史訊息
 @app.route("/getHistoryMsg", methods=["POST"])
 def getHistoryMsg():
     msgHistory = []
@@ -204,6 +239,7 @@ def getHistoryMsg():
     else:
         return 'Token驗證失敗'
 
+# 註冊使用者
 @app.route("/register", methods=["POST"])
 def register():
     request_register = request.values
@@ -214,6 +250,7 @@ def register():
     registerRes = {'res':registerResult}
     return json.dumps(registerRes, ensure_ascii=False)
 
+# 搜尋使用者
 @app.route("/searchUser", methods=["POST"])
 def searchUser():
     request_searchUser = request.values
@@ -228,6 +265,7 @@ def searchUser():
     else:
         return 'Token驗證失敗'
 
+# 更新使用者名稱
 @app.route("/updateUserName", methods=["POST"])
 def updateUserName():
     request_update = request.values
@@ -241,6 +279,7 @@ def updateUserName():
     else:
         return 'Token驗證失敗'
 
+# 更新使用者大頭照
 @app.route("/uploadUserImage", methods=["POST"])
 def uploadUserImage():
     request_updateImage = request.values
@@ -254,6 +293,7 @@ def uploadUserImage():
     else:
         return 'Token驗證失敗'
 
+# 更新使用者密碼
 @app.route("/updateUserPassword", methods=["POST"])
 def updateUserPassword():
     request_password = request.values

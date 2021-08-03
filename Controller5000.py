@@ -163,6 +163,7 @@ def insertNewRoom(RoomType, RoomName):
     session.close()
     return str(NewRoomID)   
 
+# 更新聊天室勿這
 def updateRoomLocate(RoomID, Locate):
     session = Session()
     chatLocateUpdate = session.query(Model.chatroom).filter(Model.chatroom.RoomID==int(RoomID)).update({'RoomLocate':str(Locate)})
@@ -170,7 +171,7 @@ def updateRoomLocate(RoomID, Locate):
     session.close()
     return 'ok'
 
-#加入新的使用者到聊天室中
+# 加入新的使用者到聊天室中
 def addNewUserToGroupRoom(RoomID,UserID,DateTime):
     session = Session()
     session.add(Model.chatInfo(RoomID=RoomID,UserID=UserID,JoinDateTime=DateTime,LastMsgTime=DateTime))
@@ -179,7 +180,32 @@ def addNewUserToGroupRoom(RoomID,UserID,DateTime):
     session.close()
     return 'ok'
 
-#註冊新的使用者
+# 搜尋聊天室使用者
+def searchUserInGroup(RoomID):
+    resUserID=[]
+    UserIDInfo={}
+    session = Session()
+
+    sql_query = 'select * from user_chatroom where RoomID='+str(RoomID)+';'
+    searchGroupResult = session.execute(sql_query)
+
+    for i in searchGroupResult:
+        print(i.UserID+' , '+i.RoomID)
+        UserIDInfo = {'UserID':i.UserID,'UserName':i.UserName}
+        resUserID.append(UserIDInfo)
+
+    session.close()
+    return resUserID
+
+# 將使用者踢出聊天室
+def kickUserOutOfGroup(RoomID,UserID):
+    session = Session()
+    session.query(Model.chatInfo).filter(Model.chatInfo.RoomID==int(RoomID),Model.chatInfo.UserID==int(UserID)).delete()
+    session.commit()
+    session.close()
+    return 'ok'
+
+# 註冊新的使用者
 def registerNewUser(Account, Password, Name):
     session = Session()
     newUser = session.query(Model.userInfo).filter(Model.userInfo.Account==Account).count()
