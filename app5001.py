@@ -170,8 +170,9 @@ def kickUser():
 
     compareRes = Controller.compareToken(UserID,str(Token))
     if str(compareRes) == 'pass':
-        searchRes = Controller.kickUserOutOfGroup(RoomID,KickUserID)
-        return json.dumps(searchRes, ensure_ascii=False)
+        kickResult = Controller.kickUserOutOfGroup(RoomID,KickUserID)
+        kickRes = Controller4000.resetRoomMember(RoomID)
+        return json.dumps(kickResult, ensure_ascii=False)
     else:
         return 'Token驗證失敗'
 
