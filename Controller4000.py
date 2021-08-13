@@ -162,30 +162,6 @@ def getMsg(RoomID, MsgClientID, MsgPara):
     else:
         return msgData 
 
-
-
-
-def notification(RoomIDList):
-    try:
-        RoomID = ''
-        notifyGet = {}
-        notifyRes = []
-        for i in RoomIDList:
-            if i in ',':
-                getMaxSN=r.get(RoomID + "MaxSN")
-                if str(getMaxSN)!='None':
-                    notifyGet={'RoomID':RoomID,'MaxSN':getMaxSN}
-                else:
-                    notifyGet={'RoomID':RoomID,'MaxSN':'0'}
-                notifyRes.append(notifyGet)
-                RoomID=''
-            else:
-                RoomID += i
-    except:
-        print('notification Err:',sys.exc_info()[0])
-
-    return notifyRes
-
 def notifyToClient(RoomID,Text,SendName,SendUserID, MsgID, notifiType, msgType):
     try:
         memberList = ''
@@ -210,11 +186,7 @@ def notifyToClient(RoomID,Text,SendName,SendUserID, MsgID, notifiType, msgType):
                     Topic = 'User_'+notifyMember+"/"+RoomID
                     print("mqtt Notify")
                     mqttNotification.sendNotify(Topic, RoomID, MsgID, SendName, Text, notifiType, SendUserID, msgType)
-                    # sendPayload = json.dumps(Text, ensure_ascii=False)
-                    # print(sendPayload)
-                    # command = "python3 mqttNotification.py " +str(Topic)+" "+str(RoomID)+" "+str(MsgID)+" "+str(SendName)+" "+str(sendPayload)+" "+notifiType+" "+SendUserID+" "+msgType
-                    # subprocess.Popen(command, shell=True, bufsize = -1, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding="utf-8")
-
+                    
                 getToken = r.get('UserToken_'+notifyMember)
                 print('UserID:'+notifyMember)
                 print('getToken:'+str(getToken))
@@ -227,6 +199,19 @@ def notifyToClient(RoomID,Text,SendName,SendUserID, MsgID, notifiType, msgType):
     except:
         print('notifyToClient Err:',sys.exc_info()[0])
 
+# 重新設定聊天室內要通知的使用者
+def resetRoomMember(RoomID):
+    session = Session()
+    result = session.query(Model.chatInfo).filter(Model.chatInfo.RoomID==RoomID)
+    for i in result:
+        memberList += i.UserID +','
+    session.close()
+    print('memeberList:'+memberList)
+    r.set('NotifyApns_'+RoomID, memberList)
+    RoomMember = r.get('NotifyApns_'+RoomID)
+    return 'ok'
+
+# 通知使用者被新增到校新創的聊天室
 def updateRoomNum(UserIDList, RoomType, newRoomID, addUserID):
     UserID = ''
     MsgID=0

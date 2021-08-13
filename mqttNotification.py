@@ -20,7 +20,7 @@ def sendNotify(Topic, RoomID, MsgID, SendName, Text, NotifiType, userID, msgType
         payload = {'SendName':SendName, 'Text':Text, 'RoomID':RoomID, 'MsgID':MsgID, 'UserID':userID, 'MsgType':msgType}
         sendPayload = json.dumps(payload, ensure_ascii=False)
         print(sendPayload)
-        client.publish(str(Topic), sendPayload)
+        client.publish(str(Topic), sendPayload,1)
         return 'ok'
     elif NotifiType=='NewRoom':
         client = mqtt.Client()
@@ -29,7 +29,7 @@ def sendNotify(Topic, RoomID, MsgID, SendName, Text, NotifiType, userID, msgType
         client.connect('chatapp.54ucl.com', 1883)
         payload = {'SendName':SendName, 'Text':Text, 'RoomID':RoomID, 'MsgID':MsgID, 'MsgType':NotifiType, 'UserID':userID}
         print (json.dumps(payload, ensure_ascii=False))
-        client.publish(str(Topic), json.dumps(payload, ensure_ascii=False))
+        client.publish(str(Topic), json.dumps(payload, ensure_ascii=False),1)
         return 'ok'
 
 if __name__ == '__main__':
