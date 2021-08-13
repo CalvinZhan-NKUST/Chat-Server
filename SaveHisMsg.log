@@ -1,5 +1,133 @@
-2021-08-13 14:22:16,664 INFO:  * Running on http://0.0.0.0:4001/ (Press CTRL+C to quit)
-2021-08-13 14:22:17,042 ERROR: Exception on /notify [POST]
+2021-08-13 14:39:30,671 INFO:  * Running on http://0.0.0.0:4001/ (Press CTRL+C to quit)
+2021-08-13 14:39:31,248 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:31] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:39:31,268 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:31] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:39:32,084 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:32] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:39:32,223 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:32] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:39:32,248 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:32] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:39:33,155 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:33] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:39:33,159 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:33] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:39:34,143 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:34] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:39:34,183 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:34] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:39:35,123 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:35] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:39:35,139 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:35] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:39:36,120 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:36] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:39:36,122 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:36] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:39:37,168 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:37] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:39:37,182 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:37] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:39:37,233 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:37] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:39:38,119 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:38] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:39:38,127 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:38] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:39:39,132 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:39] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:39:39,149 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:39] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:39:40,148 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:40] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:39:40,155 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:40] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:39:41,103 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:41] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:39:41,137 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:41] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:39:42,151 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:42] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:39:42,176 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:42] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:39:42,225 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:42] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:39:43,128 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:43] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:39:43,151 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:43] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:39:44,152 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:44] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:39:44,164 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:44] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:39:45,141 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:45] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:39:45,165 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:45] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:39:46,115 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:46] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:39:46,118 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:46] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:39:47,138 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:47] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:39:47,149 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:47] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:39:47,223 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:47] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:39:48,147 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:48] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:39:48,149 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:48] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:39:49,136 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:49] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:39:49,159 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:49] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:39:50,124 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:50] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:39:50,139 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:50] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:39:51,132 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:51] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:39:51,141 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:51] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:39:52,151 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:52] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:39:52,161 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:52] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:39:52,231 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:52] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:39:53,115 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:53] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:39:53,139 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:53] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:39:54,127 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:54] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:39:54,157 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:54] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:39:55,131 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:55] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:39:55,142 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:55] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:39:56,128 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:56] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:39:56,134 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:56] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:39:57,167 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:57] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:39:57,183 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:57] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:39:57,241 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:57] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:39:58,131 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:58] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:39:58,163 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:58] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:39:59,171 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:59] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:39:59,180 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:59] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:40:00,147 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:00] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:40:00,153 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:00] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:40:01,123 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:01] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:40:01,129 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:01] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:40:02,171 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:02] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:40:02,189 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:02] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:40:02,247 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:02] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:40:03,135 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:03] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:40:03,141 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:03] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:40:04,168 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:04] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:40:04,196 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:04] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:40:05,156 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:05] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:40:05,170 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:05] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:40:06,126 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:06] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:40:06,130 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:06] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:40:07,125 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:07] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:40:07,135 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:07] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:40:07,228 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:07] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:40:08,119 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:08] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:40:08,132 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:08] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:40:09,131 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:09] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:40:09,147 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:09] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:40:10,147 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:10] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:40:10,158 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:10] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:40:11,143 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:11] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:40:11,154 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:11] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:40:12,133 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:12] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:40:12,164 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:12] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:40:12,247 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:12] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:40:12,288 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:12] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:40:12,397 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:12] "[37mPOST /getMsg HTTP/1.1[0m" 200 -
+2021-08-13 14:40:12,655 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:12] "[37mPOST /send HTTP/1.1[0m" 200 -
+2021-08-13 14:40:13,115 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:13] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:40:13,164 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:13] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:40:13,498 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:13] "[37mPOST /send HTTP/1.1[0m" 200 -
+2021-08-13 14:40:13,516 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:13] "[37mPOST /send HTTP/1.1[0m" 200 -
+2021-08-13 14:40:13,782 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:13] "[37mPOST /send HTTP/1.1[0m" 200 -
+2021-08-13 14:40:13,938 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:13] "[37mPOST /send HTTP/1.1[0m" 200 -
+2021-08-13 14:40:14,232 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:14] "[37mPOST /send HTTP/1.1[0m" 200 -
+2021-08-13 14:40:14,324 ERROR: Exception on /send [POST]
+Traceback (most recent call last):
+  File "/home/C217_yochi/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 1707, in _execute_context
+    cursor, statement, parameters, context
+  File "/home/C217_yochi/.local/lib/python3.6/site-packages/sqlalchemy/engine/default.py", line 716, in do_execute
+    cursor.execute(statement, parameters)
+  File "/home/C217_yochi/.local/lib/python3.6/site-packages/pymysql/cursors.py", line 148, in execute
+    result = self._query(query)
+  File "/home/C217_yochi/.local/lib/python3.6/site-packages/pymysql/cursors.py", line 310, in _query
+    conn.query(q)
+  File "/home/C217_yochi/.local/lib/python3.6/site-packages/pymysql/connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "/home/C217_yochi/.local/lib/python3.6/site-packages/pymysql/connections.py", line 775, in _read_query_result
+    result.read()
+  File "/home/C217_yochi/.local/lib/python3.6/site-packages/pymysql/connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+  File "/home/C217_yochi/.local/lib/python3.6/site-packages/pymysql/connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+  File "/home/C217_yochi/.local/lib/python3.6/site-packages/pymysql/protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "/home/C217_yochi/.local/lib/python3.6/site-packages/pymysql/err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.IntegrityError: (1062, "Duplicate entry '3063' for key 'PRIMARY'")
+
+The above exception was the direct cause of the following exception:
+
 Traceback (most recent call last):
   File "/home/C217_yochi/.local/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
     response = self.full_dispatch_request()
@@ -13,81 +141,74 @@ Traceback (most recent call last):
     rv = self.dispatch_request()
   File "/home/C217_yochi/.local/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "app4001.py", line 97, in notify
-    notifyRes = Controller.notification(RoomIDList)
-AttributeError: module 'Controller4000' has no attribute 'notification'
-2021-08-13 14:22:17,044 INFO: 23.98.71.39 - - [13/Aug/2021 14:22:17] "[35m[1mPOST /notify HTTP/1.1[0m" 500 -
-2021-08-13 14:22:17,043 ERROR: Exception on /notify [POST]
+  File "app4001.py", line 58, in sendMsg
+    res = db.engine.execute(sql_insert)
+  File "<string>", line 2, in execute
+  File "/home/C217_yochi/.local/lib/python3.6/site-packages/sqlalchemy/util/deprecations.py", line 390, in warned
+    return fn(*args, **kwargs)
+  File "/home/C217_yochi/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 3038, in execute
+    return connection.execute(statement, *multiparams, **params)
+  File "/home/C217_yochi/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 1191, in execute
+    future=False,
+  File "/home/C217_yochi/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 1492, in _exec_driver_sql
+    distilled_parameters,
+  File "/home/C217_yochi/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 1750, in _execute_context
+    e, statement, parameters, cursor, context
+  File "/home/C217_yochi/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 1931, in _handle_dbapi_exception
+    sqlalchemy_exception, with_traceback=exc_info[2], from_=e
+  File "/home/C217_yochi/.local/lib/python3.6/site-packages/sqlalchemy/util/compat.py", line 211, in raise_
+    raise exception
+  File "/home/C217_yochi/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 1707, in _execute_context
+    cursor, statement, parameters, context
+  File "/home/C217_yochi/.local/lib/python3.6/site-packages/sqlalchemy/engine/default.py", line 716, in do_execute
+    cursor.execute(statement, parameters)
+  File "/home/C217_yochi/.local/lib/python3.6/site-packages/pymysql/cursors.py", line 148, in execute
+    result = self._query(query)
+  File "/home/C217_yochi/.local/lib/python3.6/site-packages/pymysql/cursors.py", line 310, in _query
+    conn.query(q)
+  File "/home/C217_yochi/.local/lib/python3.6/site-packages/pymysql/connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "/home/C217_yochi/.local/lib/python3.6/site-packages/pymysql/connections.py", line 775, in _read_query_result
+    result.read()
+  File "/home/C217_yochi/.local/lib/python3.6/site-packages/pymysql/connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+  File "/home/C217_yochi/.local/lib/python3.6/site-packages/pymysql/connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+  File "/home/C217_yochi/.local/lib/python3.6/site-packages/pymysql/protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "/home/C217_yochi/.local/lib/python3.6/site-packages/pymysql/err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+sqlalchemy.exc.IntegrityError: (pymysql.err.IntegrityError) (1062, "Duplicate entry '3063' for key 'PRIMARY'")
+[SQL: INSERT INTO 387msgList(MsgID, RoomID, SendUserID, SendName, ReceiveName, ReceiveUserID, MsgType, Text, DateTime) VALUES (3063, 387, 153, 'Broker', 'QQ19', 164, 'text', '{\"msg\":{\"UserID\":\"164\",\"SessionID\":\"7a112bc5-8ae5-4134-b94b-123ce7e3e6e3\",\"RContext\":{\"Context\":\"提醒您，閒置超過三分鐘，將會結束對話，若要繼續對話可點擊下方返回首頁。\",\"Option\":[{\"ID\":12,\"Text\":\"返回首頁\",\"Clicks\":\"0\"}]},\"ContextMode\":\"Button\",\"IntentID\":3,\"Intent\":\"閒置\",\"Key\":\"Idle\"},\"type\":\"Bot\"}', '2021-08-13 14:40:13')]
+(Background on this error at: http://sqlalche.me/e/14/gkpj)
+2021-08-13 14:40:14,361 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:14] "[35m[1mPOST /send HTTP/1.1[0m" 500 -
+2021-08-13 14:40:14,360 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:14] "[37mPOST /send HTTP/1.1[0m" 200 -
+2021-08-13 14:40:14,328 ERROR: Exception on /send [POST]
 Traceback (most recent call last):
-  File "/home/C217_yochi/.local/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
-    response = self.full_dispatch_request()
-  File "/home/C217_yochi/.local/lib/python3.6/s2021-08-13 14:22:17,148 INFO: 23.98.71.39 - - [13/Aug/2021 14:22:17] "[37mPOST /getChatRoomList HTTP/1.1[0m" 200 -
-2021-08-13 14:22:18,157 INFO: 23.98.71.39 - - [13/Aug/2021 14:22:18] "[37mPOST /getChatRoomList HTTP/1.1[0m" 200 -
-2021-08-13 14:22:19,151 INFO: 23.98.71.39 - - [13/Aug/2021 14:22:19] "[37mPOST /getChatRoomList HTTP/1.1[0m" 200 -
-   raise value
-  File "/home/C217_yochi/.local/lib/python3.6/site-packages/flask/app.py", line 1950, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "/home/C217_yochi/.local/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "app4001.py", line 97, in notify
-    notifyRes = Controller.notification(RoomIDList)
-AttributeError: module 'Controller4000' has no attribute 'notification'
-2021-08-13 14:22:17,045 INFO: 23.98.71.39 - - [13/Aug/2021 14:22:17] "[35m[1mPOST /notify HTTP/1.1[0m" 500 -
-2021-08-13 14:22:18,050 ERROR: Exception on /notify [POST]
-Traceback (most recent call last):
-  File "/home/C217_yochi/.local/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
-    response = self.full_dispatch_request()
-  File "/home/C217_yochi/.local/lib/python3.6/site-packages/flask/app.py", line 1952, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "/home/C217_yochi/.local/lib/python3.6/site-packages/flask/app.py", line 1821, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "/home/C217_yochi/.local/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
-    raise value
-  File "/home/C217_yochi/.local/lib/python3.6/site-packages/flask/app.py", line 1950, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "/home/C217_yochi/.local/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "app4001.py", line 97, in notify
-    notifyRes = Controller.notification(RoomIDList)
-AttributeError: module 'Controller4000' has no attribute 'notification'
-2021-08-13 14:22:18,051 INFO: 23.98.71.39 - - [13/Aug/2021 14:22:18] "[35m[1mPOST /notify HTTP/1.1[0m" 500 -
-2021-08-13 14:22:18,050 ERROR: Exception on /notify [POST]
-Traceback (most recent call last):
-  File "/home/C217_yochi/.local/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
-    response = self.full_dispatch_request()
-  File "/home/C217_yochi/.local/lib/python3.6/site-packages/flask/app.py", line 1952, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "/home/C217_yochi/.local/lib/python3.6/site-packages/flask/app.py", line 1821, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "/home/C217_yochi/.local/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
-    raise value
-  File "/home/C217_yochi/.local/lib/python3.6/site-packages/flask/app.py", line 1950, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "/home/C217_yochi/.local/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "app4001.py", line 97, in notify
-    notifyRes = Controller.notification(RoomIDList)
-AttributeError: module 'Controller4000' has no attribute 'notification'
-2021-08-13 14:22:18,053 INFO: 23.98.71.39 - - [13/Aug/2021 14:22:18] "[35m[1mPOST /notify HTTP/1.1[0m" 500 -
-2021-08-13 14:22:19,039 ERROR: Exception on /notify [POST]
-Traceback (most recent call last):
-  File "/home/C217_yochi/.local/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
-    response = self.full_dispatch_request()
-  File "/home/C217_yochi/.local/lib/python3.6/site-packages/flask/app.py", line 1952, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "/home/C217_yochi/.local/lib/python3.6/site-packages/flask/app.py", line 1821, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "/home/C217_yochi/.local/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
-    raise value
-  File "/home/C217_yochi/.local/lib/python3.6/site-packages/flask/app.py", line 1950, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "/home/C217_yochi/.local/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "app4001.py", line 97, in notify
-    notifyRes = Controller.notification(RoomIDList)
-AttributeError: module 'Controller4000' has no attribute 'notification'
-2021-08-13 14:22:19,041 INFO: 23.98.71.39 - - [13/Aug/2021 14:22:19] "[35m[1mPOST /notify HTTP/1.1[0m" 500 -
-2021-08-13 14:22:19,039 ERROR: Exception on /notify [POST]
+  File "/home/C217_yochi/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 1707, in _execute_context
+    cursor, statement, parameters, context
+  File "/home/C217_yochi/.local/lib/python3.6/site-packages/sqlalchemy/engine/default.py", line 716, in do_execute
+    cursor.execute(statement, parameters)
+  File "/home/C217_yochi/.local/lib/python3.6/site-packages/pymysql/cursors.py", line 148, in execute
+    result = self._query(query)
+  File "/home/C217_yochi/.local/lib/python3.6/site-packages/pymysql/cursors.py", line 310, in _query
+    conn.query(q)
+  File "/home/C217_yochi/.local/lib/python3.6/site-packages/pymysql/connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "/home/C217_yochi/.local/lib/python3.6/site-packages/pymysql/connections.py", line 775, in _read_query_result
+    result.read()
+  File "/home/C217_yochi/.local/lib/python3.6/site-packages/pymysql/connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+  File "/home/C217_yochi/.local/lib/python3.6/site-packages/pymysql/connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+  File "/home/C217_yochi/.local/lib/python3.6/site-packages/pymysql/protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "/home/C217_yochi/.local/lib/python3.6/site-packages/pymysql/err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.IntegrityError: (1062, "Duplicate entry '3063' for key 'PRIMARY'")
+
+The above exception was the direct cause of the following exception:
+
 Traceback (most recent call last):
   File "/home/C217_yochi/.local/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
     response = self.full_dispatch_request()
@@ -101,97 +222,88 @@ Traceback (most recent call last):
     rv = self.dispatch_request()
   File "/home/C217_yochi/.local/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "app4001.py", line 97, in notify
-    notifyRes = Controller.notification(RoomIDList)
-AttributeError: module 'Controller4000' has no attribute 'notification'
-2021-08-13 14:22:19,043 INFO: 23.98.71.39 - - [13/Aug/2021 14:22:19] "[35m[1mPOST /notify HTTP/1.1[0m" 500 -
-2021-08-13 14:22:19,357 ERROR: Exception on /notify [POST]
-Traceback (most recent call last):
-  File "/home/C217_yochi/.local/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
-    response = self.full_dispatch_request()
-  File "/home/C217_yochi/.local/lib/python3.6/site-packages/flask/app.py", line 1952, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "/home/C217_yochi/.local/lib/python3.6/site-packages/flask/app.py", line 1821, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "/home/C217_yochi/.local/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
-    raise value
-  File "/home/C217_yochi/.local/lib/python3.6/site-packages/flask/app.py", line 1950, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "/home/C217_yochi/.local/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "app4001.py", line 97, in notify
-    notifyRes = Controller.notification(RoomIDList)
-AttributeError: module 'Controller4000' has no attribute 'notification'
-2021-08-13 14:22:19,358 INFO: 23.98.71.39 - - [13/Aug/2021 14:22:19] "[35m[1mPOST /notify HTTP/1.1[0m" 500 -
-2021-08-13 14:22:20,045 ERROR: Exception on /notify [POST]
-Traceback (most recent call last):
-  File "/home/C217_yochi/.local/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
-    response = self.full_dispatch_request()
-  File "/home/C217_yochi/.local/lib/python3.6/site-packages/flask/app.py", line 1952, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "/home/C217_yochi/.local/lib/python3.6/site-packages/flask/app.py", line 1821, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "/home/C217_yochi/.local/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
-    raise value
-  File "/home/C217_yochi/.local/lib/python3.6/site-packages/flask/app.py", line 1950, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "/home/C217_yochi/.local/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "app4001.py", line 97, in notify
-    notifyRes = Controller.notification(RoomIDList)
-AttributeError: module 'Controller4000' has no attribute 'notification'
-2021-08-13 14:22:20,046 INFO: 23.98.71.39 - - [13/Aug/2021 14:22:20] "[35m[1mPOST /notify HTTP/1.1[0m" 500 -
-2021-08-13 14:22:20,160 ERROR: Exception on /notify [POST]
-Traceback (most recent call last):
-  File "/home/C217_yochi/.local/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
-    response = self.full_dispatch_request()
-  File "/home/C217_yochi/.local/lib/python3.6/site-packages/flask/app.py", line 1952, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "/home/C217_yochi/.local/lib/python3.6/site-packages/flask/app.py", line 1821, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "/home/C217_yochi/.local/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
-    raise value
-  File "/home/C217_yochi/.local/lib/python3.6/site-packages/flask/app.py", line 1950, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "/home/C217_yochi/.local/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "app4001.py", line 97, in notify
-    notifyRes = Controller.notification(RoomIDList)
-AttributeError: module 'Controller4000' has no attribute 'notification'
-2021-08-13 14:22:20,161 INFO: 23.98.71.39 - - [13/Aug/2021 14:22:20] "[35m[1mPOST /notify HTTP/1.1[0m" 500 -
-2021-08-13 14:22:21,042 ERROR: Exception on /notify [POST]
-Traceback (most recent call last):
-  File "/home/C217_yochi/.local/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
-    response = self.full_dispatch_request()
-  File "/home/C217_yochi/.local/lib/python3.6/site-packages/flask/app.py", line 1952, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "/home/C217_yochi/.local/lib/python3.6/site-packages/flask/app.py", line 1821, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "/home/C217_yochi/.local/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
-    raise value
-  File "/home/C217_yochi/.local/lib/python3.6/site-packages/flask/app.py", line 1950, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "/home/C217_yochi/.local/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "app4001.py", line 97, in notify
-    notifyRes = Controller.notification(RoomIDList)
-AttributeError: module 'Controller4000' has no attribute 'notification'
-2021-08-13 14:22:21,044 INFO: 23.98.71.39 - - [13/Aug/2021 14:22:21] "[35m[1mPOST /notify HTTP/1.1[0m" 500 -
-2021-08-13 14:22:21,046 ERROR: Exception on /notify [POST]
-Traceback (most recent call last):
-  File "/home/C217_yochi/.local/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
-    response = self.full_dispatch_request()
-  File "/home/C217_yochi/.local/lib/python3.6/site-packages/flask/app.py", line 1952, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "/home/C217_yochi/.local/lib/python3.6/site-packages/flask/app.py", line 1821, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "/home/C217_yochi/.local/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
-    raise value
-  File "/home/C217_yochi/.local/lib/python3.6/site-packages/flask/app.py", line 1950, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "/home/C217_yochi/.local/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "app4001.py", line 97, in notify
-    notifyRes = Controller.notification(RoomIDList)
-AttributeError: module 'Controller4000' has no attribute 'notification'
-2021-08-13 14:22:21,047 INFO: 23.98.71.39 - - [13/Aug/2021 14:22:21] "[35m[1mPOST /notify HTTP/1.1[0m" 500 -
+  File "app4001.py", line 58, in sendMsg
+    res = db.engine.execute(sql_insert)
+  File "<string>", line 2, in execute
+  File "/home/C217_yochi/.local/lib/python3.6/site-packages/sqlalchemy/util/deprecations.py", line 390, in warned
+    return fn(*args, **kwargs)
+  File "/home/C217_yochi/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 3038, in execute
+    return connection.execute(statement, *multiparams, **params)
+  File "/home/C217_yochi/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 1191, in execute
+    future=False,
+  File "/home/C217_yochi/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 1492, in _exec_driver_sql
+    distilled_parameters,
+  File "/home/C217_yochi/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 1750, in _execute_context
+    e, statement, parameters, cursor, context
+  File "/home/C217_yochi/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 1931, in _handle_dbapi_exception
+    sqlalchemy_exception, with_traceback=exc_info[2], from_=e
+  File "/home/C217_yochi/.local/lib/python3.6/site-packages/sqlalchemy/util/compat.py", line 211, in raise_
+    raise exception
+  File "/home/C217_yochi/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 1707, in _execute_context
+    cursor, statement, parameters, context
+  File "/home/C217_yochi/.local/lib/python3.6/site-packages/sqlalchemy/engine/default.py", line 716, in do_execute
+    cursor.execute(statement, parameters)
+  File "/home/C217_yochi/.local/lib/python3.6/site-packages/pymysql/cursors.py", line 148, in execute
+    result = self._query(query)
+  File "/home/C217_yochi/.local/lib/python3.6/site-packages/pymysql/cursors.py", line 310, in _query
+    conn.query(q)
+  File "/home/C217_yochi/.local/lib/python3.6/site-packages/pymysql/connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "/home/C217_yochi/.local/lib/python3.6/site-packages/pymysql/connections.py", line 775, in _read_query_result
+    result.read()
+  File "/home/C217_yochi/.local/lib/python3.6/site-packages/pymysql/connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+  File "/home/C217_yochi/.local/lib/python3.6/site-packages/pymysql/connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+  File "/home/C217_yochi/.local/lib/python3.6/site-packages/pymysql/protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "/home/C217_yochi/.local/lib/python3.6/site-packages/pymysql/err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+sqlalchemy.exc.IntegrityError: (pymysql.err.IntegrityError) (1062, "Duplicate entry '3063' for key 'PRIMARY'")
+[SQL: INSERT INTO 387msgList(MsgID, RoomID, SendUserID, SendName, ReceiveName, ReceiveUserID, MsgType, Text, DateTime) VALUES (3063, 387, 153, 'Broker', 'QQ19', 164, 'text', '{\"msg\":{\"UserID\":\"164\",\"SessionID\":\"b60953cb-02d1-4259-851d-23d9c274983a\",\"RContext\":{\"Context\":\"哈囉!我是日月光智能小助手,很高興為您服務。@@@建議您可先點選項目，或於下方簡述問題，由小太陽暖心協助您。\",\"Option\":[{\"ID\":8,\"Text\":\"貨況追蹤\",\"SubOption\":[{\"ID\":1,\"Text\":\"出貨運輸狀況\",\"Clicks\":\"0\"},{\"ID\":2,\"Text\":\"出貨資料查詢\",\"Clicks\":\"0\"},{\"ID\":3,\"Text\":\"進貨運輸狀況\",\"Clicks\":\"0\"},{\"ID\":4,\"Text\":\"進貨資料查詢\",\"Clicks\":\"0\"},{\"ID\":5,\"Text\":\"快遞貨件查詢\",\"Clicks\":\"0\"}],\"Clicks\":\"0\"},{\"ID\":9,\"Text\":\"規則查詢\",\"SubOption\":[{\"ID\":6,\"Text\":\"業務申辦諮詢\",\"Clicks\":\"0\"},{\"ID\":7,\"Text\":\"國內運輸安排\",\"Clicks\":\"0\"},{\"ID\":8,\"Text\":\"國際運輸安排\",\"Clicks\":\"0\"},{\"ID\":9,\"Text\":\"關務申報諮詢\",\"Clicks\":\"0\"}],\"Clicks\":\"0\"},{\"ID\":10,\"Text\":\"運輸新聞\",\"SubOption\":[{\"ID\":10,\"Text\":\"時事焦點\",\"Clicks\":\"0\"},{\"ID\":11,\"Text\":\"歷史查詢\",\"Clicks\":\"0\"},{\"ID\":12,\"Text\":\"每日熱搜\",\"Clicks\":\"0\"}],\"Clicks\":\"0\"}]},\"ContextMode\":\"IBS\",\"IntentID\":1,\"Intent\":\"開場\",\"Key\":\"Start\"},\"type\":\"Bot\"}', '2021-08-13 14:40:13')]
+(Background on this error at: http://sqlalche.me/e/14/gkpj)
+2021-08-13 14:40:14,364 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:14] "[35m[1mPOST /send HTTP/1.1[0m" 500 -
+2021-08-13 14:40:14,406 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:14] "[37mPOST /send HTTP/1.1[0m" 200 -
+2021-08-13 14:40:14,435 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:14] "[37mPOST /send HTTP/1.1[0m" 200 -
+2021-08-13 14:40:14,518 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:14] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:40:14,519 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:14] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:40:15,134 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:15] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:40:15,141 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:15] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:40:16,163 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:16] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:40:16,175 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:16] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:40:17,188 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:17] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:40:17,195 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:17] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:40:17,315 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:17] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:40:17,325 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:17] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:40:18,148 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:18] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:40:18,150 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:18] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:40:19,167 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:19] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:40:19,175 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:19] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:40:20,175 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:20] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:40:20,183 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:20] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:40:21,143 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:21] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:40:21,149 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:21] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:40:22,175 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:22] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:40:22,179 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:22] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:40:22,311 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:22] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:40:22,339 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:22] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:40:23,141 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:23] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:40:23,151 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:23] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:40:24,133 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:24] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:40:24,142 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:24] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:40:25,122 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:25] "[37mPOST /notify HTTP/1.1[0m" 200 -
+2021-08-13 14:40:25,135 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:25] "[37mPOST /notify HTTP/1.1[0m" 200 -
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       2021-08-13 14:39:31,387 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:31] "[37mPOST /getChatRoomList HTTP/1.1[0m" 200 -
+2021-08-13 14:39:31,404 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:31] "[37mPOST /getChatRoomList HTTP/1.1[0m" 200 -
+2021-08-13 14:39:34,250 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:34] "[37mPOST /getChatRoomList HTTP/1.1[0m" 200 -
+2021-08-13 14:39:39,226 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:39] "[37mPOST /getChatRoomList HTTP/1.1[0m" 200 -
+2021-08-13 14:39:44,270 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:44] "[37mPOST /getChatRoomList HTTP/1.1[0m" 200 -
+2021-08-13 14:39:49,266 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:49] "[37mPOST /getChatRoomList HTTP/1.1[0m" 200 -
+2021-08-13 14:39:54,250 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:54] "[37mPOST /getChatRoomList HTTP/1.1[0m" 200 -
+2021-08-13 14:39:59,280 INFO: 23.98.71.39 - - [13/Aug/2021 14:39:59] "[37mPOST /getChatRoomList HTTP/1.1[0m" 200 -
+2021-08-13 14:40:04,278 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:04] "[37mPOST /getChatRoomList HTTP/1.1[0m" 200 -
+2021-08-13 14:40:09,234 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:09] "[37mPOST /getChatRoomList HTTP/1.1[0m" 200 -
+2021-08-13 14:40:12,490 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:12] "[37mPOST /getChatRoomList HTTP/1.1[0m" 200 -
+2021-08-13 14:40:14,542 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:14] "[37mPOST /getChatRoomList HTTP/1.1[0m" 200 -
+2021-08-13 14:40:19,266 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:19] "[37mPOST /getChatRoomList HTTP/1.1[0m" 200 -
+2021-08-13 14:40:24,272 INFO: 23.98.71.39 - - [13/Aug/2021 14:40:24] "[37mPOST /getChatRoomList HTTP/1.1[0m" 200 -

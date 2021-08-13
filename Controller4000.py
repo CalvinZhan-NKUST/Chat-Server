@@ -246,6 +246,27 @@ def updateRoomNum(UserIDList, RoomType, newRoomID, addUserID):
             UserID += i
     return 'ok'
 
+def notification(RoomIDList):
+    try:
+        RoomID = ''
+        notifyGet = {}
+        notifyRes = []
+        for i in RoomIDList:
+            if i in ',':
+                getMaxSN=r.get(RoomID + "MaxSN")
+                if str(getMaxSN)!='None':
+                    notifyGet={'RoomID':RoomID,'MaxSN':getMaxSN}
+                else:
+                    notifyGet={'RoomID':RoomID,'MaxSN':'0'}
+                notifyRes.append(notifyGet)
+                RoomID=''
+            else:
+                RoomID += i
+    except:
+        print('notification Err:',sys.exc_info()[0])
+
+    return notifyRes
+
 # 儲存iOS用戶的APNs Token
 def saveUserToken(UserID, Token):
     try:
