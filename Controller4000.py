@@ -166,7 +166,7 @@ def notifyToClient(RoomID,Text,SendName,SendUserID, MsgID, notifiType, msgType):
     try:
         memberList = ''
         notifyMember = ''
-        RoomMember = r.get('NotifyApns_'+RoomID)
+        RoomMember = r.get('NotifyMembers_'+RoomID)
         
         if str(RoomMember)=='None':
             session = Session()
@@ -175,8 +175,8 @@ def notifyToClient(RoomID,Text,SendName,SendUserID, MsgID, notifiType, msgType):
                 memberList += i.UserID +','
             session.close()
             print('memeberList:'+memberList)
-            r.set('NotifyApns_'+RoomID, memberList)
-            RoomMember = r.get('NotifyApns_'+RoomID)
+            r.set('NotifyMembers_'+RoomID, memberList)
+            RoomMember = r.get('NotifyMembers_'+RoomID)
 
         print('RoomID:'+RoomID)
         print('RoomMember:'+RoomMember)
@@ -202,13 +202,14 @@ def notifyToClient(RoomID,Text,SendName,SendUserID, MsgID, notifiType, msgType):
 # 重新設定聊天室內要通知的使用者
 def resetRoomMember(RoomID):
     session = Session()
+    memberList = ''
     result = session.query(Model.chatInfo).filter(Model.chatInfo.RoomID==RoomID)
     for i in result:
         memberList += i.UserID +','
     session.close()
     print('memeberList:'+memberList)
-    r.set('NotifyApns_'+RoomID, memberList)
-    RoomMember = r.get('NotifyApns_'+RoomID)
+    r.set('NotifyMembers_'+RoomID, memberList)
+    RoomMember = r.get('NotifyMembers_'+RoomID)
     return 'ok'
 
 # 通知使用者被新增到校新創的聊天室
