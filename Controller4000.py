@@ -203,6 +203,7 @@ def notifyToClient(RoomID,Text,SendName,SendUserID, MsgID, notifiType, msgType):
 def resetRoomMember(RoomID):
     session = Session()
     memberList = ''
+
     result = session.query(Model.chatInfo).filter(Model.chatInfo.RoomID==RoomID)
     for i in result:
         memberList += i.UserID +','

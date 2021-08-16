@@ -140,8 +140,11 @@ def addNewUserToGroup():
     compareRes = Controller.compareToken(UserID,str(Token))
     if str(compareRes) == 'pass':
         addRes = Controller.addNewUserToGroupRoom(RoomID, AddUserID, DateTime)
-        addUserRes = Controller4000.resetRoomMember(RoomID)
-        return 'ok'
+        if (addRes!='ok')
+            return '使用者已在聊天室中'
+        else:
+            addUserRes = Controller4000.resetRoomMember(RoomID)
+            return 'ok'
     else:
         return 'Token驗證失敗'
 

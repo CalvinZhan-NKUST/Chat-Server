@@ -174,11 +174,17 @@ def updateRoomLocate(RoomID, Locate):
 # 加入新的使用者到聊天室中
 def addNewUserToGroupRoom(RoomID,UserID,DateTime):
     session = Session()
-    session.add(Model.chatInfo(RoomID=RoomID,UserID=UserID,JoinDateTime=DateTime,LastMsgTime=DateTime))
-    chatUpdate = session.query(Model.chatInfo).filter(Model.chatInfo.RoomID==int(RoomID)).update({'LastMsgTime':str(DateTime)})
-    session.commit()
-    session.close()
-    return 'ok'
+
+    searchUser = session.query(Model.chatInfo).filter(Model.chatInfo.RoomID==RoomID,Model.chatInfo.UserID==UserID).count()
+    print("人數："+str(searchUser))
+    if(searchUser!=0):
+        return '使用者已在聊天室中'
+    else:
+        session.add(Model.chatInfo(RoomID=RoomID,UserID=UserID,JoinDateTime=DateTime,LastMsgTime=DateTime))
+        chatUpdate = session.query(Model.chatInfo).filter(Model.chatInfo.RoomID==int(RoomID)).update({'LastMsgTime':str(DateTime)})
+        session.commit()
+        session.close()
+        return 'ok'
 
 # 搜尋聊天室使用者
 def searchUserInGroup(RoomID):
