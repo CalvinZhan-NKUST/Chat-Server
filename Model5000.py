@@ -109,7 +109,8 @@ class msgInfo(Base):
     WHERE A.UserID=B.UserID and A.RoomID=C.RoomID; '''
 class user_chatroom(Base):
     __tablename__ = 'user_chatroom'
-    RoomID = Column(Integer, nullable=False,primary_key=True)
+    ChatID = Column(Integer, nullable=False,primary_key=True)
+    RoomID = Column(Integer, nullable=False)
     UserID = Column(Integer,nullable=False)
     UserName = Column(VARCHAR(45),nullable=False)
     UserImgUrl = Column(VARCHAR(45),nullable=False)

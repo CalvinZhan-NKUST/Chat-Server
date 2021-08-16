@@ -90,18 +90,8 @@ def createNewChatRoom():
 
     compareRes = Controller.compareToken(addUserID,Token)
     if str(compareRes) == 'pass':
-        newRoomID = Controller.insertNewRoom(str(RoomType), RoomName)
-        UserID = ''
-        InsertUserCmd = ''
-        for i in UserIDList:
-            if i in ',':
-                InsertUserCmd += '('+str(newRoomID)+','+str(UserID)+',\''+str(DateTime)+'\',\''+str(DateTime)+'\'),'
-                UserID = ''
-            else:
-                UserID += i
-
-        InsertUserCmd = InsertUserCmd[:-1]+';'
-        result = db.engine.execute("INSERT INTO chatinfo (RoomID,UserID,JoinDateTime,LastMsgTime) VALUES "+InsertUserCmd)
+        newRoomID = Controller.insertNewRoom(str(RoomType), RoomName, UserIDList, DateTime)
+        
         sql_cmd = """
         CREATE TABLE """ + newRoomID + """msgList (
         MsgID INT NOT NULL,
@@ -140,7 +130,7 @@ def addNewUserToGroup():
     compareRes = Controller.compareToken(UserID,str(Token))
     if str(compareRes) == 'pass':
         addRes = Controller.addNewUserToGroupRoom(RoomID, AddUserID, DateTime)
-        if (addRes!='ok')
+        if (addRes!='ok'):
             return '使用者已在聊天室中'
         else:
             addUserRes = Controller4000.resetRoomMember(RoomID)

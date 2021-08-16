@@ -12,15 +12,6 @@ import time
 Session = Model.sessionmaker(bind=Model.DBLink)
 
 
-# 測試Code
-def select():
-    session = Session()
-    result = session.query(Model.userInfo).filter(or_(Model.userInfo.UserName=='朱彥銘',Model.userInfo.UserName=='YoChi')).all()
-    for i in result:
-        print(i.UserName) 
-    session.close()
-    return 'ok'
-
 # 使用者取得自己的聊天室清單
 def getUserChatRoom(user, userID):
     session = Session()
@@ -76,7 +67,7 @@ def getUserChatRoomLimit(user, userID, roomNumStart, getRoomQuantity):
 
     # 取得RoomID列表
     sql_query = 'select * from user_chatroom where UserName=\'{userName}\' order by LastMsgTime desc limit {getRoomNum},{getRoomLocate};'.format(userName=str(user),getRoomNum=int(roomNumStart),getRoomLocate=int(getRoomQuantity))
-    # roomIDList = session.query(Model.user_chatroom).filter(Model.user_chatroom.UserName==user).order_by(Model.user_chatroom.LastMsgTime.desc).limit(5).offset(int(getRoomNum)).all()
+    # roomIDList = session.query(Model.user_chatroom).filter(Model.user_chatroom.UserName==user).order_by(Model.user_chatroom.LastMsgTime.desc).limit(roomNumStart).offset(int(getRoomQuantity)).all()
     roomIDList = session.execute(sql_query)
     for i in roomIDList:
         print(i.UserName)
@@ -141,7 +132,7 @@ def userLogin(account, password):
             return resLog
 
 #新增聊天室
-def insertNewRoom(RoomType, RoomName):
+def insertNewRoom(RoomType, RoomName, UserIDList, DateTime):
     dt1 = datetime.utcnow().replace(tzinfo=timezone.utc)
     dt2 = dt1.astimezone(timezone(timedelta(hours=8)))
     DateTime = str(dt2.strftime("%Y-%m-%d %H:%M:%S"))
@@ -158,8 +149,28 @@ def insertNewRoom(RoomType, RoomName):
     elif RoomType == '2':
         session.add(Model.chatRoom(RoomID=NewRoomID,RoomType=2, RoomLocate='none'))
         session.add(Model.grouproom(GroupName=RoomName, RoomID=NewRoomID, ImageURL='none'))
-
     session.commit()
+
+    UserID=''
+    for i in UserIDList:
+        if i in ',':
+            session.add(Model.chatInfo(RoomID=NewRoomID,UserID=UserID),JoinDateTime=DateTime,LastMsgTime=DateTime)
+            session.commit()
+            UserID = ''
+        else:
+            UserID += i
+    
+    # UserID = ''
+    # InsertUserCmd = ''
+    # for i in UserIDList:
+    #     if i in ',':
+    #         InsertUserCmd += '('+str(newRoomID)+','+str(UserID)+',\''+str(DateTime)+'\',\''+str(DateTime)+'\'),'
+    #         UserID = ''
+    #     else:
+    #         UserID += i
+
+    # InsertUserCmd = InsertUserCmd[:-1]+';'
+    # result = db.engine.execute("INSERT INTO chatinfo (RoomID,UserID,JoinDateTime,LastMsgTime) VALUES "+InsertUserCmd)
     session.close()
     return str(NewRoomID)   
 
@@ -192,10 +203,12 @@ def searchUserInGroup(RoomID):
     UserIDInfo={}
     session = Session()
 
-    sql_query = 'select * from user_chatroom where RoomID='+str(RoomID)+';'
-    searchGroupResult = session.execute(sql_query)
+    # sql_query = 'select * from user_chatroom where RoomID='+str(RoomID)+';'
+    # searchGroupUserResult = session.execute(sql_query)
 
-    for i in searchGroupResult:
+    searchGroupUserResult = session.query(Model.user_chatroom).filter(Model.user_chatroom.RoomID==int(RoomID))
+
+    for i in searchGroupUserResult:
         print(i.UserID+' , '+i.RoomID)
         UserIDInfo = {'UserID':i.UserID,'UserName':i.UserName}
         resUserID.append(UserIDInfo)
