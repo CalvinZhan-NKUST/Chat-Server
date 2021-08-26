@@ -104,7 +104,7 @@ class msgInfo(Base):
         self.Notify = Notify
 
 # 這是一張View，每位使用者待在哪些聊天室中，下方為創建這張View的指令
-''' CREATE VIEW user_chatroom AS SELECT A.RoomID, A.UserID,B.UserName, B.UserImgUrl, C.RoomType, A.LastMsgTime 
+''' CREATE VIEW user_chatroom AS SELECT A.ChatID, A.RoomID, A.UserID, B.UserName, B.UserImgUrl, C.RoomType, A.LastMsgTime 
     FROM chatinfo A, userinfo B, chatroom C 
     WHERE A.UserID=B.UserID and A.RoomID=C.RoomID; '''
 class user_chatroom(Base):

@@ -13,6 +13,7 @@ Session = Model.sessionmaker(bind=Model.DBLink)
 
 
 # 使用者取得自己的聊天室清單
+# UserID = 2, UserName = 朱彥銘
 def getUserChatRoom(user, userID):
     session = Session()
     RoomList=[]
@@ -154,23 +155,12 @@ def insertNewRoom(RoomType, RoomName, UserIDList, DateTime):
     UserID=''
     for i in UserIDList:
         if i in ',':
-            session.add(Model.chatInfo(RoomID=NewRoomID,UserID=UserID),JoinDateTime=DateTime,LastMsgTime=DateTime)
+            session.add(Model.chatInfo(RoomID=NewRoomID,UserID=UserID,JoinDateTime=DateTime,LastMsgTime=DateTime))
             session.commit()
             UserID = ''
         else:
             UserID += i
     
-    # UserID = ''
-    # InsertUserCmd = ''
-    # for i in UserIDList:
-    #     if i in ',':
-    #         InsertUserCmd += '('+str(newRoomID)+','+str(UserID)+',\''+str(DateTime)+'\',\''+str(DateTime)+'\'),'
-    #         UserID = ''
-    #     else:
-    #         UserID += i
-
-    # InsertUserCmd = InsertUserCmd[:-1]+';'
-    # result = db.engine.execute("INSERT INTO chatinfo (RoomID,UserID,JoinDateTime,LastMsgTime) VALUES "+InsertUserCmd)
     session.close()
     return str(NewRoomID)   
 
